@@ -5,6 +5,8 @@ import Gallery from "./Component/DummyPage/Gallery";
 import { Routes, Route } from "react-router-dom";
 import EnterApi from "./Component/App/EnterApi";
 import ZoomieCircle from "./Component/App/Zoom/Enterzoom";
+import RedsApp from "./Component/Redusere/Passproexam/Apindex";
+import RedApp2 from "./Component/Redusere/PassProp/Redapp2";
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
         <Route exact path="/" element={<Gallery />} />
         <Route exact path="/about" element={<EnterApi />} />
          <Route path="/images" element={<ZoomieCircle />} />
-         {/* <Route path="/images" element ={<Linechart/>}/> */}
+         <Route path="/ex" element ={<RedApp2 />} />
          {/* <Route path="/canvasimg"element={<CanvaS/>}/>
          <Route path="/svgcanvas" element={<SVGCS/>}/>
          <Route path="/svgcd" element={<MySvgCD/>}/>
