@@ -45,7 +45,9 @@ const ChartContainer = () => {
 
       <ZoomCanvas xScale={xScale} yScale={yScale}>
         <Circle key={'cir'} />
-        <RendorXY xScale={xScale} yScale={yScale} />
+        <RendorXY 
+        // xScale={xScale} yScale={yScale} 
+        />
       </ZoomCanvas >
     </div>
   );

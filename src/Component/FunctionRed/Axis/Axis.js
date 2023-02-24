@@ -55,7 +55,7 @@ const Axis = (props) => {
     //         : formatYear)(date);
     //   }
 
-    return <g className="axis" ref={ref} transform={props.translate}></g>;
+    return <g className={props.class} ref={ref} transform={props.translate}></g>;
 
 }
 
