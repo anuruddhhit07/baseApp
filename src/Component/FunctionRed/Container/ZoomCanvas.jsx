@@ -32,7 +32,7 @@ const ZoomCanvas = ({ children }) => {
       {/* {this.props.xScale !==null && this.props.xScale(1387212570000)} */}
 
       <svg className="mainsvg" id={"bg1"} height={height} width={width}>
-        <g ref={ref}>
+        <g ref={ref} transform={`translate(${margin.left}, ${margin.top})`}>
           {/* <rect height="500" width="500" fill="none" pointerEvents="all" /> */}
           <g>{children}</g>
         </g>

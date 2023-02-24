@@ -3,8 +3,9 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, setDim } from "./Action/data_ac";
 import useController from "./Controller/Controller";
-import ZoomCanvas from "../Container/ZoomCanvas";
-import Circle from "../Shape/Circle";
+import ZoomCanvas from "./Container/ZoomCanvas";
+import Circle from "./Shape/Circle";
+import RendorXY from "./Axis/axisProp"
 
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
@@ -44,7 +45,8 @@ const ChartContainer = () => {
 
       <ZoomCanvas xScale={xScale} yScale={yScale}>
         <Circle key={'cir'} />
-      </ZoomCanvas>
+        <RendorXY xScale={xScale} yScale={yScale} />
+      </ZoomCanvas >
     </div>
   );
 };
