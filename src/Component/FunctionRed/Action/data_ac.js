@@ -46,11 +46,11 @@ export function getData() {
   };
 }
 
-export function setDim(width_increment = 10, height_increment = 20) {
+export function setDim(width_increment = 10, height_increment = 20,operrator=1) {
   return (dispatch) => {
     dispatch({
       type: SET_DIEMNSION,
-      payload: { width_inc: width_increment, height_inc: height_increment },
+      payload: { width_inc: operrator*width_increment, height_inc: operrator*height_increment },
     });
   };
 }
