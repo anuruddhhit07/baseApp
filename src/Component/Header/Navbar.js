@@ -23,8 +23,8 @@ const NavigationBar = () => {
             <NavItem to='/about' value='About' />
             <NavItem to='/contact' value='SVG+D3' />
             <NavItem to='/images' value='Images' />
-            {/* <NavItem to='/svgimg' value='SVG' />
-            <NavItem to="/canvasimg" value='CANVAS'/>
+            <NavItem to='/svgimg' value='SVG' />
+            {/* <NavItem to="/canvasimg" value='CANVAS'/>
             <NavItem to='/svgcanvas' value='SVGCS'/>
             <NavItem to='/svgcd' value='SVGCD'/>  */}
             {/* <NavItem to='/cwrapper' value='WRAP'/> */}

@@ -1,15 +1,20 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
+
+import  configureStore from "../Store/store";
+const store = configureStore();
+
+// console.log('status',store.getState().dimensionReducer.width);
  
 const useController = ({ data, width, height,margin }) => {
-// console.log(width);
+console.log('controller data',data,);
   var width = width - margin.left - margin.right
   var height = height - margin.top - margin.bottom
   // console.log(width);
   
-  data.forEach(function (d) {
-      d.time = new Date(d.time * 1000);
-    });
+  // data.forEach(function (d) {
+  //     d.time = new Date(d.time * 1000);
+  //   });
     
   const xMin = useMemo(
     () => d3.min(data, function (d) {
@@ -23,6 +28,7 @@ const useController = ({ data, width, height,margin }) => {
     }),
     [data]
   );
+  console.log(xMin,xMax);
 
   const xScale = useMemo(
     () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),
