@@ -10,7 +10,7 @@ import { api_url } from "../Config/index";
 import axios, * as others from "axios";
 // const axios = require("axios");
 
-// import {testdata} from "../Dummydata/dummydata"
+import {testdata} from "../Dummydata/dummydata"
 
 export function getData() {
   return (dispatch) => {
@@ -38,8 +38,8 @@ export function getData() {
         console.log("err", response);
         if (response !== undefined) {
           dispatch({
-            type: GET_USER_FAILURE,
-            payload: response?.data,
+            type: GET_USER_SUCCESS,
+            payload: {data:testdata},
           });
         }
       });
