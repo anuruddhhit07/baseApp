@@ -15,34 +15,34 @@ import {testdata} from "../Dummydata/dummydata"
 export function getData() {
   return (dispatch) => {
     dispatch({ type: GET_USER_REQUEST });
-    axios
-      .get(`${api_url}/data`)
-      .then(function (res) {
-        var arrayObj = res.data.data;
-        var i;
+    //axios
+     // .get(`${api_url}/data`)
+    //  .then(function (res) {
+       // var arrayObj = res.data.data;
+      //  var i;
 
-        for (i = 0; i < arrayObj.length; i++) {
+      //  for (i = 0; i < arrayObj.length; i++) {
           
-          arrayObj[i].time = new Date(arrayObj[i]["unixtime"] * 1000);
+       //   arrayObj[i].time = new Date(arrayObj[i]["unixtime"] * 1000);
           // delete arrayObj[i]["unixtime"];
-        }
-        console.log("res obj =>", arrayObj);
+      //  }
+     //   console.log("res obj =>", arrayObj);
 
         dispatch({
           type: GET_USER_SUCCESS,
-          payload: { data: arrayObj },
+          payload: { data: testdata },
         });
-      })
-      .catch(function (error) {
-        const { response } = error;
-        console.log("err", response);
-        if (response !== undefined) {
-          dispatch({
-            type: GET_USER_SUCCESS,
-            payload: {data:testdata},
-          });
-        }
-      });
+    //  })
+   //   .catch(function (error) {
+     //   const { response } = error;
+     //   console.log("err", response);
+     //   if (response !== undefined) {
+    //    dispatch({
+     //       type: GET_USER_SUCCESS,
+       //     payload: {data:testdata},
+         // });
+       // }
+    //  });
   };
 }
 
