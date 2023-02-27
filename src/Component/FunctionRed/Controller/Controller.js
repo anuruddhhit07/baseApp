@@ -15,6 +15,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   // data.forEach(function (d) {
   //     d.time = new Date(d.time * 1000);
   //   });
+  console.log(data);
     
   const xMin = useMemo(
     () => d3.min(data, function (d) {
@@ -28,12 +29,14 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
     }),
     [data]
   );
-  // console.log(xMin,xMax);
+  console.log(xMin,xMax);
 
   const xScale = useMemo(
     () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),
     [xMin, xMax, width,currentGlobalZoomState]
   );
+
+  console.log(xScale(xMin),xScale(xMax));
 
   const xScale0 = useMemo(
     () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),

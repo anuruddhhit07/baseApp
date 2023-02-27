@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-export const testdata = [
+const testdata = [
     {"time": 1387212120, "open": 368, "close": 300, "high": 380, "low": 158},
     {"time": 1387212130, "open": 330, "close": 250, "high": 389, "low": 310},
     {"time": 1387212140, "open": 213, "close": 253, "high": 289, "low": 213},
@@ -50,7 +50,9 @@ export const testdata = [
   
    export const ohlcdata= ()=> {
      const parser = d3.timeParse("%s");
-        var arrayObj = testdata;
+      const arrayObj = testdata.map(a => ({...a}));
+        // var arrayObj = testdata;
+        console.log('testdata',testdata);
        var i;
 
        for (i = 0; i < arrayObj.length; i++) {

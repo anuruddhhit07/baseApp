@@ -10,12 +10,12 @@ import { api_url } from "../Config/index";
 import axios, * as others from "axios";
 // const axios = require("axios");
 
-import {testdata,ohlcdata} from "../Dummydata/dummydata"
+import {ohlcdata} from "../Dummydata/dummydata"
 
-export function getData(data_location="fetch") {
+export function getData(fecthsource="mysql") {
   return (dispatch) => {
     dispatch({ type: GET_USER_REQUEST });
-    if (data_location=="fetch"){
+    if (fecthsource=="mysql"){
     axios
      .get(`${api_url}/data`)
      .then(function (res) {
@@ -24,9 +24,9 @@ export function getData(data_location="fetch") {
       var i;
        for (i = 0; i < arrayObj.length; i++) {     
        arrayObj[i].time = new Date(arrayObj[i]["unixtime"] * 1000);
-         delete arrayObj[i]["unixtime"];
+        //  delete arrayObj[i]["unixtime"];
        }     
-       console.log("res obj =>", arrayObj);
+      //  console.log("res obj =>", arrayObj);
         dispatch({
           type: GET_USER_SUCCESS,
           payload: { data: arrayObj },

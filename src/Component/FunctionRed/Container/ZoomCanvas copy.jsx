@@ -2,8 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, setDim } from "../Action/data_ac";
-import useController from "../Controller/Controller";
 
 import {
   select,
@@ -18,35 +16,31 @@ import {
 
 const ZoomCanvas = ({
   data,
+  xScale,
+  yScale,
+  currentGlobalZoomState,
+  currentYZoomState,
+  currentXZoomState,
+  setglobalzoom,
+  setxzzoom,
+  setyzzoom,
   children,
 }) => {
+  // const ref = useRef(null);
 
   const ref = useRef(null);
   const { width, height, margin } = useSelector(
     (state) => state.dimensionReducer
   );
 
-  const [currentGlobalZoomState, setCurrentGlobalZoomState] = useState(zoomIdentity);
-  const [currentYZoomState, setCurrentYZoomState] = useState(zoomIdentity);
-  const [currentXZoomState, setCurrentXZoomState] = useState(zoomIdentity);
 
+
+
+  
   const [p1, setp1] = useState({ x: 0, y: 0 });
+
   const widhth2 = width - margin.left - margin.right;
   const height2 = height - margin.top - margin.bottom;
-
-  const { xScale, yScale } = useController({ data, width, height, margin, currentGlobalZoomState });
-
-
-  if (currentXZoomState) {
-
-    const newXScale = currentXZoomState.rescaleX(xScale);
-    xScale.domain(newXScale.domain());
-  }
-
-  if (currentYZoomState) {
-    const newYScale = currentYZoomState.rescaleY(yScale);
-    yScale.domain(newYScale.domain());
-  }
 
 
   useEffect(() => {
@@ -69,12 +63,12 @@ const ZoomCanvas = ({
     };
 
     const zoomed2 = (event) => {
-      // console.log("evennnnnnnnnnnt", event.transform);
+      console.log("evennnnnnnnnnnt", event.transform);
 
       const { k: newK, x: newX, y: newY } = event.transform;
       const { k: prevK, x: prevX, y: prevY } = currentGlobalZoomState;
       const point = center(event, svg);
-      // console.log("pointfddgfdgfd", point);
+      console.log("pointfddgfdgfd", point);
 
       const isZoomingX = point[0] > margin.left && point[0] < widhth2;
       const isZoomingY = point[1] > margin.top && point[1] < height2;
@@ -82,13 +76,13 @@ const ZoomCanvas = ({
       setp1({ x: point[0], y: point[1] });
 
       isZoomingX &&
-      setCurrentXZoomState(
+        setxzzoom(
           currentXZoomState
             .translate((newX - prevX) / prevK, 0)
             .scale(newK / prevK)
         );
       isZoomingY &&
-      setCurrentYZoomState(
+        setyzzoom(
           currentYZoomState
             .translate(0, (newY - prevY) / prevK)
             .scale(newK / prevK)
@@ -97,7 +91,7 @@ const ZoomCanvas = ({
       // Keeping track of the previous transform object
       // setCurrentGlobalZoomState(event.transform);
       // console.log("firstfgdgffg",changeh)
-      setCurrentGlobalZoomState(event.transform);
+      setglobalzoom(event.transform);
     };
 
     const zoomGlobal = zoom().scaleExtent([0.1, 500]).on("zoom", zoomed2);
