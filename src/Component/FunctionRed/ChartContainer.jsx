@@ -42,7 +42,8 @@ const ChartContainer = () => {
   // console.log("intilize constorl", xScale, yScale);
 
   useEffect(() => {
-    dispatch(getData());
+    //from local or fetch
+    dispatch(getData("local"));
   }, []);
 
   const setwidth = (wi_inc, hi_inc, opert) => {
