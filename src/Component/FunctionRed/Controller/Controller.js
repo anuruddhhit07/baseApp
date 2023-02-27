@@ -6,8 +6,8 @@ const store = configureStore();
 
 // console.log('status',store.getState().dimensionReducer.width);
  
-const useController = ({ data, width, height,margin }) => {
-console.log('controller data',data,);
+const useController = ({ data, width, height,margin,currentGlobalZoomState }) => {
+// console.log('controller data',data,);
   var width = width - margin.left - margin.right
   var height = height - margin.top - margin.bottom
   // console.log(width);
@@ -28,16 +28,16 @@ console.log('controller data',data,);
     }),
     [data]
   );
-  console.log(xMin,xMax);
+  // console.log(xMin,xMax);
 
   const xScale = useMemo(
     () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),
-    [xMin, xMax, width]
+    [xMin, xMax, width,currentGlobalZoomState]
   );
 
   const xScale0 = useMemo(
     () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),
-    [xMin, xMax, width]
+    [xMin, xMax, width,currentGlobalZoomState]
   );
 
 
@@ -64,7 +64,7 @@ console.log('controller data',data,);
 // console.log("hii",[yMin,yMax])
   const yScale = useMemo(
     () => d3.scaleLinear().domain([yMin, yMax]).range([height, 0]),
-    [height, yMin, yMax]
+    [height, yMin, yMax,currentGlobalZoomState]
   );
   const yTickFormat = (d) =>
     `${parseFloat(d) > 0 ? "+" : ""}${d3.format(".2%")(d / 100)}`;
