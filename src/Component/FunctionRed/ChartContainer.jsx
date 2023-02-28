@@ -16,6 +16,7 @@ const ChartContainer = () => {
 
   const [fecthsource, setfecthsource] = useState("mysql");
   const [isToggled, toggle] = useState(true);
+  const [isToggledzoom, settogglezoom] = useState(false);
   // console.log("intilize data", data[0]);
 
   useEffect(() => {
@@ -37,6 +38,11 @@ const ChartContainer = () => {
     }
   };
 
+  const togglezoom = () => {
+    settogglezoom(!isToggledzoom);
+    
+  };
+
   return (
     <>
       <div>
@@ -51,10 +57,21 @@ const ChartContainer = () => {
           <span></span>
           <strong>{"DS"}</strong>
         </label>
+
+        <label>
+          <input
+            type="checkbox"
+            defaultChecked={isToggledzoom}
+            onClick={togglezoom}
+          />
+          <span></span>
+          <strong>{"ZOOM"}</strong>
+        </label>
+
       </div>
       {/* {fecthsource} */}
 
-      <ZoomCanvas data={data}>
+      <ZoomCanvas data={data} isToggledzoom={isToggledzoom}>
         <Circle key={"cir"} />
         <RendorXY />
         {/* <LineChart /> */}
