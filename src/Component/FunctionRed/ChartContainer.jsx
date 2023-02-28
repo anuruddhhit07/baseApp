@@ -15,7 +15,7 @@ const ChartContainer = () => {
   const data = useSelector((state) => state.dataReducer?.data);
 
   const [fecthsource, setfecthsource] = useState("mysql");
-  const [isToggled, toggle] = useState(true);
+  const [isToggled, toggle] = useState(false);
   const [isToggledzoom, settogglezoom] = useState(false);
   // console.log("intilize data", data[0]);
 

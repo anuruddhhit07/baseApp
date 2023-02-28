@@ -16,7 +16,7 @@ export function getData(fecthsource="mysql") {
   return (dispatch) => {
     dispatch({ type: GET_USER_REQUEST });
     if (fecthsource=="mysql"){
-    axios
+   /* axios
      .get(`${api_url}/data`)
      .then(function (res) {
        var arrayObj = res.data.data;
@@ -41,7 +41,7 @@ export function getData(fecthsource="mysql") {
            payload: "Error in fetch",
          });
        }
-     });
+     }); */
     }
     else{
       dispatch({
