@@ -1,8 +1,13 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import * as d3 from 'd3';
+import {drawSVGCandleohlc} from "./Draw/drawSVGCandle"
 
 const CandlestickChart = ({ data,xScale,yScale }) => {
   const ref = useRef(null);
+  const { width, height, margin } = useSelector(
+    (state) => state.dimensionReducer
+  );
 
   useEffect(() => {
   //  const margin = { top: 20, right: 30, bottom: 30, left: 40 };
@@ -46,6 +51,31 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
         return d.open > d.close ? 'red' : 'green';
       })
       .attr('stroke', 'black');
+
+      // const ohlchart = svg
+      // .selectAll("path.svgcandle")
+      // .data(data)
+      // .enter()
+      // .append("g")
+      // .append("path")
+      // .attr("clip-path", "url(#clipping)")
+
+
+      // ohlchart
+      // .attr('fill', (d) => {
+      //       return d.open > d.close ? 'blue' : 'green';
+      //     })
+      //   .attr("d", function (d, index) {
+      //     // return drawSVGCandle(d.xCoordinate, d.yCoordinate, d.candleWidth, d.upper, d.body, d.lower);
+      //     return drawSVGCandleohlc(
+      //       xScale(d.time),
+      //       height-yScale(d.open),
+      //       height-yScale(d.high),
+      //       height-yScale(d.low),
+      //       height-yScale(d.close),
+      //      5
+      //     );
+      //   });
 
     
       

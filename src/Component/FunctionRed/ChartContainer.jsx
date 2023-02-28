@@ -38,7 +38,7 @@ const ChartContainer = () => {
   };
 
   return (
-    <div>
+    <>
       <div>
         <button onClick={() => setwidth(10, 10, 1)}>++</button>
         <button onClick={() => setwidth(10, 10, -1)}>--</button>
@@ -52,15 +52,15 @@ const ChartContainer = () => {
           <strong>{"DS"}</strong>
         </label>
       </div>
-      {fecthsource}
+      {/* {fecthsource} */}
 
       <ZoomCanvas data={data}>
         <Circle key={"cir"} />
         <RendorXY />
-        <LineChart />
+        {/* <LineChart /> */}
         <CandlestickChart />
       </ZoomCanvas>
-    </div>
+    </>
   );
 };
 
