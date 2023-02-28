@@ -5,14 +5,21 @@ import {
     GET_DIMENSION,
     SET_DIEMNSION,
   } from "../ActionTypes/data_acty";
+
+ 
+
+
   const initialState = {
     loading: false,
     width: 600,
     height: 650,
     margin:{top:10,bottom:40,left:50,right:30},
+    widthchart: 600-50-30,
+    heightchart:650-10-40,
     error: "",
   };
 
+// console.log(initialState.heightchart());
 
 
   export function dimensionReducer(state = initialState, action) {
@@ -27,6 +34,8 @@ import {
         ...state,
         width: state.width + action.payload?.width_inc,
         height: state.height + action.payload?.height_inc,
+        widthchart:state.width + action.payload?.width_inc-state.margin.left-state.margin.right,
+        heightchart:state.height + action.payload?.height_inc-state.margin.bottom-state.margin.top
       };
     
       

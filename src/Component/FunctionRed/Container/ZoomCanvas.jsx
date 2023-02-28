@@ -1,9 +1,11 @@
+// https://timmousk.com/blog/react-call-function-in-child-component/
 import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, setDim } from "../Action/data_ac";
 import useController from "../Controller/Controller";
+import EventCapture from "./EventCapture";
 
 import {
   select,
@@ -19,19 +21,22 @@ import {
 
 const ZoomCanvas = ({ data, children }) => {
   const ref = useRef(null);
-  const { width, height, margin } = useSelector(
+  // const refevent = useRef(null);
+
+  const { width, height, margin,widthchart,heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
-
+  
+ 
   const [currentGlobalZoomState, setCurrentGlobalZoomState] =
     useState(zoomIdentity);
   const [currentYZoomState, setCurrentYZoomState] = useState(zoomIdentity);
   const [currentXZoomState, setCurrentXZoomState] = useState(zoomIdentity);
 
-  const [p1, setp1] = useState({ x: 0, y: 0 });
-  const widhth2 = width - margin.left - margin.right;
-  const height2 = height - margin.top - margin.bottom;
+  const [value, setValue] = React.useState("hhhh")
 
+  const [p1, setp1] = useState({ x: 0, y: 0 });
+ 
   const { xScale, yScale } = useController({
     data,
     width,
@@ -39,6 +44,14 @@ const ZoomCanvas = ({ data, children }) => {
     margin,
     currentGlobalZoomState,
   });
+
+
+
+  function handleChange(newValue) {
+    setValue(newValue);
+  }
+
+
 
   if (currentXZoomState) {
     const newXScale = currentXZoomState.rescaleX(xScale);
@@ -52,12 +65,11 @@ const ZoomCanvas = ({ data, children }) => {
 
   useEffect(() => {
     // updatesvg()
-    zoomsvg();
+    // zoomsvg();
   }, [currentXZoomState, currentYZoomState, currentGlobalZoomState]);
 
   const zoomsvg = () => {
-    const widhth2 = width - margin.left - margin.right;
-    const height2 = height - margin.top - margin.bottom;
+    
 
     //const svg = select(ref.current);
     const svgel = select("#listrect");
@@ -74,7 +86,7 @@ const ZoomCanvas = ({ data, children }) => {
         console.log("pdsgfdgb", p);
         return [mean(p, (d) => d[0]), mean(p, (d) => d[1])];
       }
-      return [widhth2 / 2, height2 / 2];
+      return [widthchart / 2, heightchart / 2];
     };
 
     const zoomed2 = (event) => {
@@ -87,10 +99,10 @@ const ZoomCanvas = ({ data, children }) => {
       const point = center(event, targetsvgnode);
       console.log("pointfddgfdgfd", point);
 
-      // const isZoomingX = point[0] > margin.left && point[0] < widhth2;
-      // const isZoomingY = point[1] > margin.top && point[1] < height2;
+      // const isZoomingX = point[0] > margin.left && point[0] < widthchart;
+      // const isZoomingY = point[1] > margin.top && point[1] < heightchart;
 
-      const isZoomingX = point[1] > height2 - margin.top - margin.bottom;
+      const isZoomingX = point[1] > heightchart - margin.top - margin.bottom;
 
       const isZoomingY = point[0] < margin.left;
 
@@ -151,7 +163,7 @@ const ZoomCanvas = ({ data, children }) => {
     const centerfit=()=> {
       svgel
         .transition()
-        .call(zoomGlobal.translateTo, 0.5 * widhth2, 0.5 * height2);
+        .call(zoomGlobal.translateTo, 0.5 * widthchart, 0.5 * heightchart);
     }
 
     
@@ -168,53 +180,6 @@ const ZoomCanvas = ({ data, children }) => {
       })
     }
 
-
-
-    //   function Horizontal(e) {
-    //     var self = this;
-    //     var m, m1, m2, horizontal, isDown = false, isDragging = false, click = 1, pathArray = [], pathArray1 = [],
-    //         x1, y1, x2, y2, slope, isLeft;
-
-    //     var lineFunction = d3.line()
-    //                         .x(function(d) { return d.time; })
-    //                         .y(function(d) { return d.open; })
-    //                         // .interpolate("linear");
-
-    //                       //   .x(function(d) { return d.x; })
-    //                       // .y(function(d) { return d.y; })
-    //                       // .interpolate("linear");
-    //     const point = center(e, this);
-
-    //     // console.log('point',point);
-    //     svgel.on('mousedown', function() {
-    //         isDown = !isDown;
-    //         m1 = d3.pointer(this);
-    //         console.log(m1);
-    //         self.pathArray = [{ x: m1[0], y: m1[1] }, { x: 0, y: m1[1] }, { x: 0, y: m1[1] } ];
-    //         if(!isDragging) {
-    //             if(click == 1){
-    //                 self.horizElement = d3.select('svg').append('path').attr({'class': 'horizontal'});//.call(dragP);
-    //                 updatePath();
-    //             }
-    //         } else {
-    //             isDragging = true;
-    //         }
-    //         click++;
-    //     })
-
-    //     .on('mousemove', function() {
-    //         m2 = d3.pointer(this);
-    //         if (isDown && !isDragging && click == 2) {
-    //             updatePath();
-    //         }
-    //     });
-
-    //     function updatePath() {
-    //         horizontal = d3.select(self.horizElement[0][0]).data(self.pathArray);
-    //         horizontal.attr('d', lineFunction(self.pathArray));
-    //     }
-
-    // }
 
     d3.select("#reset").on("click", reset);
     d3.select("#panLeft").on("click", panLeft);
@@ -259,6 +224,7 @@ const ZoomCanvas = ({ data, children }) => {
       <div>
         {/* x={p1.x}
         y={p1.y} */}
+        {value}
         <button id="reset"> Reset </button>
         <button id="panLeft"> panLeft </button>
         <button id="panRight"> panRight </button>
@@ -290,14 +256,20 @@ const ZoomCanvas = ({ data, children }) => {
         >
           <g ref={ref} transform={`translate(${margin.left}, ${margin.top})`}>
             <clipPath id="clipping">
-              <rect x="0" y="0" width={widhth2} height={height2} />
+              <rect x="0" y="0" width={widthchart} height={heightchart} />
             </clipPath>
+
             <rect
               id={"listrect"}
-              height={height2}
-              width={widhth2}
+              height={heightchart}
+              width={widthchart}
               pointerEvents="all"
               transform={`translate(${margin.left * 0}, ${margin.top * 0})`}
+            />
+
+
+            <EventCapture 
+            onChange={handleChange}
             />
 
             <g>{childrenWithProps}</g>
