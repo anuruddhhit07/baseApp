@@ -8,6 +8,7 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
   const { width, height, margin } = useSelector(
     (state) => state.dimensionReducer
   );
+   const barwidth=5
 
   useEffect(() => {
   //  const margin = { top: 20, right: 30, bottom: 30, left: 40 };
@@ -41,9 +42,9 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
       .enter()
       .append('rect')
       .attr("clip-path", "url(#clipping)")
-      .attr('x', (d) => xScale(d.time))
+      .attr('x', (d) => xScale(d.time)-barwidth/2)
       .attr('y', (d) => yScale(Math.max(d.open, d.close)))
-      .attr('width', 5)
+      .attr('width', barwidth)
       .attr('height', (d) => {
         return yScale(Math.min(d.open, d.close)) - yScale(Math.max(d.open, d.close));
       })
