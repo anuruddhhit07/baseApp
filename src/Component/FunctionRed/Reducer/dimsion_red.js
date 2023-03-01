@@ -7,15 +7,17 @@ import {
   } from "../ActionTypes/data_acty";
 
  
+  const weightmain=400
+  const heightmain=280
 
 
   const initialState = {
     loading: false,
-    width: 600,
-    height: 650,
+    width: weightmain,
+    height: heightmain,
     margin:{top:10,bottom:40,left:50,right:30},
-    widthchart: 600-50-30,
-    heightchart:650-10-40,
+    widthchart: weightmain-50-30,
+    heightchart:heightmain-10-40,
     error: "",
   };
 

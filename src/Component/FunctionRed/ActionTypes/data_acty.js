@@ -4,3 +4,8 @@ export const GET_USER_FAILURE = "GET_USER_FAILURE";
 
 export const GET_DIMENSION = "GET_DIMENSION";
 export const SET_DIEMNSION = "SET_DIEMNSION";
+
+
+
+export const GET_LINEDATA = "GET_LINEDATA";
+export const SET_LINEDATA = "SET_LINEDATA";

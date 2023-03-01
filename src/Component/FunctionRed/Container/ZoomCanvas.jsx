@@ -110,7 +110,7 @@ const ZoomCanvas = ({ data,isToggledzoom, children }) => {
           position: "relative",
           width,
           height,
-          marginLeft: 60,
+          marginLeft: 10,
           marginTop: 0,
         }}
       >

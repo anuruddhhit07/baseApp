@@ -25,7 +25,11 @@ const EventCapture = (props) => {
   .filter(() => isToggledzoom)
   .on("zoom", zoomed2);
 
-  // var zoomGlobal = d3.zoom().on('zoom', zoomed2);
+  // var brush = d3.brushX()
+  //       .extent([[-10, -10], [width+10, height+10]])
+  //       .on("brush end", brushed);
+
+
  
 
   const zoomsvg = () => {
@@ -34,6 +38,8 @@ const EventCapture = (props) => {
     svgel.call(zoomGlobal)
 
   };
+
+
 
   const center = (event, target) => {
     if (event.sourceEvent) {
@@ -85,6 +91,20 @@ const EventCapture = (props) => {
     }
     handleGlobalZoomState("globalzoom", event.transform);
   };
+
+//   function brushed() {
+//     if (d3.event || d3.event.selection)
+//     var s = d3.event.selection || xContext.range();
+
+//     xFocus.domain(s.map(xContext.invert, xContext));
+//     focusVis.select(".line-rain").attr("d", rainLine);
+//     focusVis.select(".line-temp").attr("d", tempLine);
+//     focusVis.select(".x axis").call(xAxisFocus);
+//     focusVis.select(".zoom").call(zoom.transform, d3.zoomIdentity
+//         .scale(visWidth / (s[1] - s[0]))
+//         .translate(-s[0], 0));
+// }
+
 
   const reset = () => {
     const svgel = d3.select(refevent.current);

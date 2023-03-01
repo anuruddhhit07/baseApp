@@ -7,6 +7,7 @@ import Circle from "./Shape/Circle";
 import LineChart from "./Shape/LineChart";
 import RendorXY from "./Axis/axisProp";
 import CandlestickChart from "./Shape/Candlestick";
+import InteractiveLine  from "./Shape/InteractiveLine";
 import "./styles.scss";
 
 const ChartContainer = () => {
@@ -16,7 +17,7 @@ const ChartContainer = () => {
 
   const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
-  const [isToggledzoom, settogglezoom] = useState(true);
+  const [isToggledzoom, settogglezoom] = useState(false);
   // console.log("intilize data", data[0]);
 
   useEffect(() => {
@@ -78,6 +79,7 @@ const ChartContainer = () => {
         <RendorXY />
         {/* <LineChart /> */}
         <CandlestickChart />
+        < InteractiveLine />
       </ZoomCanvas>
     </>
   );

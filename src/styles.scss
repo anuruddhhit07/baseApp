@@ -2,8 +2,8 @@
 
 .container {
   width: 900px;
-  height: 900px;
-  max-height: 900px;
+  height: 600px;
+  max-height: 600px;
   margin: auto;
   border: 2px solid #3032b8;
   background-color: #e49595;
@@ -21,8 +21,8 @@
 }
 .mainbody {
   margin-top: 0;
-  min-height: 600px;
-  max-height: 740px;
+  min-height: 400px;
+  max-height: 400px;
   background-color: #ad9494;
   overflow-y: scroll;
 }

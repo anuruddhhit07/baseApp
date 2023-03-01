@@ -4,6 +4,8 @@ import {
   GET_USER_FAILURE,
   GET_DIMENSION,
   SET_DIEMNSION,
+  GET_LINEDATA,
+  SET_LINEDATA
 } from "../ActionTypes/data_acty";
 
 import { api_url } from "../Config/index";
@@ -57,6 +59,22 @@ export function setDim(width_increment = 10, height_increment = 20,operrator=1) 
     dispatch({
       type: SET_DIEMNSION,
       payload: { width_inc: operrator*width_increment, height_inc: operrator*height_increment },
+    });
+  };
+}
+
+export function setLineCoor(Linetype= "Hline",ID="L2",x1=1,y1=2,x2=3,y2=4) {
+  
+  var temppayload1={LineType:"HLINE",ID:"L1",x1: 1, y1: 3, x2: 5, y2: 6}
+  
+  
+
+  console.log('temppayload0',temppayload1)
+  // temppayload[Linetype]
+  return (dispatch) => {
+    dispatch({
+      type: SET_LINEDATA,
+      payload: temppayload1,
     });
   };
 }
