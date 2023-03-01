@@ -19,9 +19,11 @@ const EventCapture = (props) => {
 
   useEffect(() => {
     zoomsvg();
-  }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState]);
+  }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState,isToggledzoom]);
 
-  const zoomGlobal = d3.zoom().scaleExtent([0.1, 10]).on("zoom", zoomed2);
+  const zoomGlobal = d3.zoom().scaleExtent([0.1, 10])
+  .filter(() => isToggledzoom)
+  .on("zoom", zoomed2);
 
   // var zoomGlobal = d3.zoom().on('zoom', zoomed2);
  
@@ -29,15 +31,8 @@ const EventCapture = (props) => {
   const zoomsvg = () => {
     const svgel = d3.select(refevent.current);
     console.log('isToggledzoom',isToggledzoom);
+    svgel.call(zoomGlobal)
 
-    if (isToggledzoom) {
-      console.log('isToggledzoom1111',isToggledzoom);
-      svgel.call(zoomGlobal);
-    } 
-    else {
-      console.log('isToggledzoom2222',isToggledzoom);
-      svgel.on('zoomGlobal', null);
-    }
   };
 
   const center = (event, target) => {

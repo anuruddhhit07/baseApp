@@ -14,9 +14,9 @@ const ChartContainer = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.dataReducer?.data);
 
-  const [fecthsource, setfecthsource] = useState("mysql");
+  const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
-  const [isToggledzoom, settogglezoom] = useState(false);
+  const [isToggledzoom, settogglezoom] = useState(true);
   // console.log("intilize data", data[0]);
 
   useEffect(() => {
@@ -36,10 +36,12 @@ const ChartContainer = () => {
     else {
       setfecthsource("local")
     }
+    
   };
 
   const togglezoom = () => {
     settogglezoom(!isToggledzoom);
+    
     
   };
 
