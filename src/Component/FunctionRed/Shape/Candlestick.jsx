@@ -35,6 +35,18 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
     if (ref.current){
         const svg = d3.select(ref.current)
         svg.selectAll("*").remove()
+      
+      svg
+        .selectAll('line')
+        .data(data)
+        .enter()
+        .append('line')
+        .attr("clip-path","url(#clipping)")
+        .attr('class', 'line')
+        .attr('x1', (d) => xScale(d.time))
+        .attr('y1', (d) => yScale(d.high))
+        .attr('x2', (d) => xScale(d.time))
+        .attr('y2', (d) => yScale(d.low))
        
     svg
     .selectAll('rect')
@@ -54,17 +66,7 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
       .attr('stroke', 'black');
       
       
-      svg
-        .selectAll('line')
-        .data(data)
-        .enter()
-        .append('line')
-        .attr("clip-path","url(#clipping)")
-        .attr('class', 'line')
-        .attr('x1', (d) => xScale(d.time))
-        .attr('y1', (d) => yScale(d.high))
-        .attr('x2', (d) => xScale(d.time))
-        .attr('y2', (d) => yScale(d.low))
+      
         
 
       
