@@ -52,17 +52,22 @@ const testdata = [
      const parser = d3.timeParse("%s");
       const arrayObj = testdata.map(a => ({...a}));
         // var arrayObj = testdata;
-        console.log('testdata',testdata);
+        // console.log('testdata',testdata);
        var i;
 
        for (i = 0; i < arrayObj.length; i++) {
           //console.log(arrayObj[i].time)
         // arrayObj[i].time = new Date(arrayObj[i]["time"] * 1000);
+
+
         arrayObj[i].time=parser(arrayObj[i]["time"])
+
+
+        
          // delete arrayObj[i]["time"];
           //console.log(arrayObj[i].time)
        }
-       console.log("res obj =>", arrayObj);
+      //  console.log("res obj =>", arrayObj);
        return arrayObj
       }
   

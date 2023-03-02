@@ -75,7 +75,7 @@ const ChartContainer = () => {
       {/* {fecthsource} */}
 
       <ZoomCanvas data={data} isToggledzoom={isToggledzoom}>
-        <Circle key={"cir"} />
+        {/* <Circle key={"cir"} /> */}
         <RendorXY />
         {/* <LineChart /> */}
         <CandlestickChart />

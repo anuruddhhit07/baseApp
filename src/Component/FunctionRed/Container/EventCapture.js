@@ -34,7 +34,7 @@ const EventCapture = (props) => {
 
   const zoomsvg = () => {
     const svgel = d3.select(refevent.current);
-    console.log('isToggledzoom',isToggledzoom);
+    // console.log('isToggledzoom',isToggledzoom);
     svgel.call(zoomGlobal)
 
   };
@@ -44,7 +44,7 @@ const EventCapture = (props) => {
   const center = (event, target) => {
     if (event.sourceEvent) {
       const p = d3.pointers(event, target);
-      console.log("pdsgfdgb", p);
+      // console.log("pdsgfdgb", p);
       return [d3.mean(p, (d) => d[0]), d3.mean(p, (d) => d[1])];
     }
     return [widthchart / 2, heightchart / 2];
@@ -58,7 +58,7 @@ const EventCapture = (props) => {
     const isZoomingX = point[1] > heightchart - margin.top - margin.bottom;
     const isZoomingY = point[0] < margin.left;
     if (isZoomingX == false && isZoomingY == false) {
-      console.log("both false");
+      // console.log("both false");
       handleGlobalZoomState(
         "xz_zoom",
         currentXZoomState
@@ -153,7 +153,7 @@ const EventCapture = (props) => {
   d3.select("#panLeft").on("click", panLeft);
   d3.select("#panRight").on("click", panRight);
   d3.select("#center").on("click", centerfit);
-  d3.select("#horizontal").on("click", clickDefine);
+  
 
   return (
     <rect

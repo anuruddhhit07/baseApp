@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getData, setDim } from "../Action/data_ac";
 import useController from "../Controller/Controller";
 import EventCapture from "./EventCapture";
+import CheckInlineExample from "./CheckInline";
 
 import {
   select,
@@ -19,7 +20,7 @@ import {
   zoomTransform,
 } from "d3";
 
-const ZoomCanvas = ({ data,isToggledzoom, children }) => {
+const ZoomCanvas = ({ data, isToggledzoom, children }) => {
   const ref = useRef(null);
   // const refevent = useRef(null);
 
@@ -31,8 +32,6 @@ const ZoomCanvas = ({ data,isToggledzoom, children }) => {
     useState(zoomIdentity);
   const [currentYZoomState, setCurrentYZoomState] = useState(zoomIdentity);
   const [currentXZoomState, setCurrentXZoomState] = useState(zoomIdentity);
-
-
 
   const { xScale, yScale } = useController({
     data,
@@ -53,7 +52,7 @@ const ZoomCanvas = ({ data,isToggledzoom, children }) => {
     if (zoomtype == "yz_zoom") {
       setCurrentYZoomState(zoomstate);
     }
-    console.log(currentXZoomState, currentYZoomState);
+    // console.log(currentXZoomState, currentYZoomState);
   }
 
   if (currentXZoomState) {
@@ -102,8 +101,11 @@ const ZoomCanvas = ({ data,isToggledzoom, children }) => {
         <button id="panLeft"> panLeft </button>
         <button id="panRight"> panRight </button>
         <button id="center"> center </button>
-        <button id="horizontal">Horizontal Line</button>
-
+        <button id="H_line">H Line</button>
+        {/* <button id="G_line">G Line</button> */}
+        <button id="delete_horizontal">Delete Line</button>
+       
+        
       </div>
       <div
         style={{

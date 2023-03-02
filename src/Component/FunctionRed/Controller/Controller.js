@@ -29,21 +29,22 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
     }),
     [data]
   );
+
   // console.log(xMin,xMax);
 
   const xScale = useMemo(
-    () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),
+    () => d3.scaleTime().domain([xMin, xMax]).rangeRound([0, width]).nice(),
     [xMin, xMax, width,currentGlobalZoomState]
   );
 
-  // console.log(xScale(xMin),xScale(xMax));
+  // console.log(currentGlobalZoomState);
 
-  const xScale0 = useMemo(
-    () => d3.scaleTime().domain([xMin, xMax]).range([0, width]),
+  const xScaleunix = useMemo(
+    () => d3.scaleLinear().domain([xMin, xMax]).range([0, width]),
     [xMin, xMax, width,currentGlobalZoomState]
   );
 
-
+  // console.log(xScaleunix(xMin),xScaleunix(xMax));
 
   const yMin = useMemo(
     () => d3.min(data, function (d) {
@@ -66,7 +67,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
 
 // console.log("hii",[yMin,yMax])
   const yScale = useMemo(
-    () => d3.scaleLinear().domain([yMin, yMax]).range([height, 0]),
+    () => d3.scaleLinear().domain([yMin, yMax]).range([height, 0]).nice(),
     [height, yMin, yMax,currentGlobalZoomState]
   );
   const yTickFormat = (d) =>
@@ -75,7 +76,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   return {
     yTickFormat,
     xScale,
-    xScale0,
+    xScaleunix,
     yScale,
     yScaleForAxis
   };

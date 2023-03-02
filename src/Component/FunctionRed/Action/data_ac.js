@@ -5,7 +5,9 @@ import {
   GET_DIMENSION,
   SET_DIEMNSION,
   GET_LINEDATA,
-  SET_LINEDATA
+  SET_LINEDATA,
+  RESET_LINEID,
+  DELETEBY_LINEID
 } from "../ActionTypes/data_acty";
 
 import { api_url } from "../Config/index";
@@ -18,7 +20,7 @@ export function getData(fecthsource="mysql") {
   return (dispatch) => {
     dispatch({ type: GET_USER_REQUEST });
     if (fecthsource=="mysql"){
-   /* axios
+    axios
      .get(`${api_url}/data`)
      .then(function (res) {
        var arrayObj = res.data.data;
@@ -43,7 +45,7 @@ export function getData(fecthsource="mysql") {
            payload: "Error in fetch",
          });
        }
-     }); */
+     })
     }
     else{
       dispatch({
@@ -63,18 +65,28 @@ export function setDim(width_increment = 10, height_increment = 20,operrator=1) 
   };
 }
 
-export function setLineCoor(Linetype= "Hline",ID="L2",x1=1,y1=2,x2=3,y2=4) {
+export function setLineCoor(Linetype= "Hline",x1=1,y1=2,x2=3,y2=4) {
   
-  var temppayload1={LineType:"HLINE",ID:"L1",x1: 1, y1: 3, x2: 5, y2: 6}
-  
-  
-
-  console.log('temppayload0',temppayload1)
+  var temppayload1={LineType:Linetype,ID:null,x1: x1, y1: y1, x2: x2, y2: y2}
+  // console.log('temppayload0',temppayload1)
   // temppayload[Linetype]
   return (dispatch) => {
     dispatch({
       type: SET_LINEDATA,
       payload: temppayload1,
     });
+    dispatch({ type: RESET_LINEID });
   };
 }
+
+export function deletelinebyID(ID){
+  return (dispatch) => {
+    dispatch({
+      type: DELETEBY_LINEID,
+      payload: ID,
+    });
+
+    dispatch({ type: RESET_LINEID });
+  };
+}
+

@@ -9,3 +9,6 @@ export const SET_DIEMNSION = "SET_DIEMNSION";
 
 export const GET_LINEDATA = "GET_LINEDATA";
 export const SET_LINEDATA = "SET_LINEDATA";
+export const RESET_LINEID = "RESET_LINEID";
+export const DELETEBY_LINEID = "DELETEBY_LINEID";
+
