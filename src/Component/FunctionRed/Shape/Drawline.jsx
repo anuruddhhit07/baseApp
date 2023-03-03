@@ -41,7 +41,7 @@ function Drawline({ data, xScale, yScale }) {
         .attr("x2", (d) => xScale(d.x2))
         .attr("y2", (d) => yScale(d.y2));
     }
-  });
+  },[xScale,linedata,yScale]);
 
 
 

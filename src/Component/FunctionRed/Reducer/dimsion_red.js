@@ -7,7 +7,7 @@ import {
   } from "../ActionTypes/data_acty";
 
  
-  const weightmain=700
+  const weightmain=600
   const heightmain=480
 
 
@@ -15,8 +15,8 @@ import {
     loading: false,
     width: weightmain,
     height: heightmain,
-    margin:{top:10,bottom:40,left:50,right:30},
-    widthchart: weightmain-50-30,
+    margin:{top:10,bottom:40,left:50,right:30,padding_left:25},
+    widthchart: weightmain-50-30-25,
     heightchart:heightmain-10-40,
     error: "",
   };
