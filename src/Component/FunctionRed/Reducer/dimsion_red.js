@@ -9,15 +9,21 @@ import {
  
   const weightmain=700
   const heightmain=480
+  const top=10
+  const bottom=40
+  const left=30
+  const right=30
+  const padding_left=30
+  const padding_right=10
 
 
   const initialState = {
     loading: false,
     width: weightmain,
     height: heightmain,
-    margin:{top:10,bottom:40,left:50,right:30,padding_left:25},
-    widthchart: weightmain-50-30-25,
-    heightchart:heightmain-10-40,
+    margin:{top:top,bottom:bottom,left:left,right:right,padding_left:padding_left,padding_right:padding_right},
+    widthchart: weightmain-left-right-padding_left-padding_right,
+    heightchart:heightmain-top-bottom,
     error: "",
   };
 

@@ -9,7 +9,7 @@ function InteractiveLine({ data, xScale, yScale }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   // console.log("object", data);
-  const { margin, widthchart, heightchart } = useSelector(
+  const {width, margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
 
@@ -23,8 +23,19 @@ function InteractiveLine({ data, xScale, yScale }) {
   const tempy1 = useRef(null);
   const tempx2 = useRef(null);
   const tempy2 = useRef(null);
+  
+  
+  //useEffect(()=>{
 
-
+const horizontalLine = d3.select(ref.current).append("line")
+    .attr("opacity", 0)
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("pointer-events", "none");
+//  },[])
+  
 
 
 
@@ -33,10 +44,22 @@ function InteractiveLine({ data, xScale, yScale }) {
       // console.log("first");
       // console.log(data.length);
       const svg = d3.select("#listrect");
+      
+      /*
+      var horizontalLine = svg.append("line")
+    .attr("opacity", 1)
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("pointer-events", "none");
+    */
+    
+    
     //   inti_temp_lincoor();
 
       svg
-        .on("mousedown", mousedown)
+       // .on("mousedown", mousedown)
         .on("mouseup", 
         line_state == true
             ? function (event) {
@@ -60,7 +83,8 @@ function InteractiveLine({ data, xScale, yScale }) {
                 deleteline(event, "deleteevent");
               }
             : null
-        );
+        )
+        .on("mousemove",mousemove)
     }
   }, [data,xScale, yScale,line_state, deleteline_toggel]);
 
@@ -128,6 +152,23 @@ function InteractiveLine({ data, xScale, yScale }) {
     var m = d3.pointers(event);
     const corr = m[0];
     console.log("corrmove", corr);
+    //svg.selectAll("*").remove();
+    
+    /*
+    var horizontalLine = d3.select(ref.current).append("line")
+    .attr("opacity", 0)
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("pointer-events", "none");
+    */
+    
+    
+    horizontalLine.attr("y1", corr[1]).attr("y2", corr[1]).attr("opacity", 1)
+
+
+
   }
 
   function mouseup(event) {

@@ -7,7 +7,7 @@ import Axis from "./Axis";
 const RendorXY= (props) => {
     
 
-    const { width, height, margin } = useSelector(
+    const { width, height, margin,widthchart } = useSelector(
         (state) => state.dimensionReducer
       );
 
@@ -25,13 +25,13 @@ const RendorXY= (props) => {
   };
   
   const ySettings2 = {
-    translate: `translate(${0}, 0)`,
+    translate: `translate(${widthchart+margin.padding_right+margin.padding_left}, 0)`,
     scale: props.yScale,
     orient: "right",
     class:"y-axis"
   };
     
-  }
+  
   
   // console.log('propssss',props,xSettings,props.xScale(0));
 

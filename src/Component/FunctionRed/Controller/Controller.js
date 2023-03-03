@@ -8,7 +8,7 @@ const store = configureStore();
  
 const useController = ({ data, width, height,margin,currentGlobalZoomState }) => {
 // console.log('controller data',data,);
-  var width = width - margin.left - margin.right
+  var width = width - margin.left - margin.right-margin.padding_left-margin.padding_right
   var height = height - margin.top - margin.bottom
   // console.log(width);
   
@@ -33,9 +33,18 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   // console.log(xMin,xMax);
 
   const xScale = useMemo(
-    () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width]).nice(),
+    () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
     [xMin, xMax, width,currentGlobalZoomState]
   );
+  
+  
+  //https://stackoverflow.com/questions/26128148/d3-barchart-first-bar-overlaps-axis-label
+  //const xScale11 = useMemo(
+   // () => d3.scaleOrdinal()
+      //  .domain(data.map(function(d) {return d.time}))
+       //  .rangeRoundBands([margin.padding_left, width+margin.padding_left ]),
+     //   [xMin,xMax,width,currentGlobalZoomState]
+      //  )
 
   // console.log(currentGlobalZoomState);
 
