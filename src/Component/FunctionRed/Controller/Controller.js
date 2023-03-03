@@ -33,7 +33,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   // console.log(xMin,xMax);
 
   const xScale = useMemo(
-    () => d3.scaleTime().domain([xMin, xMax]).rangeRound([0, width]).nice(),
+    () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width]).nice(),
     [xMin, xMax, width,currentGlobalZoomState]
   );
 

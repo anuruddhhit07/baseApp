@@ -135,14 +135,14 @@ console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
         >
           <g ref={ref} transform={`translate(${margin.left}, ${margin.top})`}>
             <clipPath id="clipping">
-              <rect x="0" y="0" width={widthchart} height={heightchart} />
+              <rect x={margin.padding_left} y="0" width={widthchart} height={heightchart} />
             </clipPath>
 
             <EventCapture
               handleGlobalZoomState={handleGlobalZoomState}
-              currentGlobalZoomState={currentGlobalZoomState}
-              currentYZoomState={currentYZoomState}
-              currentXZoomState={currentXZoomState}
+             // currentGlobalZoomState={currentGlobalZoomState}
+             // currentYZoomState={currentYZoomState}
+            //  currentXZoomState={currentXZoomState}
               isToggledzoom={isToggledzoom}
             />
 

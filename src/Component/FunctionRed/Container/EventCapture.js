@@ -168,7 +168,7 @@ const EventCapture = (props) => {
       height={heightchart}
       width={widthchart}
       pointerEvents="all"
-      transform={`translate(${margin.left * 0}, ${margin.top * 0})`}
+      transform={`translate(${margin.left * 0+margin.padding_left}, ${margin.top * 0})`}
     />
   );
 };

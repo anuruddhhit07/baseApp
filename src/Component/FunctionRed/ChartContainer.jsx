@@ -130,7 +130,7 @@ const ChartContainer = () => {
       <ZoomCanvas data={data} isToggledzoom={isToggledzoom}>
         {/* <Circle key={"cir"} /> */}
         <RendorXY />
-        {/* <LineChart /> */}
+         <LineChart /> 
         <CandlestickChart />
         <InteractiveLine />
         <Drawline />
