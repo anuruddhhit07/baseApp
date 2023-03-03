@@ -7,7 +7,11 @@ import {
   GET_LINEDATA,
   SET_LINEDATA,
   RESET_LINEID,
-  DELETEBY_LINEID
+  DELETEBY_LINEID,
+  SET_CHARTPROP,
+  SET_ZOOMSTATE,
+  SET_ZOOMXZSTATE,
+  SET_ZOOMYZSTATE,
 } from "../ActionTypes/data_acty";
 
 import { api_url } from "../Config/index";
@@ -87,6 +91,65 @@ export function deletelinebyID(ID){
     });
 
     dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function setchartprop(props){
+  console.log(props);
+  const {drawlinetype}=props
+  console.log('hello',props,drawlinetype);
+  return (dispatch) => {
+    dispatch({
+      type: SET_CHARTPROP,
+      payload: {drawlinetype:drawlinetype},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function setzoomstate(props){
+  console.log(props);
+  const {currentGlobalZoomState}=props
+  console.log('hello',props,currentGlobalZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_ZOOMSTATE,
+      payload: {currentGlobalZoomState:currentGlobalZoomState},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+export function setzoomstatexz(props){
+  console.log(props);
+  const {currentXZoomState}=props
+  console.log('hello',props,currentXZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_ZOOMSTATE,
+      payload: {currentXZoomState:currentXZoomState},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function setzoomstateyz(props){
+  console.log(props);
+  const {currentYZoomState}=props
+  console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_ZOOMSTATE,
+      payload: {currentYZoomState:currentYZoomState},
+    });
+
+    // dispatch({ type: RESET_LINEID });
   };
 }
 

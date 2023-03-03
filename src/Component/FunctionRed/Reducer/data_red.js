@@ -19,7 +19,7 @@ import {
         ...state,
       };
       case GET_USER_SUCCESS:
-        console.log('resss',action);
+        // console.log('resss',action);
       return {
         ...state,
         data: action.payload?.data,

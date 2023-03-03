@@ -5,9 +5,9 @@ import * as d3 from "d3";
 import { useSelector, useDispatch } from "react-redux";
 const EventCapture = (props) => {
   const {
-    currentGlobalZoomState,
-    currentXZoomState,
-    currentYZoomState,
+    // currentGlobalZoomState,
+    // currentXZoomState,
+    // currentYZoomState,
     handleGlobalZoomState,
     isToggledzoom,
   } = props;
@@ -16,6 +16,12 @@ const EventCapture = (props) => {
   const { margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
+
+
+  const currentGlobalZoomState = useSelector((state) => state.chartpropReducer?.currentGlobalZoomState);
+  const currentXZoomState = useSelector((state) => state.chartpropReducer?.currentXZoomState);
+  const currentYZoomState = useSelector((state) => state.chartpropReducer?.currentYZoomState);
+
 
   useEffect(() => {
     zoomsvg();

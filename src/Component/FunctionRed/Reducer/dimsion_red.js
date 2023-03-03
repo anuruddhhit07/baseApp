@@ -7,7 +7,7 @@ import {
   } from "../ActionTypes/data_acty";
 
  
-  const weightmain=700
+  const weightmain=1800
   const heightmain=480
 
 

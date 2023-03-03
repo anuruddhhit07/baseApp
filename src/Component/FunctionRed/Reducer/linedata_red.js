@@ -27,7 +27,7 @@ export function lineReducer(state = initialState, action) {
         return state;
       } else {
         action.payload.ID = "IL"+(state.length + 1);
-        console.log("state", state.length);
+        // console.log("state", state.length);
         return [...state, action.payload];
       }
 
@@ -42,7 +42,7 @@ export function lineReducer(state = initialState, action) {
       return result
 
     case DELETEBY_LINEID:
-        console.log("ID",action.payload);
+        // console.log("ID",action.payload);
         const tempsate = state.filter(object => {
           return object.ID !== action.payload;
           });

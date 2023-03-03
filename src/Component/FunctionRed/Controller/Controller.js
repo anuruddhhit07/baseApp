@@ -15,7 +15,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   // data.forEach(function (d) {
   //     d.time = new Date(d.time * 1000);
   //   });
-  console.log(data);
+  // console.log(data);
     
   const xMin = useMemo(
     () => d3.min(data, function (d) {

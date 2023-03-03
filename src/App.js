@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import InputPort from "./Component/FunctionRed/InputPort";
 function App() {
   return (
+    <>
     <div className="container">
       <div className="header">
         <Navigation />
@@ -34,6 +35,7 @@ function App() {
       </div>
       <div className="footer">Footer</div>
     </div>
+    </>
   );
 }
 

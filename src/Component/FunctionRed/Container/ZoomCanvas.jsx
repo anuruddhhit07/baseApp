@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, setDim } from "../Action/data_ac";
+import { getData, setDim,setzoomstate,setzoomstateyz,setzoomstatexz } from "../Action/data_ac";
 import useController from "../Controller/Controller";
 import EventCapture from "./EventCapture";
 import CheckInlineExample from "./CheckInline";
@@ -22,16 +22,22 @@ import {
 
 const ZoomCanvas = ({ data, isToggledzoom, children }) => {
   const ref = useRef(null);
+  const dispatch = useDispatch();
   // const refevent = useRef(null);
 
   const { width, height, margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
 
-  const [currentGlobalZoomState, setCurrentGlobalZoomState] =
-    useState(zoomIdentity);
-  const [currentYZoomState, setCurrentYZoomState] = useState(zoomIdentity);
-  const [currentXZoomState, setCurrentXZoomState] = useState(zoomIdentity);
+  const currentGlobalZoomState = useSelector((state) => state.chartpropReducer?.currentGlobalZoomState);
+  const currentXZoomState = useSelector((state) => state.chartpropReducer?.currentXZoomState);
+  const currentYZoomState = useSelector((state) => state.chartpropReducer?.currentYZoomState);
+  
+console.log('currentGlobalZoomState',currentGlobalZoomState);
+  // const [currentGlobalZoomState, setCurrentGlobalZoomState] =
+  //   useState(zoomIdentity);
+  // const [currentYZoomState, setCurrentYZoomState] = useState(zoomIdentity);
+  // const [currentXZoomState, setCurrentXZoomState] = useState(zoomIdentity);
 
   const { xScale, yScale } = useController({
     data,
@@ -44,16 +50,21 @@ const ZoomCanvas = ({ data, isToggledzoom, children }) => {
   function handleGlobalZoomState(zoomtype, zoomstate) {
     // setValue(newValue);
     if (zoomtype == "globalzoom") {
-      setCurrentGlobalZoomState(zoomstate);
+      // setCurrentGlobalZoomState(zoomstate);
+      dispatch(setzoomstate({currentGlobalZoomState:zoomstate}))
     }
     if (zoomtype == "xz_zoom") {
-      setCurrentXZoomState(zoomstate);
+      // setCurrentXZoomState(zoomstate);
+      dispatch(setzoomstatexz({currentXZoomState:zoomstate}))
     }
     if (zoomtype == "yz_zoom") {
-      setCurrentYZoomState(zoomstate);
+      // setCurrentYZoomState(zoomstate);
+      dispatch(setzoomstateyz({currentYZoomState:zoomstate}))
     }
     // console.log(currentXZoomState, currentYZoomState);
   }
+
+console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
 
   if (currentXZoomState) {
     const newXScale = currentXZoomState.rescaleX(xScale);
@@ -64,6 +75,7 @@ const ZoomCanvas = ({ data, isToggledzoom, children }) => {
     const newYScale = currentYZoomState.rescaleY(yScale);
     yScale.domain(newYScale.domain());
   }
+
 
   const childrenWithProps = React.Children.map(children, (child) => {
     // Checking isValidElement is the safe way and avoids a
@@ -79,15 +91,7 @@ const ZoomCanvas = ({ data, isToggledzoom, children }) => {
     return child;
   });
 
-  const updatesvg = () => {
-    // console.log(this.props);
-    const zoomed = (event) => {
-      const currentTransform = event.transform;
-      d3.select(ref.current).select("g").attr("transform", currentTransform);
-    };
-    const zoom = d3.zoom().scaleExtent([1, 10]).on("zoom", zoomed);
-    d3.select(ref.current).call(zoom);
-  };
+//  console.log('main zoom loop',xScale.domain());
 
   return (
     <>
@@ -97,13 +101,12 @@ const ZoomCanvas = ({ data, isToggledzoom, children }) => {
         y={p1.y} */}
         {}
 
-        <button id="reset"> Reset </button>
+        {/* <button id="reset"> Reset </button>
         <button id="panLeft"> panLeft </button>
         <button id="panRight"> panRight </button>
         <button id="center"> center </button>
-        <button id="H_line">H Line</button>
-        {/* <button id="G_line">G Line</button> */}
-        <button id="delete_horizontal">Delete Line</button>
+        <button id="H_line">Line</button>
+        <button id="delete_horizontal">Delete Line</button> */}
        
         
       </div>

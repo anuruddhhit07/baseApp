@@ -1,0 +1,83 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  margin: 0;
+  padding: 0;
+ }
+  
+  .toppanelbox {
+    display: flex;
+    margin-left: 10px;
+    padding-top: 0;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0em;
+    border: 1px solid rgb(250, 252, 251);
+    background: #c8f3c8;
+    // background: linear-gradient(to right, #1560bd, #e90);
+    position: relative;
+  }
+
+  .sqaure-button {
+    height:30px;   
+    width:30px;
+    margin: 0px;
+    border-radius: 10px;
+}
+.sqaure-button_charttype{
+  background-color: #00c853;
+}
+
+.sqaure-button_leftaline{
+  float: right;
+}
+
+// https://stackoverflow.com/questions/3490216/html-css-adding-an-icon-to-a-button
+button.btn{
+  margin-left: 5px;
+  padding: 0;
+  background-color:#aeaef3;
+  width: 40px;
+}
+
+button.btn:hover {
+  background-color:#002ead;
+  transition: 0.7s;
+}
+
+.btn-primary {
+  color: #080808;
+  background-color: #fffafa;
+  border-color: #ffffff;
+}
+
+button.btn.add::before {
+  font-family: fontAwesome;
+  content: "\f067\00a0";
+}
+
+button.btn.edit::before {
+  font-family: fontAwesome;
+  content: "\f044\00a0";
+}
+
+button.btn.save::before {
+  font-family: fontAwesome;
+  content: "\f00c\00a0";
+}
+
+button.btn.cancel::before {
+  font-family: fontAwesome;
+  content: "\f00d\00a0";
+}
+
+button.btn.cancel::before{
+  font-family: fontAsesome;
+  content: "\f1f8\00a0"
+}
+
+
