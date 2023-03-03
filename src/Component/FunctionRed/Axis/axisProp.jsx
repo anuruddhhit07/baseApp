@@ -24,6 +24,10 @@ const RendorXY= (props) => {
     class:"y-axis"
   };
   
+  const ySettings2={
+    
+  }
+  
   // console.log('propssss',props,xSettings,props.xScale(0));
 
 
