@@ -27,7 +27,7 @@ const RendorXY= (props) => {
   const ySettings2 = {
     translate: `translate(${0}, 0)`,
     scale: props.yScale,
-    orient: "left",
+    orient: "right",
     class:"y-axis"
   };
     
@@ -40,6 +40,7 @@ const RendorXY= (props) => {
     <g className="xy-axis">
       <Axis {...xSettings} />
       <Axis {...ySettings} />
+        <Axis {...ySettings2} />
     </g>
   );
 };
