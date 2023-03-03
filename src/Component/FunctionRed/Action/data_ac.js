@@ -130,7 +130,7 @@ export function setzoomstatexz(props){
   console.log('hello',props,currentXZoomState);
   return (dispatch) => {
     dispatch({
-      type: SET_ZOOMSTATE,
+      type: SET_ZOOMXZSTATE,
       payload: {currentXZoomState:currentXZoomState},
     });
 
@@ -145,7 +145,7 @@ export function setzoomstateyz(props){
   console.log('hello',props,currentYZoomState);
   return (dispatch) => {
     dispatch({
-      type: SET_ZOOMSTATE,
+      type: SET_ZOOMYZSTATE,
       payload: {currentYZoomState:currentYZoomState},
     });
 
