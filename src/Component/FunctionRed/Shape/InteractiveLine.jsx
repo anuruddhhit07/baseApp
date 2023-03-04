@@ -109,9 +109,13 @@ const horizontalLine = d3.select(ref.current).append("line")
        : null
        )
         .on('mouseover', function() { focus.style('display', null); })
-      .on('mouseout', function() { focus.style('display', 'none'); })
+      .on('mouseout', function() {
+       // d3.select("#focusLineY").remove()
+         focus.style('display', 'none'); 
+         
+         })
     }
-  }, [data,xScale, yScale,line_state, deleteline_toggel]);
+  }, [data,xScale, yScale,line_state, deleteline_toggel,crosshairtoggle]);
 
   // useEffect(() => {
   //  console.log(currentid());
