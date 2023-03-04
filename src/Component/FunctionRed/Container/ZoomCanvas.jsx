@@ -135,7 +135,7 @@ console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
         >
           <g ref={ref} transform={`translate(${margin.left}, ${margin.top})`}>
             <clipPath id="clipping">
-              <rect x={margin.padding_left} y="0" width={widthchart} height={heightchart} />
+              <rect x={margin.padding_left*0} y="0" width={widthchart+margin.padding_left+margin.padding_right} height={heightchart} />
             </clipPath>
 
             <EventCapture

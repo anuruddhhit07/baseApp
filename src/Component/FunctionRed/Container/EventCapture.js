@@ -166,9 +166,9 @@ const EventCapture = (props) => {
       ref={refevent}
       id={"listrect"}
       height={heightchart}
-      width={widthchart}
+      width={widthchart+margin.padding_left+margin.padding_right}
       pointerEvents="all"
-      transform={`translate(${margin.left * 0+margin.padding_left}, ${margin.top * 0})`}
+      transform={`translate(${0}, ${margin.top * 0})`}
     />
   );
 };
