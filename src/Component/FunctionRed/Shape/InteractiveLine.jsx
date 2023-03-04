@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as d3 from "d3";
 import { setLineCoor, deletelinebyID } from "../Action/data_ac";
 import "./styles.scss";
+import { computeHeadingLevel } from "@testing-library/react";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
 // export const InteractiveLine = () => {
 function InteractiveLine({ data, xScale, yScale }) {
@@ -12,10 +13,11 @@ function InteractiveLine({ data, xScale, yScale }) {
   const {width, margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
-
+//https://gist.github.com/mikehadlow/93b471e569e31af07cd3
   const linedata = useSelector((state) => state.lineReducer);
   const [line_state, settoggelhzline] = useState(false);
   const [deleteline_toggel, settdeleteline_toggel] = useState(false);
+  const [crosshairtoggle,setcrosshairtoggle]=useState(true)
  
   const drawlinetype = useSelector((state) => state.chartpropReducer?.drawlinetype);
 
@@ -24,9 +26,21 @@ function InteractiveLine({ data, xScale, yScale }) {
   const tempx2 = useRef(null);
   const tempy2 = useRef(null);
   
+  const focus=d3.select(ref.current).append('g').style('display','none')
   
-  //useEffect(()=>{
+  
+  useEffect(()=>{
+   // d3.select("#focusLineY").remove()
+    //const focus = d3.select(ref.current).append('g').style('display', 'none');
+                
+            focus.append('line')
+                .attr('id', 'focusLineX')
+                .attr('class', 'focusLine');
+            focus.append('line')
+                .attr('id', 'focusLineY')
+                .attr('class', 'focusLine');
 
+/*
 const horizontalLine = d3.select(ref.current).append("line")
     .attr("opacity", 0)
     .attr("x1", 0)
@@ -34,7 +48,10 @@ const horizontalLine = d3.select(ref.current).append("line")
     .attr("stroke", "black")
     .attr("stroke-width", 1)
     .attr("pointer-events", "none");
-//  },[])
+   */ 
+    
+ })
+ 
   
 
 
@@ -84,7 +101,15 @@ const horizontalLine = d3.select(ref.current).append("line")
               }
             : null
         )
-        .on("mousemove",mousemove)
+       .on("mousemove",
+       crosshairtoggle==true ?
+       function (event){
+         mousemove(event,"crosshair")
+       }
+       : null
+       )
+        .on('mouseover', function() { focus.style('display', null); })
+      .on('mouseout', function() { focus.style('display', 'none'); })
     }
   }, [data,xScale, yScale,line_state, deleteline_toggel]);
 
@@ -154,6 +179,16 @@ const horizontalLine = d3.select(ref.current).append("line")
     console.log("corrmove", corr);
     //svg.selectAll("*").remove();
     
+    console.log(focus)
+    
+    var x = xScale(corr[0]);
+    var y = yScale(corr[1]);
+    
+    focus.select('#focusLineY')
+    .attr('x1', 0).attr('y1', corr[1])
+    .attr('x2', widthchart).attr('y2',corr[1]);
+    
+    
     /*
     var horizontalLine = d3.select(ref.current).append("line")
     .attr("opacity", 0)
@@ -164,10 +199,10 @@ const horizontalLine = d3.select(ref.current).append("line")
     .attr("pointer-events", "none");
     */
     
-    
+    /*
     horizontalLine.attr("y1", corr[1]).attr("y2", corr[1]).attr("opacity", 1)
 
-
+*/
 
   }
 
@@ -218,6 +253,7 @@ else{
   const hzline = () => {
     if (line_state == false) {
       settdeleteline_toggel(false);
+      setcrosshairtoggle(false)
     }
 
     settoggelhzline(!line_state);
@@ -226,10 +262,20 @@ else{
   const delhzline = () => {
     if (deleteline_toggel == false) {
       settoggelhzline(false);
+      setcrosshairtoggle(false)
     }
 
     settdeleteline_toggel(!deleteline_toggel);
   };
+  
+  const crosshairfn =()=>{
+    console.log("34")
+    if (crosshairtoggle==false){
+      settoggelhzline(false)
+      settdeleteline_toggel(false)
+    }
+    setcrosshairtoggle(!crosshairtoggle) 
+  }
 
   d3.select("#H_line")
     .on("click", hzline)
@@ -238,6 +284,12 @@ else{
   d3.select("#delete_horizontal")
     .on("click", delhzline)
     .style("background-color", deleteline_toggel == true ? "#B4BEC4" : "white");
+
+
+d3.select("#crosshairbtn")
+.on("click",crosshairfn)
+.style("background-color",crosshairtoggle==true? "#B4BEC4":"white")
+
 
   console.log("linedata22", linedata, )
 // //    temp_lincoor
