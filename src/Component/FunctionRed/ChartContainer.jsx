@@ -106,6 +106,7 @@ const ChartContainer = () => {
         <button className="btn "id="center"> C </button>
         <button className="btn " id="H_line">Line</button>
         <button className="btn " id="delete_horizontal">DEL</button>
+        <button className="btn" id="crosshairbtn"> CR </button>
 
 
         {/* <button className="sqaure-button sqaure-button_charttype" id="reset"> R </button>
