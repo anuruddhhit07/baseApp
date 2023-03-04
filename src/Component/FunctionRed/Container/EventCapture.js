@@ -57,6 +57,7 @@ const EventCapture = (props) => {
   };
 
   function zoomed2(event)  {
+    if (event.defaultPrevented) return;
     const targetsvgnode = d3.select("#listrect").node();
     const { k: newK, x: newX, y: newY } = event.transform;
     const { k: prevK, x: prevX, y: prevY } = currentGlobalZoomState;

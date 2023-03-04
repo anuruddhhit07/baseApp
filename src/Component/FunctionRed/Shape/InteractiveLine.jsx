@@ -40,15 +40,7 @@ function InteractiveLine({ data, xScale, yScale }) {
                 .attr('id', 'focusLineY')
                 .attr('class', 'focusLine');
 
-/*
-const horizontalLine = d3.select(ref.current).append("line")
-    .attr("opacity", 0)
-    .attr("x1", 0)
-    .attr("x2", width)
-    .attr("stroke", "black")
-    .attr("stroke-width", 1)
-    .attr("pointer-events", "none");
-   */ 
+
     
  })
  
@@ -62,19 +54,7 @@ const horizontalLine = d3.select(ref.current).append("line")
       // console.log(data.length);
       const svg = d3.select("#listrect");
       
-      /*
-      var horizontalLine = svg.append("line")
-    .attr("opacity", 1)
-    .attr("x1", 0)
-    .attr("x2", width)
-    .attr("stroke", "black")
-    .attr("stroke-width", 1)
-    .attr("pointer-events", "none");
-    */
-    
-    
-    //   inti_temp_lincoor();
-
+   
       svg
        // .on("mousedown", mousedown)
         .on("mouseup", 
@@ -101,19 +81,19 @@ const horizontalLine = d3.select(ref.current).append("line")
               }
             : null
         )
-       .on("mousemove",
-       crosshairtoggle==true ?
-       function (event){
-         mousemove(event,"crosshair")
-       }
-       : null
-       )
-        .on('mouseover', function() { focus.style('display', null); })
-      .on('mouseout', function() {
-       // d3.select("#focusLineY").remove()
-         focus.style('display', 'none'); 
+    //    .on("mousemove",
+    //    crosshairtoggle==true ?
+    //    function (event){
+    //      mousemove(event,"crosshair")
+    //    }
+    //    : null
+    //    )
+    //     .on('mouseover', function() { focus.style('display', null); })
+    //   .on('mouseout', function() {
+    //    // d3.select("#focusLineY").remove()
+    //      focus.style('display', 'none'); 
          
-         })
+    //      })
     }
   }, [data,xScale, yScale,line_state, deleteline_toggel,crosshairtoggle]);
 
@@ -146,6 +126,10 @@ const horizontalLine = d3.select(ref.current).append("line")
   function mousedown(event, isMouseUp) {
     // console.log(event);
     // console.log(isMouseUp);
+
+
+    if (event.defaultPrevented) return;
+
     var m = d3.pointers(event);
     const corr = m[0];
     // console.log("corrdown", corr);
@@ -177,6 +161,7 @@ const horizontalLine = d3.select(ref.current).append("line")
   }
 
   function mousemove(event) {
+    if (event.defaultPrevented) return;
     console.log(" mouse move");
     var m = d3.pointers(event);
     const corr = m[0];
@@ -211,6 +196,7 @@ const horizontalLine = d3.select(ref.current).append("line")
   }
 
   function mouseup(event) {
+    if (event.defaultPrevented) return;
     var m = d3.pointers(event);
     const corr = m[0];
     console.log("corrup", corr);
@@ -229,6 +215,7 @@ const horizontalLine = d3.select(ref.current).append("line")
   }
 
   function deleteline(event, deleteevent) {
+    if (event.defaultPrevented) return;
     console.log("deleteline", line_state);
     if (line_state == false && deleteline_toggel == true) {
       d3.selectAll(".I_line").on("mouseover", function () {
