@@ -36,7 +36,7 @@ const RendorXY= (props) => {
     scale: props.xScale,
     orient: "bottom",
     class:"x-axisgid",
-    height:height
+    length:height
   };
     
     const GridySettings = {
@@ -44,7 +44,7 @@ const RendorXY= (props) => {
     scale: props.yScale,
     orient: "left",
     class:"y-axisgrid",
-        width:width
+        length:width
   };
     
   
