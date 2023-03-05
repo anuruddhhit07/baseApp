@@ -17,24 +17,24 @@ const GridLines = (props) => {
        
         if (props.orient=='bottom'){
       //      var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
-            var Axisgrid = d3.axisBottom(props.scale).tickSize(-500).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisBottom(props.scale).tickSize(-length).tickFormat('').ticks(10);
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())
         }
 
         if (props.orient=='top'){
            // var AxisGenerator = d3.axisTop(props.scale) 
-            var Axisgrid = d3.axisTop(props.scale).tickSize(200).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisTop(props.scale).tickSize(length).tickFormat('').ticks(10);
         }
 
         if (props.orient=='left'){
            // var AxisGenerator = d3.axisLeft(props.scale)
-            var Axisgrid = d3.axisLeft(props.scale).tickSize(200).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisLeft(props.scale).tickSize(length).tickFormat('').ticks(10);
         }
 
         if (props.orient=='right'){
            // var AxisGenerator = d3.axisRight(props.scale) 
-            var Axisgrid = d3.axisRight(props.scale).tickSize(-200).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisRight(props.scale).tickSize(-length).tickFormat('').ticks(10);
         }
            
         
