@@ -49,7 +49,7 @@ console.log('currentGlobalZoomState',currentGlobalZoomState);
 
   
 
-console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
+//console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
 
   if (currentXZoomState) {
     const newXScale = currentXZoomState.rescaleX(xScale);
@@ -124,7 +124,7 @@ console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
             </clipPath>
 
             <EventCapture
-              handleGlobalZoomState={handleGlobalZoomState}
+             // handleGlobalZoomState={handleGlobalZoomState}
              // currentGlobalZoomState={currentGlobalZoomState}
              // currentYZoomState={currentYZoomState}
             //  currentXZoomState={currentXZoomState}

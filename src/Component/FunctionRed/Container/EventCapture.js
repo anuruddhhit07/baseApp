@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { useSelector, useDispatch } from "react-redux";
+import {setzoomstate,setzoomstatexz,setzoomstateyz} from "../Action/data_ac"
 const EventCapture = (props) => {
   const {
     // currentGlobalZoomState,
@@ -13,6 +14,7 @@ const EventCapture = (props) => {
   } = props;
 
   const refevent = useRef(null);
+  const dispatch= useDispatch()
   const { margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
