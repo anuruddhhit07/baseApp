@@ -10,49 +10,51 @@ function InteractiveLine({ data, xScale, yScale }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   // console.log("object", data);
-  const {width, margin, widthchart, heightchart } = useSelector(
+  const { width, margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
   );
-//https://gist.github.com/mikehadlow/93b471e569e31af07cd3
+  //https://gist.github.com/mikehadlow/93b471e569e31af07cd3
   const linedata = useSelector((state) => state.lineReducer);
   const [line_state, settoggelhzline] = useState(false);
   const [deleteline_toggel, settdeleteline_toggel] = useState(false);
-  const [crosshairtoggle,setcrosshairtoggle]=useState(true)
- 
+  const [crosshairtoggle, setcrosshairtoggle] = useState(true)
+
   const drawlinetype = useSelector((state) => state.chartpropReducer?.drawlinetype);
 
   const tempx1 = useRef(null);
   const tempy1 = useRef(null);
   const tempx2 = useRef(null);
   const tempy2 = useRef(null);
-  
-  const focus=d3.select(ref.current).append('g').style('display','none')
-  
-  
-  useEffect(()=>{
-   // d3.select("#focusLineY").remove()
-    //const focus = d3.select(ref.current).append('g').style('display', 'none');
-                
-            focus.append('line')
-                .attr('id', 'focusLineX')
-                .attr('class', 'focusLine');
-            focus.append('line')
-                .attr('id', 'focusLineY')
-                .attr('class', 'focusLine');
 
-/*
-const horizontalLine = d3.select(ref.current).append("line")
-    .attr("opacity", 0)
-    .attr("x1", 0)
-    .attr("x2", width)
-    .attr("stroke", "black")
-    .attr("stroke-width", 1)
-    .attr("pointer-events", "none");
-   */ 
-    
- })
- 
-  
+  //const focus=d3.select(ref.current).append('g').style('display','none')
+  // if (ref.current && data.length > 0) {
+  // const focus=d3.select("#crosshair")
+  // }
+
+  useEffect(() => {
+    // d3.select("#focusLineY").remove()
+    //const focus = d3.select(ref.current).append('g').style('display', 'none');
+
+    // focus.append('line')
+    //     .attr('id', 'focusLineX')
+    //     .attr('class', 'focusLine');
+    // focus.append('line')
+    //     .attr('id', 'focusLineY')
+    //     .attr('class', 'focusLine');
+
+    /*
+    const horizontalLine = d3.select(ref.current).append("line")
+        .attr("opacity", 0)
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .attr("pointer-events", "none");
+       */
+
+  })
+
+
 
 
 
@@ -61,7 +63,7 @@ const horizontalLine = d3.select(ref.current).append("line")
       // console.log("first");
       // console.log(data.length);
       const svg = d3.select("#listrect");
-      
+
       /*
       var horizontalLine = svg.append("line")
     .attr("opacity", 1)
@@ -71,25 +73,25 @@ const horizontalLine = d3.select(ref.current).append("line")
     .attr("stroke-width", 1)
     .attr("pointer-events", "none");
     */
-    
-    
-    //   inti_temp_lincoor();
+
+
+      //   inti_temp_lincoor();
 
       svg
-       // .on("mousedown", mousedown)
-        .on("mouseup", 
-        line_state == true
+        // .on("mousedown", mousedown)
+        .on("mouseup",
+          line_state == true
             ? function (event) {
-                mouseup(event, "isMouseup");
-              }
+              mouseup(event, "isMouseup");
+            }
             : null
         )
         .on(
           "mousedown",
           line_state == true
             ? function (event) {
-                mousedown(event, "isMousedown");
-              }
+              mousedown(event, "isMousedown");
+            }
             : null
         )
         // .on("keypress",deleteline)
@@ -97,8 +99,8 @@ const horizontalLine = d3.select(ref.current).append("line")
           "dblclick",
           deleteline_toggel == true
             ? function (event) {
-                deleteline(event, "deleteevent");
-              }
+              deleteline(event, "deleteevent");
+            }
             : null
         )
        .on("mousemove",
@@ -108,14 +110,14 @@ const horizontalLine = d3.select(ref.current).append("line")
        }
        : null
        )
-        .on('mouseover', function() { focus.style('display', null); })
+        .on('mouseover', function() { d3.selectAll("#crosshair").style('display', null); })
       .on('mouseout', function() {
        // d3.select("#focusLineY").remove()
-         focus.style('display', 'none'); 
-         
+       d3.selectAll("#crosshair").style('display', 'none'); 
+
          })
     }
-  }, [data,xScale, yScale,line_state, deleteline_toggel,crosshairtoggle]);
+  }, [data, xScale, yScale, line_state, deleteline_toggel, crosshairtoggle]);
 
   // useEffect(() => {
   //  console.log(currentid());
@@ -154,8 +156,8 @@ const horizontalLine = d3.select(ref.current).append("line")
     // const xx1 = xScale.invert(x1);
     // const yy1 = yScale.invert(y1);
 
-    tempx1.current=x1
-    tempy1.current=y1
+    tempx1.current = x1
+    tempy1.current = y1
 
     // var tempx1=xx1
     // var tempy1=yy1
@@ -173,7 +175,7 @@ const horizontalLine = d3.select(ref.current).append("line")
 
     // dispatch(setLineCoor("Hline", xx1, yy1, xx2, yy2));
 
-   
+
   }
 
   function mousemove(event) {
@@ -182,17 +184,24 @@ const horizontalLine = d3.select(ref.current).append("line")
     const corr = m[0];
     console.log("corrmove", corr);
     //svg.selectAll("*").remove();
-    
-    console.log(focus)
-    
+
+    // console.log(focus)
+
     var x = xScale(corr[0]);
     var y = yScale(corr[1]);
-    
-    focus.select('#focusLineY')
+
+
+
+     d3.select('#focusLineY')
     .attr('x1', 0).attr('y1', corr[1])
-    .attr('x2', widthchart).attr('y2',corr[1]);
-    
-    
+     .attr('x2', widthchart).attr('y2',corr[1]);
+
+
+     d3.select('#focusLineX')
+    .attr('x1', corr[0]).attr('y1', 0)
+     .attr('x2', corr[0]).attr('y2',heightchart);
+
+
     /*
     var horizontalLine = d3.select(ref.current).append("line")
     .attr("opacity", 0)
@@ -202,7 +211,7 @@ const horizontalLine = d3.select(ref.current).append("line")
     .attr("stroke-width", 1)
     .attr("pointer-events", "none");
     */
-    
+
     /*
     horizontalLine.attr("y1", corr[1]).attr("y2", corr[1]).attr("opacity", 1)
 
@@ -219,11 +228,11 @@ const horizontalLine = d3.select(ref.current).append("line")
     // const xx2 = xScale.invert(x2);
     // const yy2 = yScale.invert(y2);
 
-    tempx2.current=x2
-    tempy2.current=y2
-    
+    tempx2.current = x2
+    tempy2.current = y2
+
     dispatchlinecoor()
-    
+
     // 
 
   }
@@ -240,16 +249,16 @@ const horizontalLine = d3.select(ref.current).append("line")
     }
   }
 
-  function dispatchlinecoor(){
+  function dispatchlinecoor() {
     // console.log('temp_lincoor',tempx1.current);
-    if (drawlinetype=="HZ_LINE"){
-        
-        dispatch(setLineCoor("Hline",xScale.invert(0), yScale.invert(tempy1.current), xScale.invert(widthchart), yScale.invert(tempy1.current)));
+    if (drawlinetype == "HZ_LINE") {
+
+      dispatch(setLineCoor("Hline", xScale.invert(0), yScale.invert(tempy1.current), xScale.invert(widthchart), yScale.invert(tempy1.current)));
     }
-else{
-    dispatch(setLineCoor("Hline", xScale.invert(tempx1.current), yScale.invert(tempy1.current), xScale.invert(tempx2.current), yScale.invert(tempy2.current)));
-}
-    
+    else {
+      dispatch(setLineCoor("Hline", xScale.invert(tempx1.current), yScale.invert(tempy1.current), xScale.invert(tempx2.current), yScale.invert(tempy2.current)));
+    }
+
     // inti_temp_lincoor()
     hzline();
   }
@@ -271,14 +280,21 @@ else{
 
     settdeleteline_toggel(!deleteline_toggel);
   };
-  
-  const crosshairfn =()=>{
+
+  const crosshairfn = () => {
     console.log("34")
-    if (crosshairtoggle==false){
+    if (crosshairtoggle == false) {
       settoggelhzline(false)
       settdeleteline_toggel(false)
     }
-    setcrosshairtoggle(!crosshairtoggle) 
+    // else{
+    //   d3.selectAll("#crosshair").style('display', 'none')
+    // }
+
+    setcrosshairtoggle(!crosshairtoggle)
+
+    
+    
   }
 
   d3.select("#H_line")
@@ -290,18 +306,33 @@ else{
     .style("background-color", deleteline_toggel == true ? "#B4BEC4" : "white");
 
 
-d3.select("#crosshairbtn")
-.on("click",crosshairfn)
-.style("background-color",crosshairtoggle==true? "#B4BEC4":"white")
+  d3.select("#crosshairbtn")
+    .on("click", crosshairfn)
+    .style("background-color", crosshairtoggle == true ? "#B4BEC4" : "white")
 
 
-  console.log("linedata22", linedata, )
-// //    temp_lincoor
-//    );
+  console.log("linedata22", linedata,)
+  // //    temp_lincoor
+  //    );
   return (
     // <line  ref={ref}  x1="10" y1="10" x2="90" y2="90" stroke-width="1" stroke="black"/>
     // <line ref={ref} strokeWidth="1" stroke="black" />
-    <g ref={ref}></g>
+    <>
+      <g ref={ref}>
+        <g id="crosshair" style={{ display: "none" }} >
+        <line id="focusLineX" className="focusLine" opacity={crosshairtoggle?1:0}> </line>
+          <line id="focusLineY" className="focusLine" opacity={crosshairtoggle?1:0}> </line>
+          
+        </g>
+        {/* <g id ="crosshair" style={"display:none"}>
+      <line id ="focusLineY"></line>
+      </g> */}
+      </g>
+
+    </>
+
+
+
   );
 }
 
