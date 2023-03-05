@@ -17,7 +17,7 @@ const GridLines = (props) => {
        
         if (props.orient=='bottom'){
       //      var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
-            var Axisgrid = d3.axisBottom(props.scale).tickSize(-200).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisBottom(props.scale).tickSize(-500).tickFormat('').ticks(10);
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())
         }
