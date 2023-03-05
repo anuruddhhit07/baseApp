@@ -3,7 +3,7 @@ import * as d3 from "d3";
 
 import { useSelector, useDispatch } from "react-redux";
 import Axis from "./Axis";
-
+import GridLines from "./GridLines"
 const RendorXY= (props) => {
     
 
@@ -41,6 +41,7 @@ const RendorXY= (props) => {
       <Axis {...xSettings} />
       <Axis {...ySettings} />
         <Axis {...ySettings2} />
+<GridLines {...xSettings}/>
     </g>
   );
 };
