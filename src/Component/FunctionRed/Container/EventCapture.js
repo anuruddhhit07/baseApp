@@ -8,7 +8,7 @@ const EventCapture = (props) => {
     // currentGlobalZoomState,
     // currentXZoomState,
     // currentYZoomState,
-    handleGlobalZoomState,
+   // handleGlobalZoomState,
     isToggledzoom,
   } = props;
 
@@ -21,6 +21,23 @@ const EventCapture = (props) => {
   const currentGlobalZoomState = useSelector((state) => state.chartpropReducer?.currentGlobalZoomState);
   const currentXZoomState = useSelector((state) => state.chartpropReducer?.currentXZoomState);
   const currentYZoomState = useSelector((state) => state.chartpropReducer?.currentYZoomState);
+  
+  function handleGlobalZoomState(zoomtype, zoomstate) {
+    // setValue(newValue);
+    if (zoomtype == "globalzoom") {
+      // setCurrentGlobalZoomState(zoomstate);
+      dispatch(setzoomstate({currentGlobalZoomState:zoomstate}))
+    }
+    if (zoomtype == "xz_zoom") {
+      // setCurrentXZoomState(zoomstate);
+      dispatch(setzoomstatexz({currentXZoomState:zoomstate}))
+    }
+    if (zoomtype == "yz_zoom") {
+      // setCurrentYZoomState(zoomstate);
+      dispatch(setzoomstateyz({currentYZoomState:zoomstate}))
+    }
+    // console.log(currentXZoomState, currentYZoomState);
+  }
 
 
   useEffect(() => {
