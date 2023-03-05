@@ -35,7 +35,7 @@ const RendorXY= (props) => {
     translate: `translate(${0}, ${height-margin.bottom-margin.top})`,
     scale: props.xScale,
     orient: "bottom",
-    class:"x-axisgid"
+    class:"x-axisgid",
     height:height
   };
     
@@ -43,7 +43,7 @@ const RendorXY= (props) => {
     translate: `translate(${0}, 0)`,
     scale: props.yScale,
     orient: "left",
-    class:"y-axisgrid"
+    class:"y-axisgrid",
         width:width
   };
     
