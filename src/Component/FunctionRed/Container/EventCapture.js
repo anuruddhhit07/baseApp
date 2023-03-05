@@ -47,8 +47,8 @@ const EventCapture = (props) => {
   }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState,isToggledzoom]);
 
   const zoomGlobal = d3.zoom().scaleExtent([0.5, 1])
-  .translateExtent([[-100, -100], [width + 100, height + 100]])
-   .extent([[-100, -100], [width + 100, height + 100]])
+  .translateExtent([[-150, 0], [width + 350, height]])
+   //.extent([[-250, 0], [width + 250, height + 10]])
   .filter(() => isToggledzoom)
   .on("zoom", zoomed2);
 

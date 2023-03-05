@@ -16,6 +16,8 @@ const Axis = (props) => {
        
         if (props.orient=='bottom'){
             var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
+            var xAxisGrid = d3.axisBottom(props.scale).tickSize(-200).tickFormat('').ticks(10);
+           // .innerTickSize(-200)
             // .tickFormat(multiFormat())
         }
 
@@ -24,7 +26,7 @@ const Axis = (props) => {
         }
 
         if (props.orient=='left'){
-            var AxisGenerator = d3.axisLeft(props.scale) 
+            var AxisGenerator = d3.axisLeft(props.scale)
         }
 
         if (props.orient=='right'){
@@ -32,7 +34,8 @@ const Axis = (props) => {
         }
            
         
-        var axis =d3.select(ref.current).call(AxisGenerator); 
+        var axis =d3.select(ref.current).call(AxisGenerator)
+       // axis.append("g").call(xAxisGrid)
       }
 
 
