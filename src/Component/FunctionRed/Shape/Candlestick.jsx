@@ -9,6 +9,7 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
     (state) => state.dimensionReducer
   );
    const barwidth=5
+   const formatTime = d3.timeFormat("%d/%m/%Y %H:%M:%S");
 
   useEffect(() => {
   //  const margin = { top: 20, right: 30, bottom: 30, left: 40 };
@@ -47,6 +48,7 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
         .attr('y1', (d) => yScale(d.high))
         .attr('x2', (d) => xScale(d.time))
         .attr('y2', (d) => yScale(d.low))
+        
        
     svg
     .selectAll('rect')
@@ -63,7 +65,10 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
       .attr('fill', (d) => {
         return d.open > d.close ? 'red' : 'green';
       })
-      .attr('stroke', 'black');
+      .attr('stroke', 'black')
+       .on("mouseover", function(event,d)  {mouseover(event,d)})
+      .on("mouseout", mouseout);
+
       
       
       
@@ -103,6 +108,26 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
       
       
   }, [data,xScale,yScale]);
+  
+  const mouseover=(event,d)=>{
+    console.log("gdhdhddj",d.time)
+    const tooltipref=d3.select("#tooltipid")
+    .style("opacity",1)
+    tooltipref.text(`
+    Date: ${formatTime(d.time)}
+    O: ${d.open}
+    H: ${d.high} 
+    L:${d.low}
+    C:${d.close}
+    V:${d.volume}`
+     )
+    
+  }
+  const mouseout=()=>{
+    console.log("2333")
+    d3.select("#tooltipid")
+    .style("opacity",0)
+  }
 
   return <g ref={ref}></g>;
 };

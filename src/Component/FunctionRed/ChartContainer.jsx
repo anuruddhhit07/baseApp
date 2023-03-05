@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, setDim,setchartprop } from "./Action/data_ac";
 // import useController from "./Controller/Controller";
@@ -15,6 +15,7 @@ import "./toggle_styles.scss";
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
   const dispatch = useDispatch();
+  //const tooltipref=useRef();
   const data = useSelector((state) => state.dataReducer?.data);
   const drawlinetype = useSelector((state) => state.chartpropReducer?.drawlinetype);
 
@@ -125,11 +126,12 @@ const ChartContainer = () => {
       </div>
 
       
-
+<div id="tooltipid" style={{opacity:0}} > T</div>
       
 
       <ZoomCanvas data={data} isToggledzoom={isToggledzoom}>
         {/* <Circle key={"cir"} /> */}
+       
         <RendorXY />
          <LineChart /> 
         <CandlestickChart />
