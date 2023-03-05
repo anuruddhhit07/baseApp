@@ -47,22 +47,7 @@ console.log('currentGlobalZoomState',currentGlobalZoomState);
     currentGlobalZoomState,
   });
 
-  function handleGlobalZoomState(zoomtype, zoomstate) {
-    // setValue(newValue);
-    if (zoomtype == "globalzoom") {
-      // setCurrentGlobalZoomState(zoomstate);
-      dispatch(setzoomstate({currentGlobalZoomState:zoomstate}))
-    }
-    if (zoomtype == "xz_zoom") {
-      // setCurrentXZoomState(zoomstate);
-      dispatch(setzoomstatexz({currentXZoomState:zoomstate}))
-    }
-    if (zoomtype == "yz_zoom") {
-      // setCurrentYZoomState(zoomstate);
-      dispatch(setzoomstateyz({currentYZoomState:zoomstate}))
-    }
-    // console.log(currentXZoomState, currentYZoomState);
-  }
+  
 
 console.log('currentXZoomState',currentXZoomState,currentGlobalZoomState);
 
