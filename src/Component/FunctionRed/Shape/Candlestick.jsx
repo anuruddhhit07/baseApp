@@ -70,40 +70,6 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
       .on("mouseout", mouseout);
 
       
-      
-      
-        
-
-      
-      
-
-      // const ohlchart = svg
-      // .selectAll("path.svgcandle")
-      // .data(data)
-      // .enter()
-      // .append("g")
-      // .append("path")
-      // .attr("clip-path", "url(#clipping)")
-
-
-      // ohlchart
-      // .attr('fill', (d) => {
-      //       return d.open > d.close ? 'blue' : 'green';
-      //     })
-      //   .attr("d", function (d, index) {
-      //     // return drawSVGCandle(d.xCoordinate, d.yCoordinate, d.candleWidth, d.upper, d.body, d.lower);
-      //     return drawSVGCandleohlc(
-      //       xScale(d.time),
-      //       height-yScale(d.open),
-      //       height-yScale(d.high),
-      //       height-yScale(d.low),
-      //       height-yScale(d.close),
-      //      5
-      //     );
-      //   });
-
-    
-      
     }
       
       
@@ -113,24 +79,24 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
     console.log("gdhdhddj",d.time)
     const tooltipref=d3.select("#tooltipid")
     .style("opacity",1)
-    tooltipref.text(`
+    tooltipref.text(
+    `
     Date: ${formatTime(d.time)}
-    {&ensp}
     O: ${d.open}
     H: ${d.high} 
     L:${d.low}
     C:${d.close}
     V:${d.volume}`
-     )
+     ).style('fill', 'darkOrange')
     
   }
   const mouseout=()=>{
-    console.log("2333")
+    // console.log("2333")
     d3.select("#tooltipid")
     .style("opacity",0)
   }
 
-  return <g ref={ref}></g>;
+  return <g id="ID_OHLCSeries"ref={ref}></g>;
 };
 
 export default CandlestickChart;

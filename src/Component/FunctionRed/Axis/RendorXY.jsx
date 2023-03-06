@@ -54,7 +54,7 @@ const RendorXY= (props) => {
 
 
   return (
-    <g className="xy-axis">
+    <g id="ID_XYAxis" className="xy-axis">
       <Axis {...xSettings} />
       <Axis {...ySettings} />
         <Axis {...ySettings2} />

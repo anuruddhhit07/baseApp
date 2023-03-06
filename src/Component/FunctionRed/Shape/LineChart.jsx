@@ -56,7 +56,7 @@ if(ref.current){
   }, [data,xScale,yScale]);
 
   return (
-    <g ref={ref} >
+    <g id ="ID_LineSeries" ref={ref} >
     </g>
   );
 }

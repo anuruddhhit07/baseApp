@@ -16,6 +16,7 @@ const Axis = (props) => {
        
         if (props.orient=='bottom'){
             var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
+            // .tickFormat((date)=>multiFormat(date))
             //var xAxisGrid = d3.axisBottom(props.scale).tickSize(-200).tickFormat('').ticks(10);
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())

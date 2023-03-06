@@ -19,7 +19,6 @@ const EventCapture = (props) => {
     (state) => state.dimensionReducer
   );
 
-
   const currentGlobalZoomState = useSelector((state) => state.chartpropReducer?.currentGlobalZoomState);
   const currentXZoomState = useSelector((state) => state.chartpropReducer?.currentXZoomState);
   const currentYZoomState = useSelector((state) => state.chartpropReducer?.currentYZoomState);
@@ -46,7 +45,7 @@ const EventCapture = (props) => {
     zoomsvg();
   }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState,isToggledzoom]);
 
-  const zoomGlobal = d3.zoom().scaleExtent([0.5, 1])
+  const zoomGlobal = d3.zoom().scaleExtent([0.5, 5])
   .translateExtent([[-150, 0], [width + 350, height]])
    //.extent([[-250, 0], [width + 250, height + 10]])
   .filter(() => isToggledzoom)

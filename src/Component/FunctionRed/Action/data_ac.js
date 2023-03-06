@@ -18,7 +18,7 @@ import { api_url } from "../Config/index";
 import axios, * as others from "axios";
 // const axios = require("axios");
 
-import {ohlcdata} from "../Dummydata/dummydata"
+import {ohlcdata2} from "../Dummydata/dummydata"
 
 export function getData(fecthsource="mysql") {
   return (dispatch) => {
@@ -54,7 +54,7 @@ export function getData(fecthsource="mysql") {
     else{
       dispatch({
         type: GET_USER_SUCCESS,
-        payload: { data: ohlcdata() },
+        payload: { data: ohlcdata2() },
       });
     }
   };

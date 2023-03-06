@@ -16,6 +16,8 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   //     d.time = new Date(d.time * 1000);
   //   });
   // console.log(data);
+
+ 
     
   const xMin = useMemo(
     () => d3.min(data, function (d) {
@@ -32,11 +34,45 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
 
   // console.log(xMin,xMax);
 
+  // const xScale = useMemo(
+  //   () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
+  //   [xMin, xMax, width,currentGlobalZoomState]
+  // );
+
+  // Use this to draw x axis
   const xScale = useMemo(
-    () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
+    () => d3.scaleTime().domain(d3.extent(data, function(d) { return d.time; })).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
     [xMin, xMax, width,currentGlobalZoomState]
   );
+
+  const xScaleband = useMemo(
+    () => d3.scaleBand().domain(d3.extent(data, function(d) { return d.time; })).range([margin.padding_left, width+margin.padding_left]),
+    [xMin, xMax, width,currentGlobalZoomState]
+     );
+       
+
+
+  // const parseDate = d3.timeParse("%s");
+  // console.log('data',data);
+  // var valuesForXAxis = data.map(function (d){return parseDate(d.unixtime)}); 
+
+
+  // Add an ordinal scale
+// var xScale = d3.scaleBand()
+// .domain(d3.map(data, function(d) { return d.time; }))
+// .rangeRound([margin.padding_left, width+margin.padding_left]);
+
+//   // var valuesForXAxis = data.map(function (d){return d.time}); 
   
+// console.log('valuesForXAxis',valuesForXAxis);
+
+//  var xScale11 = useMemo(
+//  ()=>d3.scaleBand()
+//  .domain(d3.map(data, function(d) { return d.time; }))
+//  .rangeRound([margin.padding_left, width+margin.padding_left])
+//  [xMin, xMax, width,currentGlobalZoomState]
+//   );
+    
   
   //https://stackoverflow.com/questions/26128148/d3-barchart-first-bar-overlaps-axis-label
   //const xScale11 = useMemo(
@@ -87,7 +123,8 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
     xScale,
     xScaleunix,
     yScale,
-    yScaleForAxis
+    yScaleForAxis,
+    xScaleband
   };
 };
  
