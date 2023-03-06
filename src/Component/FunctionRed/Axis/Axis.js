@@ -22,7 +22,7 @@ const Axis = (props) => {
                     return i
                 }
               )
-            .ticks(20)
+            // .ticks(20)
             // .tickFormat((date)=>multiFormat(date))
             //var xAxisGrid = d3.axisBottom(props.scale).tickSize(-200).tickFormat('').ticks(10);
            // .innerTickSize(-200)
@@ -31,10 +31,10 @@ const Axis = (props) => {
             var axis =d3.select(ref.current).call(AxisGenerator).attr("clip-path", "url(#clipping)")
         }
 
-        if (props.orient=='top'){
-            var AxisGenerator = d3.axisTop(props.scale) 
-            var axis =d3.select(ref.current).call(AxisGenerator).attr("clip-path", "url(#clipping)")
-        }
+        // if (props.orient=='top'){
+        //     var AxisGenerator = d3.axisTop(props.scale) 
+        //     var axis =d3.select(ref.current).call(AxisGenerator).attr("clip-path", "url(#clipping)")
+        // }
 
         if (props.orient=='left'){
             var AxisGenerator = d3.axisLeft(props.scale)
@@ -48,7 +48,7 @@ const Axis = (props) => {
            
         
         
-       // axis.append("g").call(xAxisGrid)
+    
       }
 
 
