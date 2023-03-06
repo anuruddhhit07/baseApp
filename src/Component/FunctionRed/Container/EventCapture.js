@@ -10,6 +10,8 @@ const EventCapture = (props) => {
     // currentXZoomState,
     // currentYZoomState,
    // handleGlobalZoomState,
+   scalebandrange,
+   handlescalband,
     isToggledzoom,
   } = props;
 
@@ -40,14 +42,19 @@ const EventCapture = (props) => {
     // console.log(currentXZoomState, currentYZoomState);
   }
 
-
+// console.log('scalebandrangedfhgfjhj',scalebandrange);
   useEffect(() => {
     zoomsvg();
-  }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState,isToggledzoom]);
+  }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState,isToggledzoom,scalebandrange]);
+
+  const extent = [
+    [margin.left, margin.top],
+    [width - margin.right, height - margin.top]
+  ];
 
   const zoomGlobal = d3.zoom().scaleExtent([0.5, 5])
-  .translateExtent([[-150, 0], [width + 350, height]])
-   //.extent([[-250, 0], [width + 250, height + 10]])
+  .translateExtent(extent)
+  .extent(extent)
   .filter(() => isToggledzoom)
   .on("zoom", zoomed2);
 
@@ -83,20 +90,24 @@ const EventCapture = (props) => {
     const point = center(event, targetsvgnode);
     const isZoomingX = point[1] > heightchart - margin.top - margin.bottom;
     const isZoomingY = point[0] < margin.left;
+
+    console.log("ind",isZoomingX,isZoomingY);
     if (isZoomingX == false && isZoomingY == false) {
       // console.log("both false");
       handleGlobalZoomState(
         "xz_zoom",
         currentXZoomState
           .translate((newX - prevX) / prevK, 0)
-          .scale(newK / prevK)
+          //.scale(newK / prevK)
       );
       handleGlobalZoomState(
         "yz_zoom",
         currentYZoomState
           .translate(0, (newY - prevY) / prevK)
-          .scale(newK / prevK)
+           .scale(newK / prevK)
       );
+
+      handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left].map(d => event.transform.applyX(d)))
     }
 
     if (isZoomingX) {
@@ -106,30 +117,22 @@ const EventCapture = (props) => {
           .translate((newX - prevX) / prevK, 0)
           .scale(newK / prevK)
       );
+      handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left].map(d => event.transform.applyX(d)))
     }
     if (isZoomingY) {
       handleGlobalZoomState(
         "yz_zoom",
         currentYZoomState
           .translate(0, (newY - prevY) / prevK)
-          .scale(newK / prevK)
+           .scale(newK / prevK)
       );
     }
+    // var aa=[margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left].map(d => event.transform.applyX(d))
+    // console.log("amjhk,mjh,a",aa);
+    
     handleGlobalZoomState("globalzoom", event.transform);
   };
 
-//   function brushed() {
-//     if (d3.event || d3.event.selection)
-//     var s = d3.event.selection || xContext.range();
-
-//     xFocus.domain(s.map(xContext.invert, xContext));
-//     focusVis.select(".line-rain").attr("d", rainLine);
-//     focusVis.select(".line-temp").attr("d", tempLine);
-//     focusVis.select(".x axis").call(xAxisFocus);
-//     focusVis.select(".zoom").call(zoom.transform, d3.zoomIdentity
-//         .scale(visWidth / (s[1] - s[0]))
-//         .translate(-s[0], 0));
-// }
 
 
   const reset = () => {
@@ -138,10 +141,13 @@ const EventCapture = (props) => {
     handleGlobalZoomState("globalzoom", d3.zoomIdentity);
     handleGlobalZoomState("xz_zoom", d3.zoomIdentity);
     handleGlobalZoomState("yz_zoom", d3.zoomIdentity);
+    handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left])
+
   };
   const panLeft = () => {
     const svgel = d3.select(refevent.current);
     svgel.transition().call(zoomGlobal.translateBy, -150, 0);
+   
   };
 
   const panRight = () => {

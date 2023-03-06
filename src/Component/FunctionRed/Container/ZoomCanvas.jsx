@@ -30,13 +30,15 @@ const ZoomCanvas = ({
   data,
   isToggledzoom,
   xScale,
+  xScaleband,
   yScale,
   width,
   height,
   widthchart,
   heightchart,
   margin,
-  currentGlobalZoomState,
+  scalebandrange,
+  handlescalband,
   children,
 }) => {
   const ref = useRef(null);
@@ -50,6 +52,8 @@ const ZoomCanvas = ({
         data: data,
         xScale: xScale,
         yScale: yScale,
+        xScaleband:xScaleband,
+        scalebandrange:scalebandrange
       });
     }
     return child;
@@ -93,6 +97,8 @@ const ZoomCanvas = ({
 
             <EventCapture
               isToggledzoom={isToggledzoom}
+              scalebandrange={scalebandrange}
+              handlescalband={handlescalband}
             />
 
             <g id="ID_Chart">{childrenWithProps}</g>

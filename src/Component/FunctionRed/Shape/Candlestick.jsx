@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import * as d3 from 'd3';
 import {drawSVGCandleohlc} from "./Draw/drawSVGCandle"
 
-const CandlestickChart = ({ data,xScale,yScale }) => {
+const CandlestickChart = ({ data,xScale,yScale,xScaleband }) => {
   const ref = useRef(null);
   const { width, height, margin } = useSelector(
     (state) => state.dimensionReducer
   );
-   const barwidth=5
+   const barwidth=xScaleband.bandwidth()
+  //  console.log(xScaleband.bandwidth());
    const formatTime = d3.timeFormat("%d/%m/%Y %H:%M:%S");
 
   useEffect(() => {
@@ -37,17 +38,19 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
         const svg = d3.select(ref.current)
         svg.selectAll("*").remove()
       
-      svg
-        .selectAll('line')
-        .data(data)
-        .enter()
-        .append('line')
-        .attr("clip-path","url(#clipping)")
-        .attr('class', 'line')
-        .attr('x1', (d) => xScale(d.time))
-        .attr('y1', (d) => yScale(d.high))
-        .attr('x2', (d) => xScale(d.time))
-        .attr('y2', (d) => yScale(d.low))
+      // svg
+      //   .selectAll('line')
+      //   .data(data)
+      //   .enter()
+      //   .append('line')
+      //   .attr("clip-path","url(#clipping)")
+      //   .attr('class', 'line')
+      //   .attr('x1', (d) => xScale(d.time))
+      //   // .attr('x1', (d) => xScaleband(d.time))
+      //   .attr('y1', (d) => yScale(d.high))
+      //   // .attr('x2', (d) => xScaleband(d.time))
+      //   .attr('x2', (d) => xScale(d.time))
+      //   .attr('y2', (d) => yScale(d.low))
         
        
     svg
@@ -56,7 +59,8 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
       .enter()
       .append('rect')
       .attr("clip-path", "url(#clipping)")
-      .attr('x', (d) => xScale(d.time)-barwidth/2)
+      // .attr('x', (d) => xScale(d.time)-barwidth/2)
+      .attr('x', (d) => xScaleband(d.time))
       .attr('y', (d) => yScale(Math.max(d.open, d.close)))
       .attr('width', barwidth)
       .attr('height', (d) => {
@@ -76,7 +80,7 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
   }, [data,xScale,yScale]);
   
   const mouseover=(event,d)=>{
-    console.log("gdhdhddj",d.time)
+    // console.log("gdhdhddj",d.time)
     const tooltipref=d3.select("#tooltipid")
     .style("opacity",1)
     tooltipref.text(

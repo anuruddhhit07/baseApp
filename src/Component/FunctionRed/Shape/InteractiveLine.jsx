@@ -220,7 +220,7 @@ function InteractiveLine({ data, xScale, yScale }) {
   // console.log("linedata22", linedata,)
   // //    temp_lincoor
   //    );
-  console.log("rendorcfbgfnb");
+  // console.log("rendorcfbgfnb");
   return (
     <> 
   

@@ -16,7 +16,7 @@ function Drawline({ data, xScale, yScale }) {
   const currentid = () => linedata.length && linedata[0].x1 !== null;
 
     useEffect(() => {
-      console.log(currentid());
+      // console.log(currentid());
       if (ref.current && currentid()) {
         const svgl = d3.select(ref.current);
         svgl.selectAll("*").remove();

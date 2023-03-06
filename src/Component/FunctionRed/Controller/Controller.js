@@ -46,7 +46,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   );
 
   const xScaleband = useMemo(
-    () => d3.scaleBand().domain(d3.extent(data, function(d) { return d.time; })).range([margin.padding_left, width+margin.padding_left]),
+    () => d3.scaleBand().domain(data.map(d => d.time)).range([margin.padding_left, width+margin.padding_left]).padding(.5),
     [xMin, xMax, width,currentGlobalZoomState]
      );
        

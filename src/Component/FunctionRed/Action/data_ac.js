@@ -111,9 +111,9 @@ export function setchartprop(props){
 
 
 export function setzoomstate(props){
-  console.log(props);
+  // console.log(props);
   const {currentGlobalZoomState}=props
-  console.log('hello',props,currentGlobalZoomState);
+  // console.log('hello',props,currentGlobalZoomState);
   return (dispatch) => {
     dispatch({
       type: SET_ZOOMSTATE,
@@ -127,7 +127,7 @@ export function setzoomstate(props){
 export function setzoomstatexz(props){
   console.log(props);
   const {currentXZoomState}=props
-  console.log('hello',props,currentXZoomState);
+  // console.log('hello',props,currentXZoomState);
   return (dispatch) => {
     dispatch({
       type: SET_ZOOMXZSTATE,
@@ -142,7 +142,7 @@ export function setzoomstatexz(props){
 export function setzoomstateyz(props){
   console.log(props);
   const {currentYZoomState}=props
-  console.log('hello',props,currentYZoomState);
+  // console.log('hello',props,currentYZoomState);
   return (dispatch) => {
     dispatch({
       type: SET_ZOOMYZSTATE,

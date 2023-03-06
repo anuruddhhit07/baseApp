@@ -14,7 +14,7 @@ const RendorXY= (props) => {
 
   const xSettings = {
     translate: `translate(${0}, ${height-margin.bottom-margin.top})`,
-    scale: props.xScale,
+    scale: props.xScaleband,
     orient: "bottom",
     class:"x-axis"
   };

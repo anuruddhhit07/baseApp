@@ -14,7 +14,7 @@ import {
   const left=30
   const right=30
   const padding_left=30
-  const padding_right=10
+  const padding_right=30
 
 
   const initialState = {

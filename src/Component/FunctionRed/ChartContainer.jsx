@@ -1,6 +1,6 @@
 // https://codepen.io/coquin/pen/BNpQoO//
 
-import React, { useState, useEffect, useRef,useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { getData, setDim,setchartprop } from "./Action/data_ac";
 import {
@@ -50,53 +50,63 @@ const ChartContainer = () => {
   const [isToggled, toggle] = useState(false);
   const [isToggledzoom, settogglezoom] = useState(false);
   const [start, setstart] = useState(false);
+const [scalebandrange,setscalebandrange]=useState(null)
 
- 
- 
-    const { xScale, yScale,xScaleband } = useController({
-      data,
-      width,
-      height,
-      margin,
-      currentGlobalZoomState,
-    });
-  
+  const { xScale, yScale, xScaleband } = useController({
+    data,
+    width,
+    height,
+    margin,
+    currentGlobalZoomState,
+  });
 
-   
-         
+  // console.log("currentXZoomState", currentXZoomState);
 
+  // useEffect(() => {
+  //   console.log("object");
+  //   const newXScale = currentXZoomState.rescaleX(xScale);
+  //   xScale.domain(newXScale.domain());
+  // }, [currentXZoomState]);
 
+  // useEffect(() => {
+  //   console.log("object22");
+  //   const newYScale = currentYZoomState.rescaleY(yScale);
+  //   yScale.domain(newYScale.domain());
+  // }, [currentYZoomState]);
 
-// 
-  if (currentXZoomState) {
+  //
+
+  if (currentXZoomState && scalebandrange) {
+    // console.log("xScale", xScale);
     const newXScale = currentXZoomState.rescaleX(xScale);
     xScale.domain(newXScale.domain());
 
+    // console.log("xScaleband",xScaleband.range(),currentXZoomState);
     // const newXScaleBand = currentXZoomState.rescaleX(xScaleband);
     // xScaleband.domain(newXScaleBand.domain());
-
-
+    xScaleband.range(scalebandrange)
   }
 
-  if (currentYZoomState) {
+  if (currentYZoomState && scalebandrange ) {
     const newYScale = currentYZoomState.rescaleY(yScale);
     yScale.domain(newYScale.domain());
+
+    // xScaleband.range(scalebandrange)
   }
 
   useEffect(() => {
-    setstart(true)
-   
-   
-   
+    setstart(true);
+    setscalebandrange(xScaleband.range())
   }, [data]);
 
-
-  if (start){
-    console.log(data[1].time);
-    console.log(xScaleband.bandwidth());
-    console.log(xScaleband(data[0].time));
-   
+  if (start) {
+    // console.log(data[1].time);
+    // console.log(xScaleband.bandwidth());
+    // console.log(xScaleband(data[2].time));
+    
   }
+
+ 
 
   useEffect(() => {
     //from local or fetch
@@ -131,7 +141,7 @@ const ChartContainer = () => {
   if (data.length == 0) {
     return null;
   }
-
+console.log(scalebandrange);
   return (
     <>
       <div className="toppanelbox">
@@ -216,12 +226,15 @@ const ChartContainer = () => {
         isToggledzoom={isToggledzoom}
         xScale={xScale}
         yScale={yScale}
+        xScaleband={xScaleband}
         width={width}
         height={height}
         widthchart={widthchart}
         heightchart={heightchart}
         margin={margin}
         currentGlobalZoomState={currentGlobalZoomState}
+        scalebandrange={scalebandrange}
+        handlescalband={setscalebandrange}
       >
         {/* <Circle key={"cir"} /> */}
 
