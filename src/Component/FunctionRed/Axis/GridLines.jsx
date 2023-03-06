@@ -1,7 +1,7 @@
 
 import React ,{ useRef,useEffect }from "react";
 import * as d3 from "d3";
-
+import "./styles.scss"
 
 
 const GridLines = (props) => {
@@ -17,24 +17,24 @@ const GridLines = (props) => {
        
         if (props.orient=='bottom'){
       //      var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
-            var Axisgrid = d3.axisBottom(props.scale).tickSize(-length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisBottom(props.scale).tickSize(-props.length).tickFormat('').ticks(10);
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())
         }
 
         if (props.orient=='top'){
            // var AxisGenerator = d3.axisTop(props.scale) 
-            var Axisgrid = d3.axisTop(props.scale).tickSize(length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisTop(props.scale).tickSize(props.length).tickFormat('').ticks(10);
         }
 
         if (props.orient=='left'){
            // var AxisGenerator = d3.axisLeft(props.scale)
-            var Axisgrid = d3.axisLeft(props.scale).tickSize(length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisLeft(props.scale).tickSize(-props.length).tickFormat('').ticks(10);
         }
 
         if (props.orient=='right'){
            // var AxisGenerator = d3.axisRight(props.scale) 
-            var Axisgrid = d3.axisRight(props.scale).tickSize(-length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisRight(props.scale).tickSize(props.length).tickFormat('').ticks(10);
         }
            
         

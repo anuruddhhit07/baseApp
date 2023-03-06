@@ -115,6 +115,7 @@ const CandlestickChart = ({ data,xScale,yScale }) => {
     .style("opacity",1)
     tooltipref.text(`
     Date: ${formatTime(d.time)}
+    {&ensp}
     O: ${d.open}
     H: ${d.high} 
     L:${d.low}
