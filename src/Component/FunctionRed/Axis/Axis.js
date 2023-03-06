@@ -16,12 +16,14 @@ const Axis = (props) => {
        
         if (props.orient=='bottom'){
             var AxisGenerator = d3.axisBottom(props.scale)
-            .tickFormat(
-                (d,i) => {
-                    console.log(d,i);
-                    return i
-                }
-              )
+            //.tickFormat(
+              //  (d,i) => {
+             //       console.log(d,i);
+               //     return i
+              //  }
+            //  )
+              .tickFormat(d3.timeFormat("%Y-%m-%d"))
+              .tickValues(props.scale.domain().filter(function(d,i){ return !(i%5)}));
             // .ticks(20)
             // .tickFormat((date)=>multiFormat(date))
             //var xAxisGrid = d3.axisBottom(props.scale).tickSize(-200).tickFormat('').ticks(10);

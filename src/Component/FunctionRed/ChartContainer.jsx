@@ -103,8 +103,8 @@ const [scalebandrange,setscalebandrange]=useState(null)
 
   useEffect(() => {
     setstart(true);
-    setscalebandrange(xScaleband.range())
-  }, [data]);
+  //  setscalebandrange(xScaleband.range())
+  }, [data,width,margin]);
 
   if (start) {
     // console.log(data[1].time);
@@ -229,6 +229,7 @@ console.log(scalebandrange);
         {" "}
         T
       </div>
+      <div> {widthchart}  {width} </div>
 
       <ZoomCanvas
         data={data}

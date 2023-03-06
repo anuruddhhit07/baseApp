@@ -11,8 +11,8 @@ import {
   const heightmain=480
   const top=10
   const bottom=40
-  const left=30
-  const right=30
+  const left=50
+  const right=50
   const padding_left=30
   const padding_right=30
 
@@ -42,7 +42,7 @@ import {
         ...state,
         width: state.width + action.payload?.width_inc,
         height: state.height + action.payload?.height_inc,
-        widthchart:state.width + action.payload?.width_inc-state.margin.left-state.margin.right,
+        widthchart:state.width + action.payload?.width_inc-state.margin.left-state.margin.right-state.margin.padding_left-state.margin.padding_right,
         heightchart:state.height + action.payload?.height_inc-state.margin.bottom-state.margin.top
       };
     
