@@ -12,13 +12,16 @@ const EventCapture = (props) => {
    // handleGlobalZoomState,
    scalebandrange,
    handlescalband,
-    isToggledzoom,
   } = props;
 
   const refevent = useRef(null);
   const dispatch= useDispatch()
   const { width,height,margin, widthchart, heightchart } = useSelector(
     (state) => state.dimensionReducer
+  );
+
+  const isToggledzoom = useSelector(
+    (state) => state.chartpropReducer?.isToggledzoom
   );
 
   const currentGlobalZoomState = useSelector((state) => state.chartpropReducer?.currentGlobalZoomState);
@@ -52,7 +55,7 @@ const EventCapture = (props) => {
     [width - margin.right, height - margin.top]
   ];
 
-  const zoomGlobal = d3.zoom().scaleExtent([0.5, 5])
+  const zoomGlobal = d3.zoom().scaleExtent([0.5, 55])
   .translateExtent(extent)
   .extent(extent)
   .filter(() => isToggledzoom)

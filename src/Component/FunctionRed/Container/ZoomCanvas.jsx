@@ -28,7 +28,6 @@ import {
 
 const ZoomCanvas = ({
   data,
-  isToggledzoom,
   xScale,
   xScaleband,
   yScale,
@@ -96,7 +95,6 @@ const ZoomCanvas = ({
             </clipPath>
 
             <EventCapture
-              isToggledzoom={isToggledzoom}
               scalebandrange={scalebandrange}
               handlescalband={handlescalband}
             />

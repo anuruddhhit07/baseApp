@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as d3 from "d3";
-import { setLineCoor, deletelinebyID } from "../Action/data_ac";
+import { setLineCoor, deletelinebyID,setzoomtoggel } from "../Action/data_ac";
 import "./styles.scss";
 import { computeHeadingLevel } from "@testing-library/react";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
@@ -17,16 +17,29 @@ function InteractiveLine({ data, xScale, yScale }) {
   const linedata = useSelector((state) => state.lineReducer);
   const [line_state, settoggelhzline] = useState(false);
   const [deleteline_toggel, settdeleteline_toggel] = useState(false);
-  const [crosshairtoggle, setcrosshairtoggle] = useState(true);
+
+  const isToggledzoom = useSelector(
+    (state) => state.chartpropReducer?.isToggledzoom
+  );
+  const [crosshairtoggle, setcrosshairtoggle] = useState(!isToggledzoom);
 
   const drawlinetype = useSelector(
     (state) => state.chartpropReducer?.drawlinetype
   );
 
+
+
+
   const tempx1 = useRef(null);
   const tempy1 = useRef(null);
   const tempx2 = useRef(null);
   const tempy2 = useRef(null);
+
+
+
+  useEffect(() => {
+    setcrosshairtoggle(!isToggledzoom)
+  },[isToggledzoom])
 
   useEffect(() => {
     if (ref.current && data.length > 0) {
@@ -197,6 +210,7 @@ function InteractiveLine({ data, xScale, yScale }) {
     if (crosshairtoggle == false) {
       settoggelhzline(false);
       settdeleteline_toggel(false);
+      // dispatch(setzoomtoggel());
     }
     // else{
     //   d3.selectAll("#crosshair").style('display', 'none')

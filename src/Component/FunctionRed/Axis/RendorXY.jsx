@@ -34,7 +34,7 @@ const RendorXY= (props) => {
     
      const GridxSettings = {
     translate: `translate(${0}, ${height-margin.bottom-margin.top})`,
-    scale: props.xScale,
+    scale: props.xScaleband,
     orient: "bottom",
     class:"axis-grid",
     length:height
@@ -58,8 +58,8 @@ const RendorXY= (props) => {
       <Axis {...xSettings} />
       <Axis {...ySettings} />
         <Axis {...ySettings2} />
-<GridLines {...GridxSettings}/>
-<GridLines {...GridySettings}/>
+{/* <GridLines {...GridxSettings}/>
+<GridLines {...GridySettings}/> */}
     </g>
   );
 };

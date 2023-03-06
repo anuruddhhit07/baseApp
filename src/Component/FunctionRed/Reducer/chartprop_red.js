@@ -8,7 +8,8 @@ import {
   SET_CHARTPROP,
   SET_ZOOMSTATE,
   SET_ZOOMXZSTATE,
-  SET_ZOOMYZSTATE
+  SET_ZOOMYZSTATE,
+  SET_ZOOMTOGGLE
 } from "../ActionTypes/data_acty";
 
 
@@ -16,6 +17,7 @@ import {
 const initialState = {
   loading: false,
   drawlinetype: "HZ_LINE",
+  isToggledzoom:false,
   currentGlobalZoomState:d3.zoomIdentity,
   currentXZoomState:d3.zoomIdentity,
   currentYZoomState:d3.zoomIdentity,
@@ -32,21 +34,29 @@ export function chartpropReducer(state = initialState, action) {
       ...state,
     };
     case SET_CHARTPROP:
-      console.log('resss',action);
+      // console.log('resss',action);
     return {
       ...state,
       drawlinetype: action.payload?.drawlinetype,
     };
 
+
+    case SET_ZOOMTOGGLE:
+      // console.log('resss',state);
+    return {
+      ...state,
+      isToggledzoom: !state.isToggledzoom,
+    };
+
     case SET_ZOOMSTATE:
-      console.log('resss',action);
+      // console.log('resss',action);
     return {
       ...state,
       currentGlobalZoomState: action.payload?.currentGlobalZoomState,
     };
 
     case SET_ZOOMXZSTATE:
-      console.log('resss',action);
+      // console.log('resss',action);
     return {
       ...state,
       currentXZoomState: action.payload?.currentXZoomState,
@@ -54,7 +64,7 @@ export function chartpropReducer(state = initialState, action) {
 
 
     case SET_ZOOMYZSTATE:
-      console.log('resss',action);
+      // console.log('resss',action);
     return {
       ...state,
       currentYZoomState: action.payload?.currentYZoomState,

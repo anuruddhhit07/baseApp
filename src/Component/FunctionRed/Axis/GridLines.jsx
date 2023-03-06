@@ -17,14 +17,18 @@ const GridLines = (props) => {
        
         if (props.orient=='bottom'){
       //      var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
-            var Axisgrid = d3.axisBottom(props.scale).tickSize(-props.length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisBottom(props.scale).tickSize(-props.length)
+            .tickFormat('')
+            .ticks(10);
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())
         }
 
         if (props.orient=='top'){
            // var AxisGenerator = d3.axisTop(props.scale) 
-            var Axisgrid = d3.axisTop(props.scale).tickSize(props.length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisTop(props.scale).tickSize(props.length)
+            .tickFormat('')
+            .ticks(10);
         }
 
         if (props.orient=='left'){

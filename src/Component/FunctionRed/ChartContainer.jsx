@@ -10,6 +10,7 @@ import {
   setzoomstate,
   setzoomstateyz,
   setzoomstatexz,
+  setzoomtoggel
 } from "./Action/data_ac";
 import useController from "./Controller/Controller";
 import ZoomCanvas from "./Container/ZoomCanvas";
@@ -46,9 +47,15 @@ const ChartContainer = () => {
     (state) => state.chartpropReducer?.currentYZoomState
   );
 
+  const isToggledzoom = useSelector(
+    (state) => state.chartpropReducer?.isToggledzoom
+  );
+
+
+
   const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
-  const [isToggledzoom, settogglezoom] = useState(false);
+  // const [isToggledzoom, settogglezoom] = useState(false);
   const [start, setstart] = useState(false);
 const [scalebandrange,setscalebandrange]=useState(null)
 
@@ -127,7 +134,9 @@ const [scalebandrange,setscalebandrange]=useState(null)
   };
 
   const togglezoom = () => {
-    settogglezoom(!isToggledzoom);
+    // settogglezoom(!isToggledzoom);
+    dispatch(setzoomtoggel());
+    
   };
 
   const togglelinetype = () => {
@@ -223,7 +232,6 @@ console.log(scalebandrange);
 
       <ZoomCanvas
         data={data}
-        isToggledzoom={isToggledzoom}
         xScale={xScale}
         yScale={yScale}
         xScaleband={xScaleband}

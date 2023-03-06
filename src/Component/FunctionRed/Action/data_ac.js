@@ -12,6 +12,7 @@ import {
   SET_ZOOMSTATE,
   SET_ZOOMXZSTATE,
   SET_ZOOMYZSTATE,
+  SET_ZOOMTOGGLE
 } from "../ActionTypes/data_acty";
 
 import { api_url } from "../Config/index";
@@ -147,6 +148,21 @@ export function setzoomstateyz(props){
     dispatch({
       type: SET_ZOOMYZSTATE,
       payload: {currentYZoomState:currentYZoomState},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function setzoomtoggel(props){
+  // console.log(props);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_ZOOMTOGGLE,
+      // payload: {zoomtoggle:currentYZoomState},
     });
 
     // dispatch({ type: RESET_LINEID });
