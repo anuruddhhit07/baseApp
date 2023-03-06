@@ -4,6 +4,7 @@ import * as d3 from "d3";
 import { useSelector, useDispatch } from "react-redux";
 import Axis from "./Axis";
 import GridLines from "./GridLines"
+import "./styles.scss"
 const RendorXY= (props) => {
     
 
@@ -35,7 +36,7 @@ const RendorXY= (props) => {
     translate: `translate(${0}, ${height-margin.bottom-margin.top})`,
     scale: props.xScale,
     orient: "bottom",
-    class:"x-axisgid",
+    class:"axis-grid",
     length:height
   };
     
@@ -43,8 +44,8 @@ const RendorXY= (props) => {
     translate: `translate(${0}, 0)`,
     scale: props.yScale,
     orient: "left",
-    class:"y-axisgrid",
-        length:width
+    class:"axis-grid",
+    length:width-margin.left-margin.right
   };
     
   
