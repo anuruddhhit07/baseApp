@@ -54,7 +54,7 @@ const ChartContainer = () => {
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const [fecthsource, setfecthsource] = useState("mysql");
+  const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
   const [start, setstart] = useState(false);
 

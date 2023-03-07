@@ -17,7 +17,7 @@ import {
   };
 
   const initialStatedataLimit = {
-    count: 50,
+    count: 150,
     error: "",
   };
 
