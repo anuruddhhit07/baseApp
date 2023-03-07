@@ -5,7 +5,7 @@ import { setLineCoor, deletelinebyID } from "../Action/data_ac";
 import "./styles.scss";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
 // export const InteractiveLine = () => {
-function Drawline({ data, xScale, yScale }) {
+function Drawline({ data, xScale, yScale,xScaleband }) {
   const ref = useRef(null);
 
   const { margin, widthchart, heightchart } = useSelector(
@@ -28,12 +28,12 @@ function Drawline({ data, xScale, yScale }) {
           .attr("class", "I_line")
           .attr("ID", (d) => d.ID)
           .attr("clip-path", "url(#clipping)")
-          .attr("x1", (d) => xScale(d.x1))
+          .attr("x1", (d) => xScaleband(d.x1))
           .attr("y1", (d) => yScale(d.y1))
-          .attr("x2", (d) => xScale(d.x2))
+          .attr("x2", (d) => xScaleband(d.x2))
           .attr("y2", (d) => yScale(d.y2));
       }
-    }, [xScale, linedata, yScale]);
+    }, [xScale,xScaleband, linedata, yScale]);
 
 
 

@@ -6,7 +6,7 @@ import "./styles.scss";
 import { computeHeadingLevel } from "@testing-library/react";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
 // export const InteractiveLine = () => {
-function InteractiveLine({ data, xScale, yScale }) {
+function InteractiveLine({ data, xScale, yScale,xScaleband }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   // console.log("object", data);
@@ -88,7 +88,7 @@ function InteractiveLine({ data, xScale, yScale }) {
           // d3.selectAll("#ID_crosshair").style("display", "none");
         });
     }
-  }, [data, xScale, yScale, line_state, deleteline_toggel, crosshairtoggle]);
+  }, [data, xScale,xScaleband, yScale, line_state, deleteline_toggel, crosshairtoggle]);
 
   function mousedown(event, isMouseUp) {
     // console.log(event);
@@ -112,7 +112,7 @@ function InteractiveLine({ data, xScale, yScale }) {
 
     // console.log(focus)
 
-    var x = xScale(corr[0]);
+    var x = xScaleband(corr[0]);
     var y = yScale(corr[1]);
 
     d3.select("#focusLineY")
@@ -165,9 +165,9 @@ function InteractiveLine({ data, xScale, yScale }) {
       dispatch(
         setLineCoor(
           "Hline",
-          xScale.invert(0),
+          xScaleband.invert(0),
           yScale.invert(tempy1.current),
-          xScale.invert(widthchart),
+          xScaleband.invert(widthchart),
           yScale.invert(tempy1.current)
         )
       );
@@ -175,9 +175,9 @@ function InteractiveLine({ data, xScale, yScale }) {
       dispatch(
         setLineCoor(
           "Hline",
-          xScale.invert(tempx1.current),
+          xScaleband.invert(tempx1.current),
           yScale.invert(tempy1.current),
-          xScale.invert(tempx2.current),
+          xScaleband.invert(tempx2.current),
           yScale.invert(tempy2.current)
         )
       );
