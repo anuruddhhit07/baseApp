@@ -77,7 +77,7 @@ const CandlestickChart = ({ data,xScale,yScale,xScaleband }) => {
     }
       
       
-  }, [data,xScale,yScale]);
+  }, [data,xScale,yScale,xScaleband]);
   
   const mouseover=(event,d)=>{
     // console.log("gdhdhddj",d.time)

@@ -65,6 +65,7 @@ const [scalebandrange,setscalebandrange]=useState(null)
     height,
     margin,
     currentGlobalZoomState,
+    
   });
 
   // console.log("currentXZoomState", currentXZoomState);
@@ -86,7 +87,7 @@ const [scalebandrange,setscalebandrange]=useState(null)
   if (currentXZoomState && scalebandrange) {
     // console.log("xScale", xScale);
     const newXScale = currentXZoomState.rescaleX(xScale);
-    xScale.domain(newXScale.domain());
+    //xScale.domain(newXScale.domain());
 
     // console.log("xScaleband",xScaleband.range(),currentXZoomState);
     // const newXScaleBand = currentXZoomState.rescaleX(xScaleband);
@@ -96,9 +97,7 @@ const [scalebandrange,setscalebandrange]=useState(null)
 
   if (currentYZoomState && scalebandrange ) {
     const newYScale = currentYZoomState.rescaleY(yScale);
-    yScale.domain(newYScale.domain());
-
-    // xScaleband.range(scalebandrange)
+    //yScale.domain(newYScale.domain());
   }
 
   useEffect(() => {

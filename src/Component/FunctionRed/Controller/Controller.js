@@ -6,7 +6,9 @@ const store = configureStore();
 
 // console.log('status',store.getState().dimensionReducer.width);
  
-const useController = ({ data, width, height,margin,currentGlobalZoomState }) => {
+const useController = ({ data, width, height,margin,
+currentGlobalZoomState 
+}) => {
 // console.log('controller data',data,);
   var width = width - margin.left - margin.right-margin.padding_left-margin.padding_right
   var height = height - margin.top - margin.bottom
@@ -42,12 +44,12 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
   // Use this to draw x axis
   const xScale = useMemo(
     () => d3.scaleTime().domain(d3.extent(data, function(d) { return d.time; })).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
-    [xMin, xMax, width,currentGlobalZoomState]
+    [xMin, xMax, width]
   );
 
   const xScaleband = useMemo(
     () => d3.scaleBand().domain(data.map(d => d.time)).range([margin.padding_left, width+margin.padding_left]).padding(.5),
-    [xMin, xMax, width,currentGlobalZoomState,width,height,margin]
+    [xMin, xMax,width,height,margin,currentGlobalZoomState]
      );
        
 
@@ -86,7 +88,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
 
   const xScaleunix = useMemo(
     () => d3.scaleLinear().domain([xMin, xMax]).range([0, width]),
-    [xMin, xMax, width,currentGlobalZoomState]
+    [xMin, xMax, width]
   );
 
   // console.log(xScaleunix(xMin),xScaleunix(xMax));
@@ -113,7 +115,7 @@ const useController = ({ data, width, height,margin,currentGlobalZoomState }) =>
 // console.log("hii",[yMin,yMax])
   const yScale = useMemo(
     () => d3.scaleLinear().domain([yMin, yMax]).range([height, 0]).nice(),
-    [height, yMin, yMax,currentGlobalZoomState]
+    [height, yMin, yMax]
   );
   const yTickFormat = (d) =>
     `${parseFloat(d) > 0 ? "+" : ""}${d3.format(".2%")(d / 100)}`;
