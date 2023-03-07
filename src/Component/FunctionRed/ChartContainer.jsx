@@ -11,6 +11,9 @@ import {
   setzoomstateyz,
   setzoomstatexz,
   setzoomtoggel,
+  setdatalimitincrese,
+  setdatalimitdecrese,
+
 } from "./Action/data_ac";
 import useController from "./Controller/Controller";
 import ZoomCanvas from "./Container/ZoomCanvas";
@@ -28,8 +31,17 @@ import {scaleBandInvert} from "./helper/utilityfn"
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
   const dispatch = useDispatch();
+  const runonce=useRef(0)
   //const tooltipref=useRef();
+
   const data = useSelector((state) => state.dataReducer?.data);
+  const counter = useSelector((state) => state.dataLimitReducer.count);
+
+  console.log("counter",data);
+
+  console.log("counter",counter);
+
+
   const drawlinetype = useSelector(
     (state) => state.chartpropReducer?.drawlinetype
   );
@@ -42,7 +54,7 @@ const ChartContainer = () => {
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const [fecthsource, setfecthsource] = useState("local");
+  const [fecthsource, setfecthsource] = useState("mysql");
   const [isToggled, toggle] = useState(false);
   const [start, setstart] = useState(false);
 
@@ -53,22 +65,34 @@ const ChartContainer = () => {
     width,
     height,
     margin,
+    scalebandrange
   });
 
+  useEffect(()=>{
+    console.log("Run once")
+    setstart(true)
+    dispatch(getData(fecthsource,counter))
+  },[runonce])
  
   useEffect(() => {
-    setstart(true);
+    // console.log("gfdgdgfh",scalebandrange);
+    // // setstart(true);
     if (scalebandrange) {
       // console.log("New range",scalebandrange);
       xScaleband.range(scalebandrange);
+      xScale.range(scalebandrange);
+
       // yScale.range([400,-400])
     }
   }, [data, width, margin, scalebandrange]);
 
+
   useEffect(() => {
     //from local or fetch
-    dispatch(getData(fecthsource));
-  }, [fecthsource]);
+    dispatch(getData(fecthsource,counter));
+  }, [fecthsource,counter]);
+
+
 
   const setwidth = (wi_inc, hi_inc, opert) => {
     dispatch(setDim(wi_inc, hi_inc, opert));
@@ -76,10 +100,13 @@ const ChartContainer = () => {
 
   const toggledatasource = () => {
     toggle(!isToggled);
+    
     if (isToggled) {
       setfecthsource("mysql");
+      // setfecthsource("local");
     } else {
       setfecthsource("local");
+      // setfecthsource("mysql");
     }
   };
 
@@ -97,11 +124,13 @@ const ChartContainer = () => {
   };
 
   if (data.length == 0) {
+    console.log("return nulll");
     return null;
   }
-
+console.log('counter',counter);
   return (
     <>
+    {console.log(data)}
       <div className="toppanelbox">
         <button
           className="sqaure-button sqaure-button_charttype"
@@ -172,6 +201,22 @@ const ChartContainer = () => {
           {" "}
           CR{" "}
         </button>
+
+
+        <button
+          className="sqaure-button sqaure-button_charttype"
+          onClick={() =>dispatch(setdatalimitincrese(10)) }
+        >
+          I+
+        </button>
+
+        <button
+          className="sqaure-button sqaure-button_charttype"
+          onClick={() =>dispatch(setdatalimitdecrese(10)) }
+        >
+          D-
+        </button>
+
       </div>
 
       <div id="tooltipid" style={{ opacity: 0 }}>
@@ -179,8 +224,7 @@ const ChartContainer = () => {
         T
       </div>
       <div>
-        {" "}
-        {widthchart} {width}{" "}
+       {counter}
       </div>
 
       <ZoomCanvas

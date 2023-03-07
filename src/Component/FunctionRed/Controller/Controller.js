@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
-
+import {scaleBandInvert} from "../helper/utilityfn"
 import  configureStore from "../Store/store";
 const store = configureStore();
 
 // console.log('status',store.getState().dimensionReducer.width);
  
-const useController = ({ data, width, height,margin 
+const useController = ({ data, width, height,margin ,scalebandrange
 }) => {
 // console.log('controller data',data,);
   var width = width - margin.left - margin.right-margin.padding_left-margin.padding_right
@@ -33,7 +33,7 @@ const useController = ({ data, width, height,margin
     [data]
   );
 
-  // console.log(xMin,xMax);
+  // console.log("minmax",xMin,xMax);
 
   // const xScale = useMemo(
   //   () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
@@ -42,19 +42,21 @@ const useController = ({ data, width, height,margin
 
   //Use this to draw for calculatiion axis
   const xScale = useMemo(
-    () => d3.scaleBand().domain(data.map((_,index) => index)).rangeRound([margin.padding_left, width+margin.padding_left]).padding(.5),
+    () => d3.scaleBand().domain(data.map((_,index) => index)).rangeRound([margin.padding_left, width+margin.padding_left]),
+    // .padding(.05),
     [xMin, xMax, width,height,margin]
   );
 
  
 
   const xScaleband = useMemo(
-    () => d3.scaleBand().domain(data.map(d => d.time)).rangeRound([margin.padding_left, width+margin.padding_left]).padding(.5),
+    () => d3.scaleBand().domain(data.map(d => d.time)).rangeRound([margin.padding_left, width+margin.padding_left]),
+    // .padding(.05),
     [xMin, xMax,width,height,margin]
      );
        
 
-
+// console.log("range",[margin.padding_left, width+margin.padding_left]);
   // const parseDate = d3.timeParse("%s");
   // console.log('data',data);
   // var valuesForXAxis = data.map(function (d){return parseDate(d.unixtime)}); 
@@ -94,17 +96,34 @@ const useController = ({ data, width, height,margin
 
   // console.log(xScaleunix(xMin),xScaleunix(xMax));
 
+  // console.log(scalebandrange); 
+
+  // console.log([scaleBandInvert(xScale)(margin.padding_left),scaleBandInvert(xScale)(width+margin.padding_left)]); 
+  // console.log([scaleBandInvert(xScaleband)(margin.padding_left),scaleBandInvert(xScaleband)(width+margin.padding_left)]); 
+
+  const minindex=scaleBandInvert(xScale)(margin.padding_left)
+  const maxindex=scaleBandInvert(xScale)(width+margin.padding_left)
+
+
+   var newData =data;
+// var newData = [];
+// newData=data.slice(minindex, maxindex)
+
+// console.log(newData);
+
+
+
   const yMin = useMemo(
-    () => d3.min(data, function (d) {
+    () => d3.min(newData, function (d) {
       return Math.min(d.low);
     }),
-    [data]
+    [newData]
   );
   const yMax = useMemo(
-    () => d3.max(data, function (d) {
+    () => d3.max(newData, function (d) {
       return Math.max(d.high);
     }),
-    [data]
+    [newData]
   );
   const yScaleForAxis = useMemo(() => {
     const indention = (yMax - yMin) * 0.5;
@@ -115,7 +134,7 @@ const useController = ({ data, width, height,margin
 
 // console.log("hii",[yMin,yMax])
   const yScale = useMemo(
-    () => d3.scaleLinear().domain([yMin, yMax]).range([height, 0]).nice(),
+    () => d3.scaleLinear().domain([yMin-yMin*(0.5/100), yMax+yMax*(.5/100)]).range([height, 0]).nice(),
     [height, yMin, yMax]
   );
   const yTickFormat = (d) =>

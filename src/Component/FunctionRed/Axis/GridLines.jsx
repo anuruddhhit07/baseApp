@@ -4,41 +4,41 @@ import * as d3 from "d3";
 import "./styles.scss"
 
 
-const GridLines = (props) => {
+const GridLines = ({range,scale,data,orient,classd,translated,length}) => {
     const ref = useRef(null);
 
 
     useEffect(()=>{
         renderAxis()
-    },[props.scale])
+    },[range,scale,data,orient,classd,translated])
 
     const renderAxis=()=> {
 
        
-        if (props.orient=='bottom'){
+        if (orient=='bottom'){
       //      var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
-            var Axisgrid = d3.axisBottom(props.scale).tickSize(-props.length)
+            var Axisgrid = d3.axisBottom(scale).tickSize(-length)
             .tickFormat('')
-            .ticks(10);
+            
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())
         }
 
-        if (props.orient=='top'){
+        if (orient=='top'){
            // var AxisGenerator = d3.axisTop(props.scale) 
-            var Axisgrid = d3.axisTop(props.scale).tickSize(props.length)
+            var Axisgrid = d3.axisTop(scale).tickSize(length)
             .tickFormat('')
             .ticks(10);
         }
 
-        if (props.orient=='left'){
+        if (orient=='left'){
            // var AxisGenerator = d3.axisLeft(props.scale)
-            var Axisgrid = d3.axisLeft(props.scale).tickSize(-props.length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisLeft(scale).tickSize(-length).tickFormat('').ticks(10);
         }
 
-        if (props.orient=='right'){
+        if (orient=='right'){
            // var AxisGenerator = d3.axisRight(props.scale) 
-            var Axisgrid = d3.axisRight(props.scale).tickSize(props.length).tickFormat('').ticks(10);
+            var Axisgrid = d3.axisRight(scale).tickSize(length).tickFormat('').ticks(10);
         }
            
         
@@ -66,7 +66,7 @@ const GridLines = (props) => {
     //         : formatYear)(date);
     //   }
 
-    return <g className={props.class} ref={ref} transform={props.translate}></g>;
+    return <g className={classd} ref={ref} transform={translated}></g>;
 
 }
 

@@ -13,8 +13,8 @@ import {
   const bottom=40
   const left=50
   const right=50
-  const padding_left=30
-  const padding_right=30
+  const padding_left=20
+  const padding_right=20
 
 
   const initialState = {

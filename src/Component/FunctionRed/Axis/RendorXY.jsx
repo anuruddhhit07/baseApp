@@ -5,61 +5,64 @@ import { useSelector, useDispatch } from "react-redux";
 import Axis from "./Axis";
 import GridLines from "./GridLines"
 import "./styles.scss"
-const RendorXY= (props) => {
+const RendorXY= ({data,xScaleband,yScale}) => {
     
 
     const { width, height, margin,widthchart } = useSelector(
         (state) => state.dimensionReducer
       );
-      const newXAxisrange=props.xScaleband.range()
-      const newYAxisrange=props.yScale.range()
 
-      // console.log("sdgfdhgd",props.yScale.range());
+      const newXAxisrange=xScaleband.range()
+      const newYAxisrange=yScale.range()
+
+      console.log("sdgfdhgd",newXAxisrange,data);
 
   const xSettings = {
-    translate: `translate(${0}, ${height-margin.bottom-margin.top})`,
-    scale: props.xScaleband,
+    translated: `translate(${0}, ${height-margin.bottom-margin.top})`,
+    scale: xScaleband,
     orient: "bottom",
-    class:"x-axis",
+    classd:"x-axis",
     range:newXAxisrange
   };
   const ySettings = {
-    translate: `translate(${0}, 0)`,
-    scale: props.yScale,
+    translated: `translate(${0}, 0)`,
+    scale: yScale,
     orient: "left",
-    class:"y-axis",
+    classd:"y-axis",
     range:newYAxisrange
   };
   
   const ySettings2 = {
-    translate: `translate(${widthchart+margin.padding_right+margin.padding_left}, 0)`,
-    scale: props.yScale,
+    translated: `translate(${widthchart+margin.padding_right+margin.padding_left}, 0)`,
+    scale: yScale,
     orient: "right",
-    class:"y-axis",
+    classd:"y-axis",
     range:newYAxisrange
   };
     
      const GridxSettings = {
-    translate: `translate(${0}, ${height-margin.bottom-margin.top})`,
-    scale: props.xScaleband,
+    translated: `translate(${0}, ${height-margin.bottom-margin.top})`,
+    scale: xScaleband,
     orient: "bottom",
-    class:"axis-grid",
+    classd:"axis-grid",
     length:height,
     range:newXAxisrange
   };
     
     const GridySettings = {
-    translate: `translate(${0}, 0)`,
-    scale: props.yScale,
+    translated: `translate(${0}, 0)`,
+    scale: yScale,
     orient: "left",
-    class:"axis-grid",
+    classd:"axis-grid",
     length:width-margin.left-margin.right,
     range:newYAxisrange
   };
 
-    // useEffect(()=>{
-    //   console.log("objectfgfhgfh");
-    // },[rangecheck])
+    useEffect(()=>{
+      console.log("objectfgfhgfh");
+      console.log(newXAxisrange);
+      console.log(newYAxisrange);
+    })
   
   
   // console.log('propssss',props,xSettings,props.xScale(0));
@@ -73,10 +76,10 @@ const RendorXY= (props) => {
     {console.log(props.xScaleband(props.data[2].time))} */}
     <g id="ID_XYAxis" className="xy-axis">
       <Axis {...xSettings} />
-      <Axis {...ySettings} />
-        <Axis {...ySettings2} />
-{/* <GridLines {...GridxSettings}/>
-<GridLines {...GridySettings}/> */}
+      {/* <Axis {...ySettings} />
+        <Axis {...ySettings2} /> */}
+<GridLines {...GridxSettings}/>
+{/* <GridLines {...GridySettings}/> */}
     </g>
     </>
   );

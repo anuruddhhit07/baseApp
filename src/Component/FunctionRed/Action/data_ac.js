@@ -12,7 +12,9 @@ import {
   SET_ZOOMSTATE,
   SET_ZOOMXZSTATE,
   SET_ZOOMYZSTATE,
-  SET_ZOOMTOGGLE
+  SET_ZOOMTOGGLE,
+  SET_DATA_LIMIT_INCRESE,
+  SET_DATA_LIMIT_DECRESE
 } from "../ActionTypes/data_acty";
 
 import { api_url } from "../Config/index";
@@ -21,15 +23,15 @@ import axios, * as others from "axios";
 
 import {ohlcdata2} from "../Dummydata/dummydata"
 
-export function getData(fecthsource="mysql") {
+export function getData(fecthsource="mysql",count=10) {
   return (dispatch) => {
     dispatch({ type: GET_USER_REQUEST });
     if (fecthsource=="mysql"){
     axios
-     .get(`${api_url}/data`)
+     .get(`${api_url}/data`,{ params: { count: count } })
      .then(function (res) {
        var arrayObj = res.data.data;
-       console.log(arrayObj)
+      //  console.log(arrayObj)
       var i;
        for (i = 0; i < arrayObj.length; i++) {     
        arrayObj[i].time = new Date(arrayObj[i]["unixtime"] * 1000);
@@ -163,6 +165,36 @@ export function setzoomtoggel(props){
     dispatch({
       type: SET_ZOOMTOGGLE,
       // payload: {zoomtoggle:currentYZoomState},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function setdatalimitincrese(factor=10){
+  // console.log(props);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_DATA_LIMIT_INCRESE,
+      payload: {count:factor},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function setdatalimitdecrese(factor=10){
+  // console.log(props);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_DATA_LIMIT_DECRESE,
+      payload: {count:factor},
     });
 
     // dispatch({ type: RESET_LINEID });

@@ -3,29 +3,37 @@ import * as d3 from "d3";
 
 
 
-const Axis = (props) => {
+const Axis = ({range,scale,data,orient,classd,translated}) => {
     const ref = useRef(null);
 
-console.log(props.range);
+console.log(translated);
+
     useEffect(()=>{
         renderAxis()
-    },[props.range,props.scale])
+    },[range,scale,data,orient,classd,translated])
 
     const renderAxis=()=> {
 
+     
+
        
-        if (props.orient=='bottom'){
-            var AxisGenerator = d3.axisBottom(props.scale)
-            //.tickFormat(
-              //  (d,i) => {
-             //       console.log(d,i);
-               //     return i
-              //  }
-            //  )
+        if (orient=='bottom'){
+
+            var tickValues = scale.domain()
+            // .filter(function(d, i) { return !((i + 1) % Math.floor(scale.domain().length / 10)); })
+            .filter(function(d, i) { return i })
+
+            var AxisGenerator = d3.axisBottom(scale)
+            .tickFormat(
+               (d,i) => {
+                //    console.log(d,i);
+                   return i
+               }
+             )
             //  .tickFormat(d3.timeFormat("%Y-%m-%d"))
-            .tickFormat(multiFormat)
-              .tickValues(props.scale.domain().filter(function(d,i){ return !(i%5)}));
-            // .ticks(20)
+            // .tickFormat(multiFormat)
+            // .tickValues(tickValues);
+            // .tickValues("|")
             // .tickFormat((date)=>multiFormat(date))
             //var xAxisGrid = d3.axisBottom(props.scale).tickSize(-200).tickFormat('').ticks(10);
            // .innerTickSize(-200)
@@ -39,14 +47,14 @@ console.log(props.range);
         //     var axis =d3.select(ref.current).call(AxisGenerator).attr("clip-path", "url(#clipping)")
         // }
 
-        if (props.orient=='left'){
-            var AxisGenerator = d3.axisLeft(props.scale)
+        if (orient=='left'){
+            var AxisGenerator = d3.axisLeft(scale)
             var axis =d3.select(ref.current).call(AxisGenerator)
             // .attr("clip-path", "url(#clipping)")
         }
 
-        if (props.orient=='right'){
-            var AxisGenerator = d3.axisRight(props.scale)
+        if (orient=='right'){
+            var AxisGenerator = d3.axisRight(scale)
             var axis =d3.select(ref.current).call(AxisGenerator) 
             // .attr("clip-path", "url(#clipping)")
         }
@@ -55,6 +63,10 @@ console.log(props.range);
         
     
     }
+
+
+    
+
     var formatMillisecond = d3.timeFormat(".%L"),
     formatSecond = d3.timeFormat(":%S"),
     formatMinute = d3.timeFormat("%I:%M"),
@@ -94,7 +106,9 @@ function multiFormat(date) {
     //         : formatYear)(date);
     //   }
 
-    return <g className={props.class} ref={ref} transform={props.translate}></g>;
+    return <g className={classd} ref={ref} 
+    transform={translated}
+    ></g>;
 
 }
 
