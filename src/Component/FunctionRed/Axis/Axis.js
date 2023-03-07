@@ -6,10 +6,10 @@ import * as d3 from "d3";
 const Axis = (props) => {
     const ref = useRef(null);
 
-
+console.log(props.range);
     useEffect(()=>{
         renderAxis()
-    },[props.scale])
+    },[props.range,props.scale])
 
     const renderAxis=()=> {
 
@@ -42,11 +42,13 @@ const Axis = (props) => {
         if (props.orient=='left'){
             var AxisGenerator = d3.axisLeft(props.scale)
             var axis =d3.select(ref.current).call(AxisGenerator)
+            // .attr("clip-path", "url(#clipping)")
         }
 
         if (props.orient=='right'){
             var AxisGenerator = d3.axisRight(props.scale)
             var axis =d3.select(ref.current).call(AxisGenerator) 
+            // .attr("clip-path", "url(#clipping)")
         }
            
         

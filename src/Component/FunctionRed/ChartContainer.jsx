@@ -10,7 +10,7 @@ import {
   setzoomstate,
   setzoomstateyz,
   setzoomstatexz,
-  setzoomtoggel
+  setzoomtoggel,
 } from "./Action/data_ac";
 import useController from "./Controller/Controller";
 import ZoomCanvas from "./Container/ZoomCanvas";
@@ -23,6 +23,7 @@ import Drawline from "./Shape/Drawline";
 import "./mainstyles.scss";
 import "./toggle_styles.scss";
 import * as d3 from "d3";
+import {scaleBandInvert} from "./helper/utilityfn"
 
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
@@ -37,82 +38,32 @@ const ChartContainer = () => {
     (state) => state.dimensionReducer
   );
 
-  const currentGlobalZoomState = useSelector(
-    (state) => state.chartpropReducer?.currentGlobalZoomState
-  );
-  const currentXZoomState = useSelector(
-    (state) => state.chartpropReducer?.currentXZoomState
-  );
-  const currentYZoomState = useSelector(
-    (state) => state.chartpropReducer?.currentYZoomState
-  );
-
   const isToggledzoom = useSelector(
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-
-
   const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
-  // const [isToggledzoom, settogglezoom] = useState(false);
   const [start, setstart] = useState(false);
-const [scalebandrange,setscalebandrange]=useState(null)
+
+  const [scalebandrange, setscalebandrange] = useState(null);
 
   const { xScale, yScale, xScaleband } = useController({
     data,
     width,
     height,
     margin,
-    currentGlobalZoomState,
-    
   });
 
-  // console.log("currentXZoomState", currentXZoomState);
-
-  // useEffect(() => {
-  //   console.log("object");
-  //   const newXScale = currentXZoomState.rescaleX(xScale);
-  //   xScale.domain(newXScale.domain());
-  // }, [currentXZoomState]);
-
-  // useEffect(() => {
-  //   console.log("object22");
-  //   const newYScale = currentYZoomState.rescaleY(yScale);
-  //   yScale.domain(newYScale.domain());
-  // }, [currentYZoomState]);
-
-  //
-
-  if (currentXZoomState && scalebandrange) {
-    // console.log("xScale", xScale);
-    const newXScale = currentXZoomState.rescaleX(xScale);
-    //xScale.domain(newXScale.domain());
-
-    // console.log("xScaleband",xScaleband.range(),currentXZoomState);
-    // const newXScaleBand = currentXZoomState.rescaleX(xScaleband);
-    // xScaleband.domain(newXScaleBand.domain());
-    xScaleband.range(scalebandrange)
-  }
-
-  if (currentYZoomState && scalebandrange ) {
-    const newYScale = currentYZoomState.rescaleY(yScale);
-    //yScale.domain(newYScale.domain());
-  }
-
+ 
   useEffect(() => {
     setstart(true);
-  //  setscalebandrange(xScaleband.range())
-  }, [data,width,margin]);
-
-  if (start) {
-    // console.log(data[1].time);
-    // console.log(xScaleband.bandwidth());
-    // console.log(xScaleband(data[2].time));
-    
-  }
-
- 
+    if (scalebandrange) {
+      // console.log("New range",scalebandrange);
+      xScaleband.range(scalebandrange);
+      // yScale.range([400,-400])
+    }
+  }, [data, width, margin, scalebandrange]);
 
   useEffect(() => {
     //from local or fetch
@@ -135,7 +86,6 @@ const [scalebandrange,setscalebandrange]=useState(null)
   const togglezoom = () => {
     // settogglezoom(!isToggledzoom);
     dispatch(setzoomtoggel());
-    
   };
 
   const togglelinetype = () => {
@@ -149,7 +99,7 @@ const [scalebandrange,setscalebandrange]=useState(null)
   if (data.length == 0) {
     return null;
   }
-console.log(scalebandrange);
+
   return (
     <>
       <div className="toppanelbox">
@@ -228,7 +178,10 @@ console.log(scalebandrange);
         {" "}
         T
       </div>
-      <div> {widthchart}  {width} </div>
+      <div>
+        {" "}
+        {widthchart} {width}{" "}
+      </div>
 
       <ZoomCanvas
         data={data}
@@ -240,7 +193,6 @@ console.log(scalebandrange);
         widthchart={widthchart}
         heightchart={heightchart}
         margin={margin}
-        currentGlobalZoomState={currentGlobalZoomState}
         scalebandrange={scalebandrange}
         handlescalband={setscalebandrange}
       >

@@ -6,8 +6,7 @@ const store = configureStore();
 
 // console.log('status',store.getState().dimensionReducer.width);
  
-const useController = ({ data, width, height,margin,
-currentGlobalZoomState 
+const useController = ({ data, width, height,margin 
 }) => {
 // console.log('controller data',data,);
   var width = width - margin.left - margin.right-margin.padding_left-margin.padding_right
@@ -41,15 +40,17 @@ currentGlobalZoomState
   //   [xMin, xMax, width,currentGlobalZoomState]
   // );
 
-  // Use this to draw x axis
+  //Use this to draw for calculatiion axis
   const xScale = useMemo(
-    () => d3.scaleTime().domain(d3.extent(data, function(d) { return d.time; })).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
-    [xMin, xMax, width]
+    () => d3.scaleBand().domain(data.map((_,index) => index)).rangeRound([margin.padding_left, width+margin.padding_left]).padding(.5),
+    [xMin, xMax, width,height,margin]
   );
 
+ 
+
   const xScaleband = useMemo(
-    () => d3.scaleBand().domain(data.map(d => d.time)).range([margin.padding_left, width+margin.padding_left]).padding(.5),
-    [xMin, xMax,width,height,margin,currentGlobalZoomState]
+    () => d3.scaleBand().domain(data.map(d => d.time)).rangeRound([margin.padding_left, width+margin.padding_left]).padding(.5),
+    [xMin, xMax,width,height,margin]
      );
        
 

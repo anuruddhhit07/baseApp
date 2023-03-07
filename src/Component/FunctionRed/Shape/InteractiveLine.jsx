@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import * as d3 from "d3";
 import { setLineCoor, deletelinebyID,setzoomtoggel } from "../Action/data_ac";
 import "./styles.scss";
+import {scaleBandInvert} from "../helper/utilityfn"
 import { computeHeadingLevel } from "@testing-library/react";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
 // export const InteractiveLine = () => {
-function InteractiveLine({ data, xScale, yScale,xScaleband }) {
+function InteractiveLine({ data, yScale,xScaleband }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   // console.log("object", data);
@@ -88,7 +89,7 @@ function InteractiveLine({ data, xScale, yScale,xScaleband }) {
           // d3.selectAll("#ID_crosshair").style("display", "none");
         });
     }
-  }, [data, xScale,xScaleband, yScale, line_state, deleteline_toggel, crosshairtoggle]);
+  }, [data,xScaleband.range(), yScale, line_state, deleteline_toggel, crosshairtoggle]);
 
   function mousedown(event, isMouseUp) {
     // console.log(event);
@@ -160,14 +161,20 @@ function InteractiveLine({ data, xScale, yScale,xScaleband }) {
   }
 
   function dispatchlinecoor() {
-    console.log('temp_lincoor',tempx1.current,tempy1.current,yScale.invert(tempy1.current));
+    // console.log('temp_lincoor',tempx1.current,tempy1.current,yScale.invert(tempy1.current));
+
+    // var dvalX1 = scaleBandInvert(xScaleband)(widthchart)
+    // var dvalX2 = scaleBandInvert(xScaleband)(tempx2.current)
+    
+
+  
     if (drawlinetype == "HZ_LINE") {
       dispatch(
         setLineCoor(
           "Hline",
-          xScaleband.invert(0),
+          scaleBandInvert(xScaleband)(0),
           yScale.invert(tempy1.current),
-          xScaleband.invert(widthchart),
+          scaleBandInvert(xScaleband)(widthchart),
           yScale.invert(tempy1.current)
         )
       );
@@ -175,17 +182,28 @@ function InteractiveLine({ data, xScale, yScale,xScaleband }) {
       dispatch(
         setLineCoor(
           "Hline",
-          xScaleband.invert(tempx1.current),
+          scaleBandInvert(xScaleband)(tempx1.current),
           yScale.invert(tempy1.current),
-          xScaleband.invert(tempx2.current),
+          scaleBandInvert(xScaleband)(tempx2.current),
           yScale.invert(tempy2.current)
         )
       );
     }
+    
 
     // inti_temp_lincoor()
     hzline();
   }
+
+  // function scaleBandInvert(scale) {
+  //   var domain = scale.domain();
+  //   var paddingOuter = scale(domain[0]);
+  //   var eachBand = scale.step();
+  //   return function (value) {
+  //     var index = Math.floor(((value - paddingOuter) / eachBand));
+  //     return domain[Math.max(0,Math.min(index, domain.length-1))];
+  //   }
+  // }
 
   const hzline = () => {
     if (line_state == false) {

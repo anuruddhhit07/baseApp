@@ -6,10 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {setzoomstate,setzoomstatexz,setzoomstateyz} from "../Action/data_ac"
 const EventCapture = (props) => {
   const {
-    // currentGlobalZoomState,
-    // currentXZoomState,
-    // currentYZoomState,
-   // handleGlobalZoomState,
    scalebandrange,
    handlescalband,
   } = props;
@@ -24,31 +20,10 @@ const EventCapture = (props) => {
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const currentGlobalZoomState = useSelector((state) => state.chartpropReducer?.currentGlobalZoomState);
-  const currentXZoomState = useSelector((state) => state.chartpropReducer?.currentXZoomState);
-  const currentYZoomState = useSelector((state) => state.chartpropReducer?.currentYZoomState);
-  
-  function handleGlobalZoomState(zoomtype, zoomstate) {
-    // setValue(newValue);
-    if (zoomtype == "globalzoom") {
-      // setCurrentGlobalZoomState(zoomstate);
-      dispatch(setzoomstate({currentGlobalZoomState:zoomstate}))
-    }
-    if (zoomtype == "xz_zoom") {
-      // setCurrentXZoomState(zoomstate);
-      dispatch(setzoomstatexz({currentXZoomState:zoomstate}))
-    }
-    if (zoomtype == "yz_zoom") {
-      // setCurrentYZoomState(zoomstate);
-      dispatch(setzoomstateyz({currentYZoomState:zoomstate}))
-    }
-    // console.log(currentXZoomState, currentYZoomState);
-  }
 
-// console.log('scalebandrangedfhgfjhj',scalebandrange);
   useEffect(() => {
     zoomsvg();
-  }, [currentGlobalZoomState, currentYZoomState, currentGlobalZoomState,isToggledzoom,scalebandrange]);
+  }, [isToggledzoom,scalebandrange]);
 
   const extent = [
     [margin.left, margin.top],
@@ -61,20 +36,12 @@ const EventCapture = (props) => {
   .filter(() => isToggledzoom)
   .on("zoom", zoomed2);
 
-  // var brush = d3.brushX()
-  //       .extent([[-10, -10], [width+10, height+10]])
-  //       .on("brush end", brushed);
-
-
- 
-
   const zoomsvg = () => {
     const svgel = d3.select(refevent.current);
     // console.log('isToggledzoom',isToggledzoom);
     svgel.call(zoomGlobal)
 
   };
-
 
 
   const center = (event, target) => {
@@ -85,55 +52,16 @@ const EventCapture = (props) => {
     }
     return [widthchart / 2, heightchart / 2];
   };
-
   function zoomed2(event)  {
     const targetsvgnode = d3.select("#listrect").node();
-    const { k: newK, x: newX, y: newY } = event.transform;
-    const { k: prevK, x: prevX, y: prevY } = currentGlobalZoomState;
     const point = center(event, targetsvgnode);
     const isZoomingX = point[1] > heightchart - margin.top - margin.bottom;
     const isZoomingY = point[0] < margin.left;
 
-    console.log("ind",isZoomingX,isZoomingY);
-    if (isZoomingX == false && isZoomingY == false) {
-      // console.log("both false");
-      handleGlobalZoomState(
-        "xz_zoom",
-        currentXZoomState
-          .translate((newX - prevX) / prevK, 0)
-          //.scale(newK / prevK)
-      );
-      handleGlobalZoomState(
-        "yz_zoom",
-        currentYZoomState
-          .translate(0, (newY - prevY) / prevK)
-           .scale(newK / prevK)
-      );
 
       handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left].map(d => event.transform.applyX(d)))
-    }
-
-    if (isZoomingX) {
-      handleGlobalZoomState(
-        "xz_zoom",
-        currentXZoomState
-          .translate((newX - prevX) / prevK, 0)
-          .scale(newK / prevK)
-      );
-      handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left].map(d => event.transform.applyX(d)))
-    }
-    if (isZoomingY) {
-      handleGlobalZoomState(
-        "yz_zoom",
-        currentYZoomState
-          .translate(0, (newY - prevY) / prevK)
-           .scale(newK / prevK)
-      );
-    }
-    // var aa=[margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left].map(d => event.transform.applyX(d))
-    // console.log("amjhk,mjh,a",aa);
-    
-    handleGlobalZoomState("globalzoom", event.transform);
+  
+  
   };
 
 
@@ -141,9 +69,6 @@ const EventCapture = (props) => {
   const reset = () => {
     const svgel = d3.select(refevent.current);
     svgel.call(zoomGlobal.transform, d3.zoomIdentity);
-    handleGlobalZoomState("globalzoom", d3.zoomIdentity);
-    handleGlobalZoomState("xz_zoom", d3.zoomIdentity);
-    handleGlobalZoomState("yz_zoom", d3.zoomIdentity);
     handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left])
 
   };

@@ -33,7 +33,7 @@ function Drawline({ data, xScale, yScale,xScaleband }) {
           .attr("x2", (d) => xScaleband(d.x2))
           .attr("y2", (d) => yScale(d.y2));
       }
-    }, [xScale,xScaleband, linedata, yScale]);
+    }, [xScaleband.range(), linedata, yScale]);
 
 
 
