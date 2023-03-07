@@ -56,7 +56,7 @@ const useController = ({ data, width, height,margin ,scalebandrange
      );
 
      const xScaleLinear = useMemo(
-      () => d3.scaleLinear().domain([0,data.length]).rangeRound([margin.padding_left, width+margin.padding_left]),
+      () => d3.scaleLinear().domain([0,data.length]).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
       // .padding(.05),
       [xMin, xMax,width,height,margin]
        );

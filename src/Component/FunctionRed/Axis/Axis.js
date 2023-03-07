@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-const Axis = ({ range, scale, data, orient, classd, translated }) => {
+const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScaleband }) => {
   const ref = useRef(null);
 //   const refdata = useRef(data);
 
@@ -10,22 +10,28 @@ const Axis = ({ range, scale, data, orient, classd, translated }) => {
   useEffect(() => {
     // refdata.current=data
     renderAxis();
-  }, [range, scale, data, orient, classd, translated]);
+  }, [range, scale, data, orient, classd, translated,widthchart]);
 
   const renderAxis = () => {
     if (orient == "bottom") {
+        console.log("hi",scale(0)-scale(1),scale(45)-scale(44))
+        const tickwidth=((scale(1)-scale(0))/2)+xScaleband.bandwidth()
+        const numberoftick=Math.floor(tickwidth/4)
+        console.log("numberoftick",numberoftick,tickwidth)
+        console.log(scale.invert(0),scale.invert(widthchart))
       // console.log(data);
       // var xValues = data.map(function(d,i){return d.time});
       // console.log(xValues);
-      var tickValues = scale
-        .domain()
+     // var tickValues = scale
+      //  .domain()
         // .filter(function(d, i) { return !((i + 1) % Math.floor(scale.domain().length / 10)); })
-        .filter(function (d, i) {
-          return i;
-        });
+       // .filter(function (d, i) {
+       //   return i;
+      //  });
 
       var AxisGenerator = d3
         .axisBottom(scale)
+        .ticks(numberoftick)
         .tickFormat((i) => multiFormat(i));
 
       var axis = d3
