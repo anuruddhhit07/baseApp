@@ -73,13 +73,18 @@ const Axis = ({ range, scale, data, orient, classd, translated }) => {
     //       : d3.timeMonth(refdata.current[index].time) < refdata.current[index].time ? (d3.timeWeek(refdata.current[index].time) < refdata.current[index].time ? formatDay : formatWeek)
     //       : d3.timeYear(refdata.current[index].time) < refdata.current[index].time ? formatMonth
     //       : formatYear)(refdata.current[index].time):null
-          return index < data.length? (d3.timeSecond(data[index].time) <data[index].time ? formatMillisecond
-          : d3.timeMinute(data[index].time) < data[index].time ? formatSecond
-          : d3.timeHour(data[index].time) < data[index].time ? formatMinute
-          : d3.timeDay(data[index].time) < data[index].time ? formatHour
-          : d3.timeMonth(data[index].time) < data[index].time ? (d3.timeWeek(data[index].time) < data[index].time ? formatDay : formatWeek)
-          : d3.timeYear(data[index].time) < data[index].time ? formatMonth
-          : formatYear)(data[index].time):null
+    
+    
+          return index < data.length? (
+           d3.timeSecond(data[index].time) < data[index].time ? formatMillisecond
+         : d3.timeMinute(data[index].time) < data[index].time ? formatSecond
+         : d3.timeHour(data[index].time) < data[index].time ? formatMinute
+         : d3.timeDay(data[index].time) < data[index].time ? formatHour
+         : d3.timeWeek(data[index].time)< data[index].time?formatDay
+         : d3.timeMonth(data[index].time) < data[index].time ? formatWeek
+         : d3.timeYear(data[index].time) < data[index].time ? formatMonth
+          : formatYear)(data[index].time)
+          :null
     
   }
 
