@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import * as d3 from 'd3';
 import {drawSVGCandleohlc} from "./Draw/drawSVGCandle"
 
-const CandlestickChart = ({ data,xScale,yScale,xScaleband }) => {
+const CandlestickChart = ({ data,xScale,yScale,xScaleband,xScaleLinear }) => {
   const ref = useRef(null);
   const { width, height, margin } = useSelector(
     (state) => state.dimensionReducer
   );
    const barwidth=xScaleband.bandwidth()
-  //  console.log(xScaleband.bandwidth());
+  //  console.log(barwidth);
    const formatTime = d3.timeFormat("%d/%m/%Y %H:%M:%S");
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const CandlestickChart = ({ data,xScale,yScale,xScaleband }) => {
          .attr("clip-path","url(#clipping)")
         .attr('class', 'line')
          //.attr('x1', (d) => xScale(d.time))
-          .attr('x1', (d) => xScaleband(d.time)+barwidth/2)
+          .attr('x1', (d,i) => xScaleLinear(i))
          .attr('y1', (d) => yScale(d.high))
-          .attr('x2', (d) => xScaleband(d.time)+barwidth/2)
+          .attr('x2', (d,i) => xScaleLinear(i))
        //  .attr('x2', (d) => xScale(d.time))
          .attr('y2', (d) => yScale(d.low))
         
@@ -60,9 +60,9 @@ const CandlestickChart = ({ data,xScale,yScale,xScaleband }) => {
       .append('rect')
       .attr("clip-path", "url(#clipping)")
       // .attr('x', (d) => xScale(d.time)-barwidth/2)
-      .attr('x', (d) => xScaleband(d.time))
+      .attr('x', (d,i) => xScaleLinear(i)-barwidth/4)
       .attr('y', (d) => yScale(Math.max(d.open, d.close)))
-      .attr('width', barwidth)
+      .attr('width', barwidth/2)
       .attr('height', (d) => {
         return yScale(Math.min(d.open, d.close)) - yScale(Math.max(d.open, d.close));
       })

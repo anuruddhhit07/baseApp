@@ -54,6 +54,13 @@ const useController = ({ data, width, height,margin ,scalebandrange
     // .padding(.05),
     [xMin, xMax,width,height,margin]
      );
+
+     const xScaleLinear = useMemo(
+      () => d3.scaleLinear().domain([0,data.length]).rangeRound([margin.padding_left, width+margin.padding_left]),
+      // .padding(.05),
+      [xMin, xMax,width,height,margin]
+       );
+     
        
 
 // console.log("range",[margin.padding_left, width+margin.padding_left]);
@@ -98,16 +105,21 @@ const useController = ({ data, width, height,margin ,scalebandrange
 
   // console.log(scalebandrange); 
 
+  // console.log([xScaleLinear.invert(margin.padding_left),xScaleLinear.invert(width+margin.padding_left)]);
   // console.log([scaleBandInvert(xScale)(margin.padding_left),scaleBandInvert(xScale)(width+margin.padding_left)]); 
   // console.log([scaleBandInvert(xScaleband)(margin.padding_left),scaleBandInvert(xScaleband)(width+margin.padding_left)]); 
 
-  const minindex=scaleBandInvert(xScale)(margin.padding_left)
-  const maxindex=scaleBandInvert(xScale)(width+margin.padding_left)
+  // const minindex=scaleBandInvert(xScale)(margin.padding_left)
+  // const maxindex=scaleBandInvert(xScale)(width+margin.padding_left)
 
 
-   var newData =data;
-// var newData = [];
-// newData=data.slice(minindex, maxindex)
+  const minindex=d3.max([Math.floor(xScaleLinear.invert(margin.padding_left)),1])
+  const maxindex=d3.max([Math.floor(xScaleLinear.invert(width+margin.padding_left)),minindex+1])
+
+// console.log("range",[minindex,maxindex]);
+//    var newData =data;
+var newData = [];
+newData=data.slice(minindex, maxindex)
 
 // console.log(newData);
 
@@ -146,7 +158,8 @@ const useController = ({ data, width, height,margin ,scalebandrange
     xScaleunix,
     yScale,
     yScaleForAxis,
-    xScaleband
+    xScaleband,
+    xScaleLinear
   };
 };
  

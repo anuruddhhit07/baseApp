@@ -37,9 +37,9 @@ const ChartContainer = () => {
   const data = useSelector((state) => state.dataReducer?.data);
   const counter = useSelector((state) => state.dataLimitReducer.count);
 
-  console.log("counter",data);
+  // console.log("counter",data);
 
-  console.log("counter",counter);
+  // console.log("counter",counter);
 
 
   const drawlinetype = useSelector(
@@ -60,7 +60,7 @@ const ChartContainer = () => {
 
   const [scalebandrange, setscalebandrange] = useState(null);
 
-  const { xScale, yScale, xScaleband } = useController({
+  const { xScale, yScale, xScaleband,xScaleLinear } = useController({
     data,
     width,
     height,
@@ -80,7 +80,8 @@ const ChartContainer = () => {
     if (scalebandrange) {
       // console.log("New range",scalebandrange);
       xScaleband.range(scalebandrange);
-      xScale.range(scalebandrange);
+      // xScale.range(scalebandrange);
+      xScaleLinear.range(scalebandrange);
 
       // yScale.range([400,-400])
     }
@@ -127,10 +128,10 @@ const ChartContainer = () => {
     console.log("return nulll");
     return null;
   }
-console.log('counter',counter);
+// console.log('counter',counter);
   return (
     <>
-    {console.log(data)}
+    {/* {console.log(data)} */}
       <div className="toppanelbox">
         <button
           className="sqaure-button sqaure-button_charttype"
@@ -231,6 +232,7 @@ console.log('counter',counter);
         data={data}
         xScale={xScale}
         yScale={yScale}
+        xScaleLinear={xScaleLinear}
         xScaleband={xScaleband}
         width={width}
         height={height}

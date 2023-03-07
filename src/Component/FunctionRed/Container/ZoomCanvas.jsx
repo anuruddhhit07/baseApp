@@ -30,6 +30,7 @@ const ZoomCanvas = ({
   data,
   xScale,
   xScaleband,
+  xScaleLinear,
   yScale,
   width,
   height,
@@ -52,6 +53,7 @@ const ZoomCanvas = ({
         xScale: xScale,
         yScale: yScale,
         xScaleband:xScaleband,
+        xScaleLinear:xScaleLinear,
         scalebandrange:scalebandrange
       });
     }

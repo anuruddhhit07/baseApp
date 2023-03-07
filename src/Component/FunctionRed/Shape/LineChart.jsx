@@ -2,13 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 
-function LineChart({ data, xScale, yScale,xScaleband }) {
+function LineChart({ data, xScale, yScale,xScaleband,xScaleLinear }) {
   const ref = useRef(null);
   
   
     // Define line generator
     const line = d3.line()
-      .x((d, i) => xScaleband(d.time)+xScaleband.bandwidth()/2)
+      .x((d, i) => xScaleLinear(i))
       .y(d => yScale(d.close))
       //.curve(d3.curveMonotoneX);
   
@@ -33,7 +33,7 @@ if(ref.current){
 }
          
       
-  }, [data,yScale,xScaleband.range()]);
+  }, [data,yScale,xScaleLinear.range()]);
 
   return (
     <g id ="ID_LineSeries" ref={ref} >

@@ -25,12 +25,17 @@ const EventCapture = (props) => {
     zoomsvg();
   }, [isToggledzoom,scalebandrange]);
 
+  // const extent = [
+  //   [margin.left, margin.top],
+  //   [width - margin.right, height - margin.top]
+  // ];
+
   const extent = [
-    [margin.left, margin.top],
-    [width - margin.right, height - margin.top]
+    [-100, margin.top],
+    [width+100, height - margin.top]
   ];
 
-  const zoomGlobal = d3.zoom().scaleExtent([0.5, 55])
+  const zoomGlobal = d3.zoom().scaleExtent([1, 55])
   .translateExtent(extent)
   .extent(extent)
   .filter(() => isToggledzoom)
@@ -68,19 +73,19 @@ const EventCapture = (props) => {
 
   const reset = () => {
     const svgel = d3.select(refevent.current);
-    svgel.call(zoomGlobal.transform, d3.zoomIdentity);
-    handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.left])
-
+    // svgel.call(zoomGlobal.transform, d3.zoomIdentity);
+    handlescalband([margin.padding_left, width-margin.padding_left-margin.padding_right-margin.right-margin.padding_left])
+   
   };
   const panLeft = () => {
     const svgel = d3.select(refevent.current);
-    svgel.transition().call(zoomGlobal.translateBy, -150, 0);
+    svgel.transition().call(zoomGlobal.translateBy, -50, 0);
    
   };
 
   const panRight = () => {
     const svgel = d3.select(refevent.current);
-    svgel.transition().call(zoomGlobal.translateBy, 150, 0);
+    svgel.transition().call(zoomGlobal.translateBy, 50, 0);
   };
 
   const centerfit = () => {

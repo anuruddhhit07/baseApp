@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Axis from "./Axis";
 import GridLines from "./GridLines"
 import "./styles.scss"
-const RendorXY= ({data,xScaleband,yScale}) => {
+const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     
 
     const { width, height, margin,widthchart } = useSelector(
@@ -15,11 +15,12 @@ const RendorXY= ({data,xScaleband,yScale}) => {
       const newXAxisrange=xScaleband.range()
       const newYAxisrange=yScale.range()
 
-      console.log("sdgfdhgd",newXAxisrange,data);
+      // console.log("sdgfdhgd",newXAxisrange,data);
 
   const xSettings = {
     translated: `translate(${0}, ${height-margin.bottom-margin.top})`,
-    scale: xScaleband,
+    scale: xScaleLinear,
+    data:data,
     orient: "bottom",
     classd:"x-axis",
     range:newXAxisrange
@@ -42,7 +43,8 @@ const RendorXY= ({data,xScaleband,yScale}) => {
     
      const GridxSettings = {
     translated: `translate(${0}, ${height-margin.bottom-margin.top})`,
-    scale: xScaleband,
+    scale: xScaleLinear,
+    data:data,
     orient: "bottom",
     classd:"axis-grid",
     length:height,
@@ -59,9 +61,9 @@ const RendorXY= ({data,xScaleband,yScale}) => {
   };
 
     useEffect(()=>{
-      console.log("objectfgfhgfh");
-      console.log(newXAxisrange);
-      console.log(newYAxisrange);
+      // console.log("objectfgfhgfh");
+      // console.log(newXAxisrange);
+      // console.log(newYAxisrange);
     })
   
   
@@ -76,8 +78,8 @@ const RendorXY= ({data,xScaleband,yScale}) => {
     {console.log(props.xScaleband(props.data[2].time))} */}
     <g id="ID_XYAxis" className="xy-axis">
       <Axis {...xSettings} />
-      {/* <Axis {...ySettings} />
-        <Axis {...ySettings2} /> */}
+      <Axis {...ySettings} />
+        <Axis {...ySettings2} />
 <GridLines {...GridxSettings}/>
 {/* <GridLines {...GridySettings}/> */}
     </g>

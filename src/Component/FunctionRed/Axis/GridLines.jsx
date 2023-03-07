@@ -19,6 +19,9 @@ const GridLines = ({range,scale,data,orient,classd,translated,length}) => {
       //      var AxisGenerator = d3.axisBottom(props.scale).ticks(5)
             var Axisgrid = d3.axisBottom(scale).tickSize(-length)
             .tickFormat('')
+            var axis =d3.select(ref.current).call(Axisgrid)
+            // .attr("clip-path", "url(#clipping)");
+            
             
            // .innerTickSize(-200)
             // .tickFormat(multiFormat())
@@ -29,20 +32,23 @@ const GridLines = ({range,scale,data,orient,classd,translated,length}) => {
             var Axisgrid = d3.axisTop(scale).tickSize(length)
             .tickFormat('')
             .ticks(10);
+            var axis =d3.select(ref.current).call(Axisgrid)
         }
 
         if (orient=='left'){
            // var AxisGenerator = d3.axisLeft(props.scale)
             var Axisgrid = d3.axisLeft(scale).tickSize(-length).tickFormat('').ticks(10);
+            var axis =d3.select(ref.current).call(Axisgrid)
         }
 
         if (orient=='right'){
            // var AxisGenerator = d3.axisRight(props.scale) 
             var Axisgrid = d3.axisRight(scale).tickSize(length).tickFormat('').ticks(10);
+            var axis =d3.select(ref.current).call(Axisgrid)
         }
            
         
-        var axis =d3.select(ref.current).call(Axisgrid)
+        
        // axis.append("g").call(xAxisGrid)
       }
 
