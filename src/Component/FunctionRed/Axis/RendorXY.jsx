@@ -11,11 +11,12 @@ const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     const { width, height, margin,widthchart } = useSelector(
         (state) => state.dimensionReducer
       );
-
+// const chart_width=width+margin.padding_left-margin.padding_left
+// console.log('dtyd',chart_width,widthchart);
       const newXAxisrange=xScaleband.range()
       const newYAxisrange=yScale.range()
 
-      // console.log("sdgfdhgd",newXAxisrange,data);
+      // console.log("sdgfdhgd",width,widthchart,margin);
 
   const xSettings = {
     translated: `translate(${0}, ${height-margin.bottom-margin.top})`,

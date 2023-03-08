@@ -7,7 +7,7 @@ import {scaleBandInvert} from "../helper/utilityfn"
 import { computeHeadingLevel } from "@testing-library/react";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
 // export const InteractiveLine = () => {
-function InteractiveLine({ data, yScale,xScaleband }) {
+function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   // console.log("object", data);
@@ -89,7 +89,7 @@ function InteractiveLine({ data, yScale,xScaleband }) {
           // d3.selectAll("#ID_crosshair").style("display", "none");
         });
     }
-  }, [data,xScaleband.range(), yScale, line_state, deleteline_toggel, crosshairtoggle]);
+  }, [data,xScaleband.range(), xScaleLinear.range().yScale, line_state, deleteline_toggel, crosshairtoggle]);
 
   function mousedown(event, isMouseUp) {
     // console.log(event);
@@ -172,9 +172,10 @@ function InteractiveLine({ data, yScale,xScaleband }) {
       dispatch(
         setLineCoor(
           "Hline",
-          scaleBandInvert(xScaleband)(0),
+          // scaleBandInvert(xScaleband)(0),
+          xScaleLinear.invert(0),
           yScale.invert(tempy1.current),
-          scaleBandInvert(xScaleband)(widthchart),
+          xScaleLinear.invert(widthchart),
           yScale.invert(tempy1.current)
         )
       );
@@ -182,9 +183,11 @@ function InteractiveLine({ data, yScale,xScaleband }) {
       dispatch(
         setLineCoor(
           "Hline",
-          scaleBandInvert(xScaleband)(tempx1.current),
+          // scaleBandInvert(xScaleband)(tempx1.current),
+          xScaleLinear.invert(tempx1.current),
           yScale.invert(tempy1.current),
-          scaleBandInvert(xScaleband)(tempx2.current),
+          // scaleBandInvert(xScaleband)(tempx2.current),
+          xScaleLinear.invert(tempx2.current),
           yScale.invert(tempy2.current)
         )
       );

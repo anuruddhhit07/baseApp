@@ -5,7 +5,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
   const ref = useRef(null);
 //   const refdata = useRef(data);
 
-  // console.log(translated);
+  // console.log(data);
 
   useEffect(() => {
     // refdata.current=data
@@ -14,11 +14,14 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
 
   const renderAxis = () => {
     if (orient == "bottom") {
-        console.log("hi",scale(0)-scale(1),scale(45)-scale(44))
-        const tickwidth=((scale(1)-scale(0))/2)+xScaleband.bandwidth()
-        const numberoftick=Math.floor(tickwidth/4)
-        console.log("numberoftick",numberoftick,tickwidth)
-        console.log(scale.invert(0),scale.invert(widthchart))
+        // console.log("hi",scale(0)-scale(1),scale(45)-scale(44))
+        // const tickwidth=((scale(1)-scale(0))/2)+xScaleband.bandwidth()
+        // const numberoftick0=Math.floor(tickwidth)
+        // const numberoftick1=Math.floor(widthchart/tickwidth)
+        // console.log("numberoftick",[numberoftick0,numberoftick1])
+        // console.log(Math.floor(scale.invert(widthchart))-Math.floor(scale.invert(0)))
+
+        
       // console.log(data);
       // var xValues = data.map(function(d,i){return d.time});
       // console.log(xValues);
@@ -31,7 +34,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
 
       var AxisGenerator = d3
         .axisBottom(scale)
-        .ticks(numberoftick)
+        .ticks(10)
         .tickFormat((i) => multiFormat(i));
 
       var axis = d3
@@ -80,7 +83,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
     //       : d3.timeYear(refdata.current[index].time) < refdata.current[index].time ? formatMonth
     //       : formatYear)(refdata.current[index].time):null
     
-    
+          
           return index < data.length? (
            d3.timeSecond(data[index].time) < data[index].time ? formatMillisecond
          : d3.timeMinute(data[index].time) < data[index].time ? formatSecond
