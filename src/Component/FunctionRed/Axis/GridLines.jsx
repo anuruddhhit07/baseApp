@@ -20,7 +20,7 @@ const GridLines = ({range,scale,data,orient,classd,translated,length}) => {
             var Axisgrid = d3.axisBottom(scale).tickSize(-length)
             .tickFormat('')
             var axis =d3.select(ref.current).call(Axisgrid)
-            // .attr("clip-path", "url(#clipping)");
+             .attr("clip-path", "url(#clipping)");
             
             
            // .innerTickSize(-200)

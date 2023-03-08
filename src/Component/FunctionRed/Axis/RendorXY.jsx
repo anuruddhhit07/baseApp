@@ -11,11 +11,12 @@ const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     const { width, height, margin,widthchart } = useSelector(
         (state) => state.dimensionReducer
       );
-
+// const chart_width=width+margin.padding_left-margin.padding_left
+// console.log('dtyd',chart_width,widthchart);
       const newXAxisrange=xScaleband.range()
       const newYAxisrange=yScale.range()
 
-      // console.log("sdgfdhgd",newXAxisrange,data);
+      // console.log("sdgfdhgd",width,widthchart,margin);
 
   const xSettings = {
     translated: `translate(${0}, ${height-margin.bottom-margin.top})`,
@@ -23,14 +24,17 @@ const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     data:data,
     orient: "bottom",
     classd:"x-axis",
-    range:newXAxisrange
+    range:newXAxisrange,
+    widthchart:widthchart,
+    xScaleband:xScaleband
   };
   const ySettings = {
     translated: `translate(${0}, 0)`,
     scale: yScale,
     orient: "left",
     classd:"y-axis",
-    range:newYAxisrange
+    range:newYAxisrange,
+    xScaleband:xScaleband
   };
   
   const ySettings2 = {
@@ -38,7 +42,8 @@ const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     scale: yScale,
     orient: "right",
     classd:"y-axis",
-    range:newYAxisrange
+    range:newYAxisrange,
+    xScaleband:xScaleband
   };
     
      const GridxSettings = {
@@ -48,7 +53,9 @@ const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     orient: "bottom",
     classd:"axis-grid",
     length:height,
-    range:newXAxisrange
+    range:newXAxisrange,
+    widthchart:widthchart,
+    xScaleband:xScaleband
   };
     
     const GridySettings = {
@@ -57,7 +64,8 @@ const RendorXY= ({data,xScaleband,yScale,xScaleLinear}) => {
     orient: "left",
     classd:"axis-grid",
     length:width-margin.left-margin.right,
-    range:newYAxisrange
+    range:newYAxisrange,
+    xScaleband:xScaleband
   };
 
     useEffect(()=>{

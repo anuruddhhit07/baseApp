@@ -13,7 +13,6 @@ import {
   setzoomtoggel,
   setdatalimitincrese,
   setdatalimitdecrese,
-
 } from "./Action/data_ac";
 import useController from "./Controller/Controller";
 import ZoomCanvas from "./Container/ZoomCanvas";
@@ -26,12 +25,12 @@ import Drawline from "./Shape/Drawline";
 import "./mainstyles.scss";
 import "./toggle_styles.scss";
 import * as d3 from "d3";
-import {scaleBandInvert} from "./helper/utilityfn"
+import { scaleBandInvert } from "./helper/utilityfn";
 
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
   const dispatch = useDispatch();
-  const runonce=useRef(0)
+  const runonce = useRef(0);
   //const tooltipref=useRef();
 
   const data = useSelector((state) => state.dataReducer?.data);
@@ -40,7 +39,6 @@ const ChartContainer = () => {
   // console.log("counter",data);
 
   // console.log("counter",counter);
-
 
   const drawlinetype = useSelector(
     (state) => state.chartpropReducer?.drawlinetype
@@ -54,26 +52,25 @@ const ChartContainer = () => {
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const [fecthsource, setfecthsource] = useState("mysql");
+  const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
   const [start, setstart] = useState(false);
 
   const [scalebandrange, setscalebandrange] = useState(null);
 
-  const { xScale, yScale, xScaleband,xScaleLinear } = useController({
+  const { xScale, yScale, xScaleband, xScaleLinear } = useController({
     data,
-    width,
-    height,
     margin,
-    scalebandrange
+    widthchart,
+    heightchart,
   });
 
-  useEffect(()=>{
-    console.log("Run once")
-    setstart(true)
-    dispatch(getData(fecthsource,counter))
-  },[runonce])
- 
+  useEffect(() => {
+    console.log("Run once");
+    setstart(true);
+    dispatch(getData(fecthsource, counter));
+  }, [runonce]);
+
   useEffect(() => {
     // console.log("gfdgdgfh",scalebandrange);
     // // setstart(true);
@@ -87,13 +84,10 @@ const ChartContainer = () => {
     }
   }, [data, width, margin, scalebandrange]);
 
-
   useEffect(() => {
     //from local or fetch
-    dispatch(getData(fecthsource,counter));
-  }, [fecthsource,counter]);
-
-
+    dispatch(getData(fecthsource, counter));
+  }, [fecthsource, counter]);
 
   const setwidth = (wi_inc, hi_inc, opert) => {
     dispatch(setDim(wi_inc, hi_inc, opert));
@@ -101,7 +95,7 @@ const ChartContainer = () => {
 
   const toggledatasource = () => {
     toggle(!isToggled);
-    
+
     if (isToggled) {
       setfecthsource("mysql");
       // setfecthsource("local");
@@ -128,10 +122,10 @@ const ChartContainer = () => {
     console.log("return nulll");
     return null;
   }
-// console.log('counter',counter);
+  // console.log('counter',counter);
   return (
     <>
-    {/* {console.log(data)} */}
+      {/* {console.log(data)} */}
       <div className="toppanelbox">
         <button
           className="sqaure-button sqaure-button_charttype"
@@ -203,30 +197,33 @@ const ChartContainer = () => {
           CR{" "}
         </button>
 
-
         <button
           className="sqaure-button sqaure-button_charttype"
-          onClick={() =>dispatch(setdatalimitincrese(10)) }
+          onClick={() => dispatch(setdatalimitincrese(10))}
         >
           I+
         </button>
 
         <button
           className="sqaure-button sqaure-button_charttype"
-          onClick={() =>dispatch(setdatalimitdecrese(10)) }
+          onClick={() => dispatch(setdatalimitdecrese(10))}
         >
           D-
         </button>
-
       </div>
 
-      <div id="tooltipid" style={{ opacity: 0 }}>
-        {" "}
-        T
+      <div id="tooltipid" style={{ opacity: 1 }}>
+
+      <span id="tooltidate"  >Date </span>
+      <span id="tooltiopen">O: </span>
+      <span id="tooltihigh" >H </span>
+      <span id="tooltilow" >L </span>
+      <span id="toolticlsoe" >C </span>
+      {/* <span>My mother has </span> */}
       </div>
-      <div>
+      {/* <div>
        {counter}
-      </div>
+      </div> */}
 
       <ZoomCanvas
         data={data}

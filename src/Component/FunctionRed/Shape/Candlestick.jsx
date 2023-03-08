@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import * as d3 from 'd3';
 import {drawSVGCandleohlc} from "./Draw/drawSVGCandle"
+import "./tooltip.scss"
 
 const CandlestickChart = ({ data,xScale,yScale,xScaleband,xScaleLinear }) => {
   const ref = useRef(null);
@@ -79,20 +80,53 @@ const CandlestickChart = ({ data,xScale,yScale,xScaleband,xScaleLinear }) => {
   }, [data,yScale,xScaleband.range()]);
   
   const mouseover=(event,d)=>{
-    // console.log("gdhdhddj",d.time)
     const tooltipref=d3.select("#tooltipid")
     .style("opacity",1)
-    tooltipref.text(
-    `
-    Date: ${formatTime(d.time)}
-    O: ${d.open}
-    H: ${d.high} 
-    L:${d.low}
-    C:${d.close}
-    V:${d.volume}`
-     ).style('fill', 'darkOrange')
+    .attr('class', 'div-2')
+
+    d3.select("#tooltidate").html(`Date:${formatTime(d.time)}`)
+    d3.select("#tooltiopen").html( `   O:${d.open}  `)
+    d3.select("#tooltihigh").html(` H:${d.high} `)
+    d3.select("#tooltilow").html(` L:${d.low} `)
+    d3.select("#toolticlsoe").html(` C:${d.close} `)
+    
+    // tooltipref.text(
+    // `
+    // Date: ${formatTime(d.time)}
+    // O: ${d.open}
+    // H: ${d.high} 
+    // L:${d.low}
+    // C:${d.close}
+    // V:${d.volume}`
+    //  )
+    //  .style('fill', 'darkOrange')
+     
+
+    // const tooltipref=d3.select("#tooltipid")
+    // .style("opacity",1)
+    // .attr('class', 'div-2')
+
+
+    // tooltipref.text(
+    // `
+    // Date: ${formatTime(d.time)}
+    // O: ${d.open}
+    // H: ${d.high} 
+    // L:${d.low}
+    // C:${d.close}
+    // V:${d.volume}`
+    //  )
+    //  .style('fill', 'darkOrange')
+
+
+    //  
     
   }
+
+
+
+
+
   const mouseout=()=>{
     // console.log("2333")
     d3.select("#tooltipid")

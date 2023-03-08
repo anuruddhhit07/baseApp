@@ -7,7 +7,7 @@ import {scaleBandInvert} from "../helper/utilityfn"
 import { computeHeadingLevel } from "@testing-library/react";
 // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
 // export const InteractiveLine = () => {
-function InteractiveLine({ data, yScale,xScaleband }) {
+function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   // console.log("object", data);
@@ -89,7 +89,7 @@ function InteractiveLine({ data, yScale,xScaleband }) {
           // d3.selectAll("#ID_crosshair").style("display", "none");
         });
     }
-  }, [data,xScaleband.range(), yScale, line_state, deleteline_toggel, crosshairtoggle]);
+  }, [data,xScaleband.range(), xScaleLinear.range().yScale, line_state, deleteline_toggel, crosshairtoggle]);
 
   function mousedown(event, isMouseUp) {
     // console.log(event);
@@ -172,20 +172,31 @@ function InteractiveLine({ data, yScale,xScaleband }) {
       dispatch(
         setLineCoor(
           "Hline",
-          scaleBandInvert(xScaleband)(0),
+          // scaleBandInvert(xScaleband)(0),
+          xScaleLinear.invert(0),
           yScale.invert(tempy1.current),
-          scaleBandInvert(xScaleband)(widthchart),
+          xScaleLinear.invert(width),
           yScale.invert(tempy1.current)
         )
       );
     } else {
+      
+     // lineFromPoints()
+     var P=[tempx1.current,tempy1.current]
+     var Q=[tempx2.current,tempy2.current]
+     
+     var YY1=lineFromPoints(P,Q,0)
+     var YY2=lineFromPoints(P,Q,width)
+     
       dispatch(
         setLineCoor(
           "Hline",
-          scaleBandInvert(xScaleband)(tempx1.current),
-          yScale.invert(tempy1.current),
-          scaleBandInvert(xScaleband)(tempx2.current),
-          yScale.invert(tempy2.current)
+          // scaleBandInvert(xScaleband)(tempx1.current),
+          xScaleLinear.invert(0),
+          yScale.invert(YY1),
+          // scaleBandInvert(xScaleband)(tempx2.current),
+          xScaleLinear.invert(width),
+          yScale.invert(YY2)
         )
       );
     }
@@ -194,6 +205,32 @@ function InteractiveLine({ data, yScale,xScaleband }) {
     // inti_temp_lincoor()
     hzline();
   }
+  
+  function lineFromPoints(P, Q,xpoint)
+{
+    var a = Q[1] - P[1]
+    var b = P[0] - Q[0]
+    var c = a*(P[0]) + b*(P[1])
+    
+    //ax+by=c
+    // y=(c-ax)/b
+  if (b>0 || b<0){
+    return (c-a*xpoint)/b
+  }
+  else {
+    return P[1]
+  }
+ /*
+    if (b < 0)
+        document.write("The line passing through " +
+                       "points P and Q is:  " + a +
+                       "x - " + b + "y = " + c + "<br>")
+    else
+        document.write("The line passing through " +
+                       "points P and Q is:  "+ a + 
+                       "x + " + b + "y = " + c + "<br>")
+                       */
+}
 
   // function scaleBandInvert(scale) {
   //   var domain = scale.domain();
