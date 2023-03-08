@@ -6,6 +6,7 @@ import {
   SET_DIEMNSION,
   GET_LINEDATA,
   SET_LINEDATA,
+  UPDATE_LINEDATA,
   RESET_LINEID,
   DELETEBY_LINEID,
   SET_CHARTPROP,
@@ -85,6 +86,23 @@ export function setLineCoor(Linetype= "Hline",x1=1,y1=2,x2=3,y2=4) {
     dispatch({ type: RESET_LINEID });
   };
 }
+
+
+export function updateLineCoor(Linetype= "Hline",ID,linepoint,px,py) {
+  
+  var temppayload1={LineType:Linetype,ID:ID,linepoint:linepoint,px:px,py:py}
+  // console.log('temppayload0',temppayload1)
+  // temppayload[Linetype]
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_LINEDATA,
+      payload: temppayload1,
+    });
+   // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
 
 export function deletelinebyID(ID){
   return (dispatch) => {
@@ -200,4 +218,9 @@ export function setdatalimitdecrese(factor=10){
     // dispatch({ type: RESET_LINEID });
   };
 }
+
+
+
+
+
 

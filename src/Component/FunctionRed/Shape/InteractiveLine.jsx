@@ -175,7 +175,7 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
           // scaleBandInvert(xScaleband)(0),
           xScaleLinear.invert(0),
           yScale.invert(tempy1.current),
-          xScaleLinear.invert(width),
+          xScaleLinear.invert(widthchart),
           yScale.invert(tempy1.current)
         )
       );
@@ -185,18 +185,18 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
      var P=[tempx1.current,tempy1.current]
      var Q=[tempx2.current,tempy2.current]
      
-     var YY1=lineFromPoints(P,Q,0)
-     var YY2=lineFromPoints(P,Q,width)
+    //  var YY1=lineFromPoints(P,Q,0)
+    //  var YY2=lineFromPoints(P,Q,width)
      
       dispatch(
         setLineCoor(
           "Hline",
           // scaleBandInvert(xScaleband)(tempx1.current),
-          xScaleLinear.invert(0),
-          yScale.invert(YY1),
+          xScaleLinear.invert(P[0]),
+          yScale.invert(P[1]),
           // scaleBandInvert(xScaleband)(tempx2.current),
-          xScaleLinear.invert(width),
-          yScale.invert(YY2)
+          xScaleLinear.invert(Q[0]),
+          yScale.invert(Q[1])
         )
       );
     }
