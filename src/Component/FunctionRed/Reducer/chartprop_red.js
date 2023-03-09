@@ -18,7 +18,7 @@ import {
 const initialState = {
   loading: false,
   drawlinetype: "HZ_LINE",
-  isToggledzoom:false,
+  isToggledzoom:true,
   currentGlobalZoomState:d3.zoomIdentity,
   currentXZoomState:d3.zoomIdentity,
   currentYZoomState:d3.zoomIdentity,

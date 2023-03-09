@@ -30,27 +30,43 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
         // const numberoftick1=Math.floor(widthchart/tickwidth)
         // console.log("numberoftick",[numberoftick0,numberoftick1])
         // console.log(Math.floor(scale.invert(widthchart))-Math.floor(scale.invert(0)))
-        console.log('scales',data.length,scale.invert(margin.left),scale.invert(widthchart+margin.left),xScaleband.bandwidth());
-        console.log("totla tick count",Math.floor(scale.invert(widthchart+margin.left)-scale.invert(margin.left)));
-        console.log("ticket width",tickwidth,scale.ticks().length,maxTotalLabels);
+     //   console.log('scales',data.length,scale.invert(margin.left),scale.invert(widthchart+margin.left),xScaleband.bandwidth());
+        const tickcount=Math.floor(scale.invert(widthchart+margin.left)-scale.invert(margin.left))
+        //console.log("ticket width",tickwidth,scale.ticks().length,maxTotalLabels);
 
-        const totel_tick_count=Math.floor(scale.invert(widthchart+margin.left)-scale.invert(margin.left))
+      //  const totel_tick_count=Math.floor(scale.invert(widthchart+margin.left)-scale.invert(margin.left))
         
-        const allticknumber=totel_tick_count*labelSize
+       // const allticknumber=totel_tick_count*labelSize
 
-        console.log('totla tick size',allticknumber);
-        console.log('allowable max tick number',maxTotalLabels);
+        //console.log('totla tick size',allticknumber);
+       // console.log('allowable max tick number',maxTotalLabels);
         // console.log(d3.interpolateArray([12, 3], [4, 5, 6])(0.2));
 
-        // const factorr=(xvale)=>{
-        //   var fac=(data.length-xvale)/(xvale-2)
-        //   var fac2=maxTotalLabels-(fac*data.length)
-        // return fac2
-        // }
+        const factorr=(xvale)=>{
+           var fac=(data.length-xvale)/(data.length-2)
+          var fac2=maxTotalLabels-(fac*(maxTotalLabels-data.length))
+         return fac2
+         }
 
-        // console.log('tickcount',factorr(2));
-
+         console.log('tickcount',factorr(tickcount));
+         
+         if (data.length>0){
+         //console.log("datatat",data)
         
+      //console.log("ghhh",data[0].unixtime)
+         
+         const diff=data[1].unixtime-data[0].unixtime
+       
+       const year_diff=Math.floor(diff/(3600*24*365))
+           const month_diff=Math.floor(diff/(3600*24*30))
+          const week_diff=Math.floor(diff/(3600*24*7))
+          const day_diff= Math.floor(diff/(3600*24))
+          const hours_diff = Math.floor(diff/3600);
+          const mins_diff = Math.floor((diff % 3600)/60)
+          const secs_diff = diff%60;
+  console.log("diff",day_diff,hours_diff,mins_diff,secs_diff)
+       
+         }
       // console.log(data);
       var xValues = data.map(function(d,i){return i});
       console.log(xValues);
@@ -64,9 +80,9 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
 
       var AxisGenerator = d3
         .axisBottom(scale)
-        .ticks(totel_tick_count>maxTotalLabels ? maxTotalLabels:data.length)
+        //.ticks(totel_tick_count>maxTotalLabels ? maxTotalLabels:data.length)
         // .ticks(tickwidth*scale.ticks().length)
-        // .tickValues(xValues)
+        .ticks(factorr(tickcount))
         .tickFormat((i) => multiFormat(i));
 
       var axis = d3
@@ -119,7 +135,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
             
           }
           
-
+/*
           return index < data.length? (
            d3.timeSecond(data[index].time) < data[index].time ? formatMillisecond
          : d3.timeMinute(data[index].time) < data[index].time ? formatSecond
@@ -130,6 +146,10 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
          : d3.timeYear(data[index].time) < data[index].time ? formatMonth
           : formatYear)(data[index].time)
           :null
+          
+          */
+          
+          return index < data.length? (formatWeek)(data[index].time):null
     
   }
 
