@@ -5,11 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 // import { getData, setDim,setchartprop } from "./Action/data_ac";
 import {
   getData,
+  changeDim,
   setDim,
   setchartprop,
   setzoomstate,
   setzoomstateyz,
   setzoomstatexz,
+  set_X_zoomrange,
+  update_X_zoomrange,
   setzoomtoggel,
   setdatalimitincrese,
   setdatalimitdecrese,
@@ -24,14 +27,19 @@ import InteractiveLine from "./Shape/InteractiveLine";
 import Drawline from "./Shape/Drawline";
 import "./mainstyles.scss";
 import "./toggle_styles.scss";
-import * as d3 from "d3";
-import { scaleBandInvert } from "./helper/utilityfn";
+import { useContainerDimensions } from "./helper/ContainerDimensions";
+import LastLinelavel from "./Shape/LastLinelavel";
+import ListionalComponet from "./Container/ListionalComponet";
 
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
   const dispatch = useDispatch();
   const runonce = useRef(0);
+  const componentRef = useRef();
   //const tooltipref=useRef();
+
+  // const dimd=[]
+  // const dimd = useContainerDimensions(componentRef)
 
   const data = useSelector((state) => state.dataReducer?.data);
   const counter = useSelector((state) => state.dataLimitReducer.count);
@@ -40,22 +48,25 @@ const ChartContainer = () => {
 
   // console.log("counter",counter);
 
-  const drawlinetype = useSelector(
-    (state) => state.chartpropReducer?.drawlinetype
-  );
+  // const drawlinetype = useSelector(
+  //   (state) => state.chartpropReducer?.drawlinetype
+  // );
 
-  const { width, height, margin, widthchart, heightchart } = useSelector(
-    (state) => state.dimensionReducer
-  );
+  const { width, height, margin, widthchart, heightchart, xzoomrange } =
+    useSelector((state) => state.dimensionReducer);
 
   const isToggledzoom = useSelector(
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const [fecthsource, setfecthsource] = useState("local");
+  const [fecthsource, setfecthsource] = useState("mysql");
   const [isToggled, toggle] = useState(false);
+  const [togglestudymode, settogglestudymode] = useState(true);
   const [start, setstart] = useState(false);
-
+  const [dimensions, setDimensions] = useState({
+    width_container: 400,
+    height_container: 500,
+  });
   const [scalebandrange, setscalebandrange] = useState(null);
 
   const { xScale, yScale, xScaleband, xScaleLinear } = useController({
@@ -63,26 +74,47 @@ const ChartContainer = () => {
     margin,
     widthchart,
     heightchart,
+    xzoomrange,
   });
 
   useEffect(() => {
     console.log("Run once");
+    // console.log(data);
+    // console.log(dimensions.width_container);
     setstart(true);
     dispatch(getData(fecthsource, counter));
   }, [runonce]);
 
-  useEffect(() => {
-    // console.log("gfdgdgfh",scalebandrange);
-    // // setstart(true);
-    if (scalebandrange) {
-      // console.log("New range",scalebandrange);
-      xScaleband.range(scalebandrange);
-      // xScale.range(scalebandrange);
-      xScaleLinear.range(scalebandrange);
+  // useEffect(() => {
+  //   console.log("Run after start once");
+  //   // console.log(dimensions.width_container);
+  //   // setstart(true);
+  //   // dispatch(getData(fecthsource, counter));
+  // }, [start]);
 
-      // yScale.range([400,-400])
-    }
-  }, [data, width, margin, scalebandrange]);
+  useEffect(() => {
+    // console.log("Run componentRef");
+    // console.log(componentRef.current)
+    // console.log(dimensions);
+    const getDimensions = () => ({
+      width_container: componentRef.current.offsetWidth - 20,
+      height_container: window.innerHeight - 180,
+    });
+    setDimensions(getDimensions());
+  }, [componentRef]);
+
+  useEffect(() => {
+    // console.log("currendwidht",dimensions.width_container);
+    // console.log(window.innerHeight)
+    dispatch(setDim(dimensions.width_container, dimensions.height_container));
+    dispatch(set_X_zoomrange());
+  }, [dimensions.width_container]);
+
+  useEffect(() => {
+    xScaleband.range(xzoomrange);
+    xScaleLinear.range(xzoomrange);
+    setscalebandrange(xzoomrange);
+  }, [xzoomrange]);
 
   useEffect(() => {
     //from local or fetch
@@ -90,7 +122,7 @@ const ChartContainer = () => {
   }, [fecthsource, counter]);
 
   const setwidth = (wi_inc, hi_inc, opert) => {
-    dispatch(setDim(wi_inc, hi_inc, opert));
+    dispatch(changeDim(wi_inc, hi_inc, opert));
   };
 
   const toggledatasource = () => {
@@ -105,27 +137,35 @@ const ChartContainer = () => {
     }
   };
 
+  const toggledatafeedrate = () => {
+    settogglestudymode(!togglestudymode);
+    
+  };
+
   const togglezoom = () => {
     // settogglezoom(!isToggledzoom);
     dispatch(setzoomtoggel());
   };
 
-  const togglelinetype = () => {
-    dispatch(
-      setchartprop({
-        drawlinetype: drawlinetype == "HZ_LINE" ? "GZ" : "HZ_LINE",
-      })
-    );
-  };
+  // const togglelinetype = () => {
+  //   dispatch(
+  //     setchartprop({
+  //       drawlinetype: drawlinetype == "HZ_LINE" ? "GZ" : "HZ_LINE",
+  //     })
+  //   );
+  // };
 
-  if (data.length == 0) {
-    console.log("return nulll");
-    return null;
-  }
+  // if (data.length == 0) {
+  //   console.log("return nulll");
+  //   <div >
+
+  //   </div>
+  //   return null;
+  // }
   // console.log('counter',counter);
   return (
-    <>
-      {/* {console.log(data)} */}
+    <div ref={componentRef}>
+      {console.log("togglestudymode",togglestudymode)}
       <div className="toppanelbox">
         <button
           className="sqaure-button sqaure-button_charttype"
@@ -160,15 +200,7 @@ const ChartContainer = () => {
           <span className="labels" data-on="Zoom On" data-off="Zoom Off"></span>
         </label>
 
-        <label className="toggle">
-          <input
-            type="checkbox"
-            defaultChecked={"HZ_LINE"}
-            onClick={togglelinetype}
-          />
-          <span className="slider"></span>
-          <span className="labels" data-on="Hz" data-off="Gl"></span>
-        </label>
+        
 
         <button className="btn " id="reset">
           {" "}
@@ -197,29 +229,52 @@ const ChartContainer = () => {
           CR{" "}
         </button>
 
+       
+
+
         <button
           className="sqaure-button sqaure-button_charttype"
-          onClick={() => dispatch(setdatalimitincrese(10))}
+          onClick={() => dispatch(setdatalimitdecrese(togglestudymode==true?10:1))}
+        >
+          D-
+        </button>
+
+        <label className="toggle">
+          <input
+            type="checkbox"
+            defaultChecked={togglestudymode}
+            onClick={toggledatafeedrate}
+          />
+          <span className="slider"></span>
+          <span className="labels" data-on="Test" data-off="Study"></span>
+        </label>
+
+        <button
+          className="sqaure-button sqaure-button_charttype"
+          onClick={() => dispatch(setdatalimitincrese(togglestudymode==true?10:1))}
         >
           I+
         </button>
 
+        
+
         <button
           className="sqaure-button sqaure-button_charttype"
-          onClick={() => dispatch(setdatalimitdecrese(10))}
+          onClick={() =>
+            dispatch(update_X_zoomrange({ rangemin: -1400, rangemax: 400 }))
+          }
         >
-          D-
+          Z
         </button>
       </div>
 
       <div id="tooltipid" style={{ opacity: 1 }}>
-
-      <span id="tooltidate"  >Date </span>
-      <span id="tooltiopen">O: </span>
-      <span id="tooltihigh" >H </span>
-      <span id="tooltilow" >L </span>
-      <span id="toolticlsoe" >C </span>
-      {/* <span>My mother has </span> */}
+        <span id="tooltidate">Date </span>
+        <span id="tooltiopen">O: </span>
+        <span id="tooltihigh">H </span>
+        <span id="tooltilow">L </span>
+        <span id="toolticlsoe">C </span>
+        {/* <span>My mother has </span> */}
       </div>
       {/* <div>
        {counter}
@@ -236,8 +291,6 @@ const ChartContainer = () => {
         widthchart={widthchart}
         heightchart={heightchart}
         margin={margin}
-        scalebandrange={scalebandrange}
-        handlescalband={setscalebandrange}
       >
         {/* <Circle key={"cir"} /> */}
 
@@ -246,8 +299,10 @@ const ChartContainer = () => {
         <CandlestickChart />
         <InteractiveLine />
         <Drawline />
+        <LastLinelavel />
+        {/* <ListionalComponet /> */}
       </ZoomCanvas>
-    </>
+    </div>
   );
 };
 

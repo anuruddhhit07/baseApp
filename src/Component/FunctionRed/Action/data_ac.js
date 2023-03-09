@@ -4,6 +4,7 @@ import {
   GET_USER_FAILURE,
   GET_DIMENSION,
   SET_DIEMNSION,
+  UPDATE_DIEMNSION,
   GET_LINEDATA,
   SET_LINEDATA,
   UPDATE_LINEDATA,
@@ -14,6 +15,8 @@ import {
   SET_ZOOMXZSTATE,
   SET_ZOOMYZSTATE,
   SET_ZOOMTOGGLE,
+  SET_ZOOMXRANGE,
+  UPDATE_ZOOMXRANGE,
   SET_DATA_LIMIT_INCRESE,
   SET_DATA_LIMIT_DECRESE
 } from "../ActionTypes/data_acty";
@@ -64,11 +67,20 @@ export function getData(fecthsource="mysql",count=10) {
   };
 }
 
-export function setDim(width_increment = 10, height_increment = 20,operrator=1) {
+export function changeDim(width_increment = 10, height_increment = 20,operrator=1) {
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_DIEMNSION,
+      payload: { width_inc: operrator*width_increment, height_inc: operrator*height_increment },
+    });
+  };
+}
+
+export function setDim(width_container,height_container) {
   return (dispatch) => {
     dispatch({
       type: SET_DIEMNSION,
-      payload: { width_inc: operrator*width_increment, height_inc: operrator*height_increment },
+      payload: { width_container: width_container, height_container: height_container},
     });
   };
 }
@@ -218,6 +230,39 @@ export function setdatalimitdecrese(factor=10){
     // dispatch({ type: RESET_LINEID });
   };
 }
+
+
+export function update_X_zoomrange({rangemin,rangemax}){
+  // console.log(rangemin,rangemax);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_ZOOMXRANGE,
+      payload: {range_array:[rangemin,rangemax]},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function set_X_zoomrange(){
+  // console.log(rangemin,rangemax);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_ZOOMXRANGE,
+      // payload: {range_array:[rangemin,rangemax]},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+
 
 
 

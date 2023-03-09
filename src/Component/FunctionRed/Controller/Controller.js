@@ -6,7 +6,7 @@ const store = configureStore();
 
 // console.log('status',store.getState().dimensionReducer.width);
 
-const useController = ({ data, margin, widthchart, heightchart }) => {
+const useController = ({ data, margin, widthchart, heightchart,xzoomrange }) => {
   var width = widthchart;
   var height = heightchart;
 
@@ -25,7 +25,7 @@ const useController = ({ data, margin, widthchart, heightchart }) => {
     [data]
   );
 
-  // console.log("minmax",xMin,xMax);
+  // console.log("minmax",xzoomrange);
 
   // const xScale = useMemo(
   //   () => d3.scaleTime().domain([xMin, xMax]).rangeRound([margin.padding_left, width+margin.padding_left]).nice(),
@@ -38,7 +38,7 @@ const useController = ({ data, margin, widthchart, heightchart }) => {
       d3
         .scaleBand()
         .domain(data.map((_, index) => index))
-        .rangeRound([margin.padding_left, width + margin.padding_left]),
+        .rangeRound(xzoomrange),
     // .padding(.05),
     [xMin, xMax, width, height, margin]
   );
@@ -48,7 +48,7 @@ const useController = ({ data, margin, widthchart, heightchart }) => {
       d3
         .scaleBand()
         .domain(data.map((d) => d.time))
-        .rangeRound([margin.padding_left, width + margin.padding_left]),
+        .rangeRound(xzoomrange),
     // .padding(.05),
     [xMin, xMax, width, height, margin]
   );
@@ -58,7 +58,7 @@ const useController = ({ data, margin, widthchart, heightchart }) => {
       d3
         .scaleLinear()
         .domain([0, data.length])
-        .rangeRound([margin.padding_left, width + margin.padding_left]),
+        .rangeRound(xzoomrange),
     // .clamp(true),
     // .padding(.05),
     [xMin, xMax, width, height, margin]

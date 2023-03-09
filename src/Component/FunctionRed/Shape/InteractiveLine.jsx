@@ -69,6 +69,7 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
           "dblclick",
           deleteline_toggel == true
             ? function (event) {
+              console.log("in delete function");
                 deleteline(event, "deleteevent");
               }
             : null
@@ -149,7 +150,8 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
   }
 
   function deleteline(event, deleteevent) {
-    console.log("deleteline", line_state);
+    console.log("line_state", line_state);
+    console.log("deleteline_toggel", deleteline_toggel);
     if (line_state == false && deleteline_toggel == true) {
       d3.selectAll(".I_line").on("mouseover", function () {
         const ID_DELETE = d3.select(this).attr("ID");
@@ -173,9 +175,9 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
         setLineCoor(
           "Hline",
           // scaleBandInvert(xScaleband)(0),
-          xScaleLinear.invert(0),
+          xScaleLinear.invert(margin.padding_left),
           yScale.invert(tempy1.current),
-          xScaleLinear.invert(widthchart),
+          xScaleLinear.invert(widthchart+margin.padding_left),
           yScale.invert(tempy1.current)
         )
       );

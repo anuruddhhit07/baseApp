@@ -30,15 +30,15 @@ function Drawline({ data, xScale, yScale,xScaleband,xScaleLinear }) {
           .data(linedata)
           .enter()
           .append("line")
-          // .attr("class", "I_line")
+          .attr("class", "I_line")
           .attr("ID", (d) => d.ID)
           .attr("clip-path", "url(#clipping)")
           .attr("x1", (d) => xScaleLinear(d.x1))
           .attr("y1", (d) => yScale(d.y1))
           .attr("x2", (d) => xScaleLinear(d.x2))
           .attr("y2", (d) => yScale(d.y2))
-          .attr("stroke", "red")
-          .attr("stroke-width", 2)
+          // .attr("stroke", "red")
+          // .attr("stroke-width", 2)
           
 
         svgl.selectAll("cirle")

@@ -1,30 +1,13 @@
 // https://timmousk.com/blog/react-call-function-in-child-component/
 import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
-import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getData,
-  setDim,
-  setzoomstate,
-  setzoomstateyz,
-  setzoomstatexz,
-} from "../Action/data_ac";
-import useController from "../Controller/Controller";
-import EventCapture from "./EventCapture";
-import CheckInlineExample from "./CheckInline";
+import "./styles.scss";
 
-import {
-  select,
-  pointers,
-  pointer,
-  mean,
-  scaleLinear,
-  zoomIdentity,
-  max,
-  zoom,
-  zoomTransform,
-} from "d3";
+import EventCapture from "./EventCapture";
+
+
+
 
 const ZoomCanvas = ({
   data,
@@ -37,11 +20,13 @@ const ZoomCanvas = ({
   widthchart,
   heightchart,
   margin,
-  scalebandrange,
-  handlescalband,
   children,
 }) => {
   const ref = useRef(null);
+
+  // const { xzoomrange } = useSelector(
+  //   (state) => state.dimensionReducer
+  // );
 
   const childrenWithProps = React.Children.map(children, (child) => {
     // Checking isValidElement is the safe way and avoids a
@@ -54,7 +39,6 @@ const ZoomCanvas = ({
         yScale: yScale,
         xScaleband:xScaleband,
         xScaleLinear:xScaleLinear,
-        scalebandrange:scalebandrange
       });
     }
     return child;
@@ -62,7 +46,11 @@ const ZoomCanvas = ({
 
   return (
     <>
-      <div></div>
+      {/* <div>
+        {width}
+        {" "}
+        {height}
+      </div> */}
       <div
         style={{
           position: "relative",
@@ -97,8 +85,8 @@ const ZoomCanvas = ({
             </clipPath>
 
             <EventCapture
-              scalebandrange={scalebandrange}
-              handlescalband={handlescalband}
+              // scalebandrange={scalebandrange}
+              // handlescalband={handlescalband}
             />
 
             <g id="ID_Chart">{childrenWithProps}</g>
