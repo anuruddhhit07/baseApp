@@ -59,7 +59,7 @@ const ChartContainer = () => {
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const [fecthsource, setfecthsource] = useState("mysql");
+  const [fecthsource, setfecthsource] = useState("local");
   const [isToggled, toggle] = useState(false);
   const [togglestudymode, settogglestudymode] = useState(true);
   const [start, setstart] = useState(false);
@@ -266,6 +266,10 @@ const ChartContainer = () => {
         >
           Z
         </button>
+        
+        
+        
+        
       </div>
 
       <div id="tooltipid" style={{ opacity: 1 }}>
