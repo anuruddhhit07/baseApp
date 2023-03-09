@@ -87,9 +87,16 @@ const CandlestickChart = ({ data,xScale,yScale,xScaleband,xScaleLinear }) => {
     d3.select("#tooltidate").html(`Date:${formatTime(d.time)}`)
     d3.select("#tooltiopen").html( `   O:${d.open}  `)
     d3.select("#tooltihigh").html(` H:${d.high} `)
-    d3.select("#tooltilow").html(` L:${d.low} `)
-    d3.select("#toolticlsoe").html(` C:${d.close} `)
-    
+    d3.select("#tooltilow").html( ` L:${d.low} `)
+    //d3.select("#toolticlsoe").html(` C:${d.close} `)
+    d3.select("#toolticlsoe").html(`<span id="b" >C:${d.close} </span>`)
+  
+ // https://gist.github.com/biovisualize/373c6216b5634327099a
+   /* 
+    d3.select('.container').html('<span id="a"></span>');
+d3.select('.container').html('<span id="b"></span>'); // will replace content
+d3.select('.container').appendHTML('<span id="c"></span>'); // will append content
+    */
     // tooltipref.text(
     // `
     // Date: ${formatTime(d.time)}
