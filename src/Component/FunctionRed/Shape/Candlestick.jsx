@@ -84,12 +84,17 @@ const CandlestickChart = ({ data,xScale,yScale,xScaleband,xScaleLinear }) => {
     .style("opacity",1)
     .attr('class', 'div-2')
 
-    d3.select("#tooltidate").html(`Date:${formatTime(d.time)}`)
-    d3.select("#tooltiopen").html( `   O:${d.open}  `)
-    d3.select("#tooltihigh").html(` H:${d.high} `)
-    d3.select("#tooltilow").html( ` L:${d.low} `)
+    //d3.select("#tooltidate").html(`Date:${formatTime(d.time)}`)
+    //d3.select("#tooltiopen").html( `   O:${d.open}  `)
+   // d3.select("#tooltihigh").html(` H:${d.high} `)
+ //   d3.select("#tooltilow").html( ` L:${d.low} `)
     //d3.select("#toolticlsoe").html(` C:${d.close} `)
-    d3.select("#toolticlsoe").html(`<span id="b" >C:${d.close} </span>`)
+    
+    d3.select("#tooltidate").html(`<span id="datetool" >Date:${formatTime(d.time)}</span>`)
+    d3.select("#tooltiopen").html(`<span id="opentool" >O:${d.open} </span>`)
+    d3.select("#tooltihigh").html(`<span id="hightool" >H:${d.high} </span>`)
+    d3.select("#tooltilow").html(`<span id="lowtool" >L:${d.low} </span>`)
+    d3.select("#toolticlsoe").html(`<span id="closetool" >C:${d.close} </span>`)
   
  // https://gist.github.com/biovisualize/373c6216b5634327099a
    /* 
