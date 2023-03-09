@@ -69,6 +69,7 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
           "dblclick",
           deleteline_toggel == true
             ? function (event) {
+              console.log("in delete function");
                 deleteline(event, "deleteevent");
               }
             : null
@@ -149,7 +150,8 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
   }
 
   function deleteline(event, deleteevent) {
-    console.log("deleteline", line_state);
+    console.log("line_state", line_state);
+    console.log("deleteline_toggel", deleteline_toggel);
     if (line_state == false && deleteline_toggel == true) {
       d3.selectAll(".I_line").on("mouseover", function () {
         const ID_DELETE = d3.select(this).attr("ID");
@@ -173,9 +175,9 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
         setLineCoor(
           "Hline",
           // scaleBandInvert(xScaleband)(0),
-          xScaleLinear.invert(0),
+          xScaleLinear.invert(margin.padding_left),
           yScale.invert(tempy1.current),
-          xScaleLinear.invert(width),
+          xScaleLinear.invert(widthchart+margin.padding_left),
           yScale.invert(tempy1.current)
         )
       );
@@ -185,18 +187,18 @@ function InteractiveLine({ data, yScale,xScaleband,xScaleLinear }) {
      var P=[tempx1.current,tempy1.current]
      var Q=[tempx2.current,tempy2.current]
      
-     var YY1=lineFromPoints(P,Q,0)
-     var YY2=lineFromPoints(P,Q,width)
+    //  var YY1=lineFromPoints(P,Q,0)
+    //  var YY2=lineFromPoints(P,Q,width)
      
       dispatch(
         setLineCoor(
           "Hline",
           // scaleBandInvert(xScaleband)(tempx1.current),
-          xScaleLinear.invert(0),
-          yScale.invert(YY1),
+          xScaleLinear.invert(P[0]),
+          yScale.invert(P[1]),
           // scaleBandInvert(xScaleband)(tempx2.current),
-          xScaleLinear.invert(width),
-          yScale.invert(YY2)
+          xScaleLinear.invert(Q[0]),
+          yScale.invert(Q[1])
         )
       );
     }

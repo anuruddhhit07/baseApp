@@ -9,7 +9,8 @@ import {
   SET_ZOOMSTATE,
   SET_ZOOMXZSTATE,
   SET_ZOOMYZSTATE,
-  SET_ZOOMTOGGLE
+  SET_ZOOMTOGGLE,
+  SET_ZOOMXRANGE,
 } from "../ActionTypes/data_acty";
 
 
@@ -21,6 +22,7 @@ const initialState = {
   currentGlobalZoomState:d3.zoomIdentity,
   currentXZoomState:d3.zoomIdentity,
   currentYZoomState:d3.zoomIdentity,
+  // xzoomrange:[],
   error: "",
 };
 
@@ -69,6 +71,13 @@ export function chartpropReducer(state = initialState, action) {
       ...state,
       currentYZoomState: action.payload?.currentYZoomState,
     };
+
+    // case SET_ZOOMXRANGE:
+    //   // console.log('resss',action);
+    // return {
+    //   ...state,
+    //   xzoomrange: action.payload?.range_array,
+    // };
   
     
     default:

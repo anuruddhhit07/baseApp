@@ -4,8 +4,10 @@ import {
   GET_USER_FAILURE,
   GET_DIMENSION,
   SET_DIEMNSION,
+  UPDATE_DIEMNSION,
   GET_LINEDATA,
   SET_LINEDATA,
+  UPDATE_LINEDATA,
   RESET_LINEID,
   DELETEBY_LINEID,
   SET_CHARTPROP,
@@ -13,6 +15,8 @@ import {
   SET_ZOOMXZSTATE,
   SET_ZOOMYZSTATE,
   SET_ZOOMTOGGLE,
+  SET_ZOOMXRANGE,
+  UPDATE_ZOOMXRANGE,
   SET_DATA_LIMIT_INCRESE,
   SET_DATA_LIMIT_DECRESE
 } from "../ActionTypes/data_acty";
@@ -63,11 +67,20 @@ export function getData(fecthsource="mysql",count=10) {
   };
 }
 
-export function setDim(width_increment = 10, height_increment = 20,operrator=1) {
+export function changeDim(width_increment = 10, height_increment = 20,operrator=1) {
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_DIEMNSION,
+      payload: { width_inc: operrator*width_increment, height_inc: operrator*height_increment },
+    });
+  };
+}
+
+export function setDim(width_container,height_container) {
   return (dispatch) => {
     dispatch({
       type: SET_DIEMNSION,
-      payload: { width_inc: operrator*width_increment, height_inc: operrator*height_increment },
+      payload: { width_container: width_container, height_container: height_container},
     });
   };
 }
@@ -85,6 +98,23 @@ export function setLineCoor(Linetype= "Hline",x1=1,y1=2,x2=3,y2=4) {
     dispatch({ type: RESET_LINEID });
   };
 }
+
+
+export function updateLineCoor(Linetype= "Hline",ID,linepoint,px,py) {
+  
+  var temppayload1={LineType:Linetype,ID:ID,linepoint:linepoint,px:px,py:py}
+  // console.log('temppayload0',temppayload1)
+  // temppayload[Linetype]
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_LINEDATA,
+      payload: temppayload1,
+    });
+   // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
 
 export function deletelinebyID(ID){
   return (dispatch) => {
@@ -200,4 +230,42 @@ export function setdatalimitdecrese(factor=10){
     // dispatch({ type: RESET_LINEID });
   };
 }
+
+
+export function update_X_zoomrange({rangemin,rangemax}){
+  // console.log(rangemin,rangemax);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_ZOOMXRANGE,
+      payload: {range_array:[rangemin,rangemax]},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+export function set_X_zoomrange(){
+  // console.log(rangemin,rangemax);
+  // const {zoomtoggle}=props
+  // console.log('hello',props,currentYZoomState);
+  return (dispatch) => {
+    dispatch({
+      type: SET_ZOOMXRANGE,
+      // payload: {range_array:[rangemin,rangemax]},
+    });
+
+    // dispatch({ type: RESET_LINEID });
+  };
+}
+
+
+
+
+
+
+
+
 

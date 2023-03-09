@@ -33,7 +33,7 @@ function App() {
       </Routes>
       {/* </div> */}
       </div>
-      <div className="footer">Footer</div>
+      {/* <div className="footer">Footer</div> */}
     </div>
     </>
   );
