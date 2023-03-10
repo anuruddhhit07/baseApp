@@ -35,6 +35,8 @@ if(ref.current){
       
   }, [data,yScale,xScaleLinear.range()]);
 
+  //[data,yScale,xScaleLinear.range()]
+
   return (
     <g id ="ID_LineSeries" ref={ref} >
     </g>

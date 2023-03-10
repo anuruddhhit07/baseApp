@@ -59,8 +59,8 @@ const ChartContainer = () => {
     (state) => state.chartpropReducer?.isToggledzoom
   );
 
-  const [fecthsource, setfecthsource] = useState("local");
-  const [isToggled, toggle] = useState(false);
+  const [fecthsource, setfecthsource] = useState("mysql");
+  const [isToggled, toggle] = useState(true);
   const [togglestudymode, settogglestudymode] = useState(true);
   const [start, setstart] = useState(false);
   const [dimensions, setDimensions] = useState({
@@ -304,7 +304,7 @@ const ChartContainer = () => {
         <InteractiveLine />
         <Drawline />
         <LastLinelavel />
-        {/* <ListionalComponet /> */}
+        <ListionalComponet />
       </ZoomCanvas>
     </div>
   );
