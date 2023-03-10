@@ -69,7 +69,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
          }
       // console.log(data);
       var xValues = data.map(function(d,i){return i});
-      console.log(xValues);
+      // console.log(xValues);
       // const ticksnumer= totel_tick_count>50 ? 10:totel_tick_count
     //  var tickValues = scale
     //    .domain()

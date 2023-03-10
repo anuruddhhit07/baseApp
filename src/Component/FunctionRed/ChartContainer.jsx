@@ -1,7 +1,8 @@
 // https://codepen.io/coquin/pen/BNpQoO//
-
+// https://hi-imcodeman.github.io/stock-nse-india/
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { NseIndia } from "stock-nse-india";
 // import { getData, setDim,setchartprop } from "./Action/data_ac";
 import {
   getData,
@@ -30,6 +31,7 @@ import "./toggle_styles.scss";
 import { useContainerDimensions } from "./helper/ContainerDimensions";
 import LastLinelavel from "./Shape/LastLinelavel";
 import ListionalComponet from "./Container/ListionalComponet";
+import Linenewsereis from "./Shape/LineChartremovemethod";
 
 const ChartContainer = () => {
   //this hook allows us to access the dispatch function
@@ -83,6 +85,8 @@ const ChartContainer = () => {
     // console.log(dimensions.width_container);
     setstart(true);
     dispatch(getData(fecthsource, counter));
+
+   
   }, [runonce]);
 
   // useEffect(() => {
@@ -139,7 +143,6 @@ const ChartContainer = () => {
 
   const toggledatafeedrate = () => {
     settogglestudymode(!togglestudymode);
-    
   };
 
   const togglezoom = () => {
@@ -165,7 +168,7 @@ const ChartContainer = () => {
   // console.log('counter',counter);
   return (
     <div ref={componentRef}>
-      {console.log("togglestudymode",togglestudymode)}
+      {/* {console.log("togglestudymode",togglestudymode)} */}
       <div className="toppanelbox">
         <button
           className="sqaure-button sqaure-button_charttype"
@@ -200,8 +203,6 @@ const ChartContainer = () => {
           <span className="labels" data-on="Zoom On" data-off="Zoom Off"></span>
         </label>
 
-        
-
         <button className="btn " id="reset">
           {" "}
           R{" "}
@@ -229,12 +230,11 @@ const ChartContainer = () => {
           CR{" "}
         </button>
 
-       
-
-
         <button
           className="sqaure-button sqaure-button_charttype"
-          onClick={() => dispatch(setdatalimitdecrese(togglestudymode==true?10:1))}
+          onClick={() =>
+            dispatch(setdatalimitdecrese(togglestudymode == true ? 10 : 1))
+          }
         >
           D-
         </button>
@@ -251,12 +251,12 @@ const ChartContainer = () => {
 
         <button
           className="sqaure-button sqaure-button_charttype"
-          onClick={() => dispatch(setdatalimitincrese(togglestudymode==true?10:1))}
+          onClick={() =>
+            dispatch(setdatalimitincrese(togglestudymode == true ? 10 : 1))
+          }
         >
           I+
         </button>
-
-        
 
         <button
           className="sqaure-button sqaure-button_charttype"
@@ -266,10 +266,6 @@ const ChartContainer = () => {
         >
           Z
         </button>
-        
-        
-        
-        
       </div>
 
       <div id="tooltipid" style={{ opacity: 1 }}>
@@ -300,11 +296,12 @@ const ChartContainer = () => {
 
         <RendorXY />
         <LineChart />
+        {/* <Linenewsereis /> */}
         <CandlestickChart />
         <InteractiveLine />
         <Drawline />
         <LastLinelavel />
-        <ListionalComponet />
+        {/* <ListionalComponet /> */}
       </ZoomCanvas>
     </div>
   );
