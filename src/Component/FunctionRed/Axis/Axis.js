@@ -48,7 +48,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
          return fac2
          }
 
-         console.log('tickcount',factorr(tickcount));
+        //  console.log('tickcount',factorr(tickcount));
          
          if (data.length>0){
          //console.log("datatat",data)
@@ -64,7 +64,7 @@ const Axis = ({ range, scale, data, orient, classd, translated,widthchart,xScale
           const hours_diff = Math.floor(diff/3600);
           const mins_diff = Math.floor((diff % 3600)/60)
           const secs_diff = diff%60;
-  console.log("diff",day_diff,hours_diff,mins_diff,secs_diff)
+  // console.log("diff",day_diff,hours_diff,mins_diff,secs_diff)
        
          }
       // console.log(data);
